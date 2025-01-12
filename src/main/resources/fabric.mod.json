@@ -3,15 +3,16 @@
 	"id": "thirstful",
 	"version": "${version}",
 	"name": "Thirstful",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A new approach to thirst",
 	"authors": [
-		"Me!"
+		"TheDeathlyCow"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/TheDeathlyCow/thirstful/wiki",
+		"sources": "https://github.com/TheDeathlyCow/thirstful",
+		"issues": "https://github.com/TheDeathlyCow/thirstful/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "LGPL-3.0",
 	"icon": "assets/thirstful/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -39,6 +40,8 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"frostiful": "*",
+		"scorchful": "*",
+		"thermoo-patches": "*"
 	}
 }

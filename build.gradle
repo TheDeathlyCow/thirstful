@@ -18,16 +18,69 @@ repositories {
     // for more information about repositories.
 }
 
+// do this early so it can be access in testmod set up
 loom {
     splitEnvironmentSourceSets()
+}
 
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+
+    testmodClient {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+
+        compileClasspath += client.compileClasspath
+        runtimeClasspath += client.runtimeClasspath
+
+        compileClasspath += testmod.compileClasspath
+        runtimeClasspath += testmod.runtimeClasspath
+    }
+}
+
+loom {
     mods {
         "thirstful" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }
+
+        "thirstful-test" {
+            sourceSet sourceSets.testmod
+            sourceSet sourceSets.testmodClient
+        }
     }
 
+    // for when i need it
+    //accessWidenerPath = file("src/main/resources/thirstful.accesswidener")
+
+    runs {
+        testmodClient {
+            client()
+            ideConfigGenerated project.rootProject == project
+            name = "Testmod Client"
+            source sourceSets.testmodClient
+        }
+        testmodServer {
+            server()
+            ideConfigGenerated project.rootProject == project
+            name = "Testmod Server"
+            source sourceSets.testmod
+        }
+        gametest {
+            inherit testmodServer
+
+            name "Game Test"
+
+            // Enable the gametest runner
+            vmArg "-Dfabric-api.gametest"
+            vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/junit.xml"
+            runDir "build/gametest"
+        }
+    }
 }
 
 fabricApi {
@@ -49,6 +102,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter"
     testImplementation "org.mockito:mockito-core:3.+"
 
+    testmodImplementation sourceSets.main.output
 }
 
 test {
