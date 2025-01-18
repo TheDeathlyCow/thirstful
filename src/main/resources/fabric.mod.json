@@ -24,6 +24,9 @@
 		],
 		"fabric-datagen": [
 			"com.thedeathlycow.thirstful.ThirstfulDataGenerator"
+		],
+		"modmenu": [
+			"com.thedeathlycow.thirstful.ThirstfulModMenu"
 		]
 	},
 	"mixins": [
