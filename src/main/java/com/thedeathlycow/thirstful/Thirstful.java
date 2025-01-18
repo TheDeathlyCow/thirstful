@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful;
 
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
+import com.thedeathlycow.thirstful.registry.TStatusEffects;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -21,6 +22,8 @@ public class Thirstful implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		configHolder = AutoConfig.register(ThirstfulConfig.class, JanksonConfigSerializer::new); //NOSONAR
+
+		TStatusEffects.initialize();
 	}
 
 	public static ThirstfulConfig getConfig() {
