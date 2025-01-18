@@ -13,5 +13,7 @@ jobs:
           java-version: '21'
           distribution: 'adopt'
           architecture: x64
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
       - name: Build and run game tests
         run: ./gradlew runGameTest
