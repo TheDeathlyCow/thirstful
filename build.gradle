@@ -25,6 +25,18 @@ repositories {
     }
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/releases/" }
+
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 // do this early so it can be access in testmod set up
@@ -90,6 +102,7 @@ loom {
             runDir "build/gametest"
         }
     }
+    createRemapConfigurations(sourceSets.testmodClient)
 }
 
 fabricApi {
@@ -117,6 +130,13 @@ dependencies {
     testImplementation "org.mockito:mockito-core:3.+"
 
     testmodImplementation sourceSets.main.output
+
+    // only want these when manually testing, leave the game test runner alone
+    modTestmodClientImplementation "maven.modrinth:scorchful:${project.scorchful_test_version}"
+    modTestmodClientImplementation "maven.modrinth:frostiful:${project.frostiful_test_version}"
+    modTestmodClientImplementation ("org.ladysnake:satin:${project.satin_test_version}") {
+        exclude(group: "net.fabricmc")
+    }
 }
 
 test {
