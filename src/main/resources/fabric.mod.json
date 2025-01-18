@@ -38,7 +38,8 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*",
-		"thermoo": ">=4.2.5"
+		"thermoo": ">=4.2.5",
+		"cloth-config": ">=15.0.140"
 	},
 	"suggests": {
 		"frostiful": "*",
