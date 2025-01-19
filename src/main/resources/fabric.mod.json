@@ -23,7 +23,7 @@
 			"com.thedeathlycow.thirstful.ThirstfulClient"
 		],
 		"fabric-datagen": [
-			"com.thedeathlycow.thirstful.ThirstfulDataGenerator"
+			"com.thedeathlycow.thirstful.datagen.ThirstfulDataGenerator"
 		],
 		"modmenu": [
 			"com.thedeathlycow.thirstful.ThirstfulModMenu"

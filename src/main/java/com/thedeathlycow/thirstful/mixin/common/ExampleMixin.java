@@ -1,4 +1,4 @@
-package com.thedeathlycow.thirstful.mixin;
+package com.thedeathlycow.thirstful.mixin.common;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

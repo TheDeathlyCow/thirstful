@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "com.thedeathlycow.thirstful.mixin",
+	"package": "com.thedeathlycow.thirstful.mixin.common",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"ExampleMixin"
