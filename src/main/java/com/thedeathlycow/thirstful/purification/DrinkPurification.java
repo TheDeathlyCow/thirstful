@@ -4,7 +4,14 @@ import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import net.minecraft.item.ItemStack;
 
-public class DrinkPurification {
+public final class DrinkPurification {
+    public static boolean isDirty(ItemStack stack) {
+        return stack.getOrDefault(TDataComponentTypes.IS_DIRTY, stack.isIn(TItemTags.DRINKS));
+    }
+
+    public static boolean isContaminated(ItemStack stack) {
+        return stack.getOrDefault(TDataComponentTypes.IS_CONTAMINATED, stack.isIn(TItemTags.DRINKS));
+    }
 
     public static boolean isPureDrink(ItemStack stack) {
         if (!stack.isIn(TItemTags.DRINKS)) {
@@ -15,4 +22,7 @@ public class DrinkPurification {
                 && !stack.getOrDefault(TDataComponentTypes.IS_CONTAMINATED, true);
     }
 
+    private DrinkPurification() {
+
+    }
 }

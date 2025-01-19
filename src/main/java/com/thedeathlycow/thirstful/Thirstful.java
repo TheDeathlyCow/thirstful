@@ -26,6 +26,8 @@ public class Thirstful implements ModInitializer {
 
 		TStatusEffects.initialize();
 		TDataComponentTypes.initialize();
+
+		Thirstful.LOGGER.info("Initialized Thirstful");
 	}
 
 	public static ThirstfulConfig getConfig() {
