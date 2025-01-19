@@ -26,15 +26,10 @@ public class TemperatureChangingStatusEffect extends StatusEffect {
 
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        int i = 50 >> amplifier;
-        if (i > 0) {
-            return duration % i == 0;
-        } else {
-            return true;
-        }
+        return true;
     }
 
     private int getTemperatureChange(int amplifier) {
-        return this.temperatureChangePerLevel.getAsInt() * amplifier;
+        return this.temperatureChangePerLevel.getAsInt() * (amplifier + 1);
     }
 }

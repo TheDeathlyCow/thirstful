@@ -1,0 +1,8 @@
+{
+    "text.autoconfig.thirstful.title": "Thirstful",
+    "text.autoconfig.thirstful.option.common": "Common Config",
+    "text.autoconfig.thirstful.option.common.coolingEffectTemperatureChange": "Cooling effect temperature change per tick",
+    "text.autoconfig.thirstful.option.common.warmingEffectTemperatureChange": "Warming effect temperature change per tick",
+    
+    "text.autoconfig.thirstful.option.client": "Client Config"
+}
