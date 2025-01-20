@@ -3,7 +3,7 @@
 	"package": "com.thedeathlycow.thirstful.mixin.common",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+        "ItemStackMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -2,6 +2,7 @@ package com.thedeathlycow.thirstful;
 
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
+import com.thedeathlycow.thirstful.registry.TItems;
 import com.thedeathlycow.thirstful.registry.TStatusEffects;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
@@ -26,6 +27,8 @@ public class Thirstful implements ModInitializer {
 
 		TStatusEffects.initialize();
 		TDataComponentTypes.initialize();
+
+		TItems.initialize();
 
 		Thirstful.LOGGER.info("Initialized Thirstful");
 	}
