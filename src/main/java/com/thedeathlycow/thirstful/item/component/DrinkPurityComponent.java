@@ -66,6 +66,10 @@ public record DrinkPurityComponent(
         this(true, true, true);
     }
 
+    public DrinkPurityComponent(boolean isDirty, boolean isContaminated) {
+        this(isDirty, isContaminated, true);
+    }
+
     /**
      * @implNote Called from {@link net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback#EVENT} on client
      */

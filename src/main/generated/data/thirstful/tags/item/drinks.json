@@ -1,11 +1,13 @@
 {
   "values": [
-    "minecraft:potion",
     "minecraft:honey_bottle",
     "minecraft:ominous_bottle",
-    "minecraft:milk_bucket",
     {
-      "id": "#c:drinks",
+      "id": "#thirstful:drinks/contaminated_by_default",
+      "required": false
+    },
+    {
+      "id": "#thirstful:drinks/dirty_by_default",
       "required": false
     }
   ]

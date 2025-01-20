@@ -14,7 +14,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
-    public static final TagKey<Item> CONVENTION_DRINKS = TagKey.of(RegistryKeys.ITEM, Thirstful.commonId("drinks"));
+    public static final TagKey<Item> WATER_DRINKS = TagKey.of(RegistryKeys.ITEM, Thirstful.commonId("drinks/watery"));
+    public static final TagKey<Item> MILK_DRINKS = TagKey.of(RegistryKeys.ITEM, Thirstful.commonId("drinks/milk"));
+    public static final TagKey<Item> DRINKS = TagKey.of(RegistryKeys.ITEM, Thirstful.commonId("drinks"));
 
     public TItemTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture, @Nullable FabricTagProvider.BlockTagProvider blockTagProvider) {
         super(output, completableFuture, blockTagProvider);
@@ -23,10 +25,19 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(TItemTags.DRINKS)
-                .add(Items.POTION)
                 .add(Items.HONEY_BOTTLE)
                 .add(Items.OMINOUS_BOTTLE)
+                .addOptionalTag(TItemTags.CONTAMINATED_BY_DEFAULT)
+                .addOptionalTag(TItemTags.DIRTY_BY_DEFAULT);
+
+        getOrCreateTagBuilder(TItemTags.CONTAMINATED_BY_DEFAULT)
+                .add(Items.POTION)
                 .add(Items.MILK_BUCKET)
-                .addOptionalTag(CONVENTION_DRINKS);
+                .addOptionalTag(MILK_DRINKS)
+                .addOptionalTag(WATER_DRINKS);
+
+        getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT)
+                .add(Items.POTION)
+                .addOptionalTag(WATER_DRINKS);
     }
 }

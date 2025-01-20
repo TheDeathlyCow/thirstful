@@ -23,7 +23,11 @@ public final class TDataComponentTypes {
 
         StackCreationCallback.EVENT.register(stack -> {
             if (stack.isIn(TItemTags.DRINKS) && !stack.contains(TDataComponentTypes.DRINK_PURITY)) {
-                stack.set(TDataComponentTypes.DRINK_PURITY, new DrinkPurityComponent());
+                var component = new DrinkPurityComponent(
+                        stack.isIn(TItemTags.DIRTY_BY_DEFAULT),
+                        stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT)
+                );
+                stack.set(TDataComponentTypes.DRINK_PURITY, component);
             }
         });
     }
