@@ -15,39 +15,39 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.function.Consumer;
 
-public record DehydratingConsumeableComponent(
+public record DehydratingConsumableComponent(
         boolean alcoholic,
         boolean caffeinated,
         boolean salty,
         boolean showInTooltip
 ) implements TooltipAppender {
-    public static final Codec<DehydratingConsumeableComponent> CODEC = RecordCodecBuilder.create(
+    public static final Codec<DehydratingConsumableComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.BOOL
                                     .optionalFieldOf("contaminated", Boolean.TRUE)
-                                    .forGetter(DehydratingConsumeableComponent::alcoholic),
+                                    .forGetter(DehydratingConsumableComponent::alcoholic),
                             Codec.BOOL
                                     .optionalFieldOf("contaminated", Boolean.TRUE)
-                                    .forGetter(DehydratingConsumeableComponent::caffeinated),
+                                    .forGetter(DehydratingConsumableComponent::caffeinated),
                             Codec.BOOL
                                     .optionalFieldOf("dirty", Boolean.TRUE)
-                                    .forGetter(DehydratingConsumeableComponent::salty),
+                                    .forGetter(DehydratingConsumableComponent::salty),
                             Codec.BOOL
                                     .optionalFieldOf("show_in_tooltip", Boolean.TRUE)
-                                    .forGetter(DehydratingConsumeableComponent::showInTooltip)
+                                    .forGetter(DehydratingConsumableComponent::showInTooltip)
                     )
-                    .apply(instance, DehydratingConsumeableComponent::new)
+                    .apply(instance, DehydratingConsumableComponent::new)
     );
-    public static final PacketCodec<ByteBuf, DehydratingConsumeableComponent> PACKET_CODEC = PacketCodec.tuple(
+    public static final PacketCodec<ByteBuf, DehydratingConsumableComponent> PACKET_CODEC = PacketCodec.tuple(
             PacketCodecs.BOOL,
-            DehydratingConsumeableComponent::alcoholic,
+            DehydratingConsumableComponent::alcoholic,
             PacketCodecs.BOOL,
-            DehydratingConsumeableComponent::caffeinated,
+            DehydratingConsumableComponent::caffeinated,
             PacketCodecs.BOOL,
-            DehydratingConsumeableComponent::salty,
+            DehydratingConsumableComponent::salty,
             PacketCodecs.BOOL,
-            DehydratingConsumeableComponent::showInTooltip,
-            DehydratingConsumeableComponent::new
+            DehydratingConsumableComponent::showInTooltip,
+            DehydratingConsumableComponent::new
     );
 
     private static final Text ALCOHOLIC = Text.empty()
@@ -81,22 +81,22 @@ public record DehydratingConsumeableComponent(
     }
 
     @Contract("->new")
-    public DehydratingConsumeableComponent distill() {
+    public DehydratingConsumableComponent distill() {
         return this.copy(false, false, false, this.showInTooltip);
     }
 
     @Contract("_->new")
-    public DehydratingConsumeableComponent withShowInTooltip(boolean showInTooltip) {
+    public DehydratingConsumableComponent withShowInTooltip(boolean showInTooltip) {
         return this.copy(this.alcoholic, this.caffeinated, this.salty, showInTooltip);
     }
 
     @Contract("_,_,_,_->new")
-    public DehydratingConsumeableComponent copy(
+    public DehydratingConsumableComponent copy(
             boolean alcoholic,
             boolean caffeinated,
             boolean salty,
             boolean showInTooltip
     ) {
-        return new DehydratingConsumeableComponent(alcoholic, caffeinated, salty, showInTooltip);
+        return new DehydratingConsumableComponent(alcoholic, caffeinated, salty, showInTooltip);
     }
 }
