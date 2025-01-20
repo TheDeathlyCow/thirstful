@@ -1,7 +1,7 @@
 {
   "values": [
-    "minecraft:potion",
     "minecraft:milk_bucket",
+    "minecraft:honey_bottle",
     {
       "id": "#c:drinks/milk",
       "required": false

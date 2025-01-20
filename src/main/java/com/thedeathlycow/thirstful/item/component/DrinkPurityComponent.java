@@ -24,10 +24,10 @@ public record DrinkPurityComponent(
     public static final Codec<DrinkPurityComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.BOOL
-                                    .optionalFieldOf("dirty", Boolean.TRUE)
+                                    .optionalFieldOf("dirty", Boolean.FALSE)
                                     .forGetter(DrinkPurityComponent::dirty),
                             Codec.BOOL
-                                    .optionalFieldOf("contaminated", Boolean.TRUE)
+                                    .optionalFieldOf("contaminated", Boolean.FALSE)
                                     .forGetter(DrinkPurityComponent::contaminated),
                             Codec.BOOL
                                     .optionalFieldOf("show_in_tooltip", Boolean.TRUE)

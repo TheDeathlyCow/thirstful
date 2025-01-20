@@ -1,9 +1,3 @@
 {
-  "values": [
-    "minecraft:potion",
-    {
-      "id": "#c:drinks/watery",
-      "required": false
-    }
-  ]
+  "values": []
 }

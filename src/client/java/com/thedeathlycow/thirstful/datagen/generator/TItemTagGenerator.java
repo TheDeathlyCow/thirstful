@@ -4,6 +4,7 @@ import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -27,17 +28,16 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TItemTags.DRINKS)
                 .add(Items.HONEY_BOTTLE)
                 .add(Items.OMINOUS_BOTTLE)
+                .addOptionalTag(ConventionalItemTags.POTIONS)
                 .addOptionalTag(TItemTags.CONTAMINATED_BY_DEFAULT)
                 .addOptionalTag(TItemTags.DIRTY_BY_DEFAULT);
 
         getOrCreateTagBuilder(TItemTags.CONTAMINATED_BY_DEFAULT)
-                .add(Items.POTION)
                 .add(Items.MILK_BUCKET)
+                .add(Items.HONEY_BOTTLE)
                 .addOptionalTag(MILK_DRINKS)
                 .addOptionalTag(WATER_DRINKS);
 
-        getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT)
-                .add(Items.POTION)
-                .addOptionalTag(WATER_DRINKS);
+        getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT);
     }
 }

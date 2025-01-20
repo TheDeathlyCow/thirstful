@@ -24,13 +24,13 @@ public record DehydratingConsumableComponent(
     public static final Codec<DehydratingConsumableComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.BOOL
-                                    .optionalFieldOf("contaminated", Boolean.TRUE)
+                                    .optionalFieldOf("alcoholic", Boolean.FALSE)
                                     .forGetter(DehydratingConsumableComponent::alcoholic),
                             Codec.BOOL
-                                    .optionalFieldOf("contaminated", Boolean.TRUE)
+                                    .optionalFieldOf("caffeinated", Boolean.FALSE)
                                     .forGetter(DehydratingConsumableComponent::caffeinated),
                             Codec.BOOL
-                                    .optionalFieldOf("dirty", Boolean.TRUE)
+                                    .optionalFieldOf("salty", Boolean.FALSE)
                                     .forGetter(DehydratingConsumableComponent::salty),
                             Codec.BOOL
                                     .optionalFieldOf("show_in_tooltip", Boolean.TRUE)
