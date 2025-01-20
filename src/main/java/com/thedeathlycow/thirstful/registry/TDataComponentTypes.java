@@ -1,7 +1,7 @@
 package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.item.StackCreationCallback;
+import com.thedeathlycow.thirstful.item.ItemStackCreationCallback;
 import com.thedeathlycow.thirstful.item.component.DrinkPurityComponent;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import net.minecraft.component.ComponentType;
@@ -21,7 +21,7 @@ public final class TDataComponentTypes {
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful item components");
 
-        StackCreationCallback.EVENT.register(stack -> {
+        ItemStackCreationCallback.EVENT.register(stack -> {
             if (stack.isIn(TItemTags.DRINKS) && !stack.contains(TDataComponentTypes.DRINK_PURITY)) {
                 var component = new DrinkPurityComponent(
                         stack.isIn(TItemTags.DIRTY_BY_DEFAULT),
