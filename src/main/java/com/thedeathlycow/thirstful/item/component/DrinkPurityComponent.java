@@ -81,12 +81,12 @@ public record DrinkPurityComponent(
             tooltip.accept(CONTAMINATED);
         }
 
-        if (this.isPure()) {
+        if (this.pure()) {
             tooltip.accept(PURE);
         }
     }
 
-    public boolean isPure() {
+    public boolean pure() {
         return !dirty && !contaminated;
     }
 
@@ -112,10 +112,10 @@ public record DrinkPurityComponent(
 
     @Contract("_,_,_->new")
     public DrinkPurityComponent copy(
-            boolean isDirty,
-            boolean isContaminated,
+            boolean dirty,
+            boolean contaminated,
             boolean showInTooltip
     ) {
-        return new DrinkPurityComponent(isDirty, isContaminated, showInTooltip);
+        return new DrinkPurityComponent(dirty, contaminated, showInTooltip);
     }
 }
