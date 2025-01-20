@@ -13,7 +13,6 @@ import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 
 public final class PollutantLookup {
-
     public static final BlockApiLookup<WaterPollutantContainer, Void> API = BlockApiLookup.get(
             Thirstful.id("water_pollutant_container"),
             WaterPollutantContainer.class,
@@ -32,18 +31,18 @@ public final class PollutantLookup {
             @Nullable BlockEntity blockEntity,
             Void context
     ) {
-        boolean contaminated = false;
-        boolean dirty = false;
+        boolean contaminated = true;
+        boolean dirty = true;
         boolean salty = false;
 
         RegistryEntry<Biome> biome = world.getBiome(pos);
 
-        if (biome.isIn(TBiomeTags.HAS_CONTAMINATED_WATER)) {
-            contaminated = true;
+        if (biome.isIn(TBiomeTags.HAS_SAFE_WATER)) {
+            contaminated = false;
         }
 
-        if (biome.isIn(TBiomeTags.HAS_DIRTY_WATER)) {
-            dirty = true;
+        if (biome.isIn(TBiomeTags.HAS_CLEAN_WATER)) {
+            dirty = false;
         }
 
         if (biome.isIn(TBiomeTags.HAS_SALTY_WATER)) {
