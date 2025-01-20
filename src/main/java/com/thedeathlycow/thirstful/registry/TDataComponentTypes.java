@@ -2,6 +2,7 @@ package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.item.ItemStackCreationCallback;
+import com.thedeathlycow.thirstful.item.component.DehydratingConsumeableComponent;
 import com.thedeathlycow.thirstful.item.component.DrinkPurityComponent;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import net.minecraft.component.ComponentType;
@@ -16,6 +17,15 @@ public final class TDataComponentTypes {
             builder -> builder
                     .codec(DrinkPurityComponent.CODEC)
                     .packetCodec(DrinkPurityComponent.PACKET_CODEC)
+                    .cache()
+    );
+
+    public static final ComponentType<DehydratingConsumeableComponent> DEHYDRATION_CONSUMABLE = register(
+            "dehydrating_consumable",
+            builder -> builder
+                    .codec(DehydratingConsumeableComponent.CODEC)
+                    .packetCodec(DehydratingConsumeableComponent.PACKET_CODEC)
+                    .cache()
     );
 
     public static void initialize() {

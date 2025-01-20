@@ -3,37 +3,32 @@ package com.thedeathlycow.thirstful.item.component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.Registries;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Contract;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public record DrinkPurityComponent(
-        boolean isDirty,
-        boolean isContaminated,
+        boolean dirty,
+        boolean contaminated,
         boolean showInTooltip
 ) implements TooltipAppender {
 
     public static final Codec<DrinkPurityComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.BOOL
-                                    .optionalFieldOf("is_dirty", Boolean.TRUE)
-                                    .forGetter(DrinkPurityComponent::isDirty),
+                                    .optionalFieldOf("dirty", Boolean.TRUE)
+                                    .forGetter(DrinkPurityComponent::dirty),
                             Codec.BOOL
-                                    .optionalFieldOf("is_contaminated", Boolean.TRUE)
-                                    .forGetter(DrinkPurityComponent::isContaminated),
+                                    .optionalFieldOf("contaminated", Boolean.TRUE)
+                                    .forGetter(DrinkPurityComponent::contaminated),
                             Codec.BOOL
                                     .optionalFieldOf("show_in_tooltip", Boolean.TRUE)
                                     .forGetter(DrinkPurityComponent::showInTooltip)
@@ -42,9 +37,9 @@ public record DrinkPurityComponent(
     );
     public static final PacketCodec<ByteBuf, DrinkPurityComponent> PACKET_CODEC = PacketCodec.tuple(
             PacketCodecs.BOOL,
-            DrinkPurityComponent::isDirty,
+            DrinkPurityComponent::dirty,
             PacketCodecs.BOOL,
-            DrinkPurityComponent::isContaminated,
+            DrinkPurityComponent::contaminated,
             PacketCodecs.BOOL,
             DrinkPurityComponent::showInTooltip,
             DrinkPurityComponent::new
@@ -79,10 +74,10 @@ public record DrinkPurityComponent(
             return;
         }
 
-        if (this.isDirty) {
+        if (this.dirty) {
             tooltip.accept(DIRTY);
         }
-        if (this.isContaminated) {
+        if (this.contaminated) {
             tooltip.accept(CONTAMINATED);
         }
 
@@ -92,17 +87,17 @@ public record DrinkPurityComponent(
     }
 
     public boolean isPure() {
-        return !isDirty && !isContaminated;
+        return !dirty && !contaminated;
     }
 
     @Contract("->new")
     public DrinkPurityComponent boil() {
-        return this.copy(this.isDirty, false, this.showInTooltip);
+        return this.copy(this.dirty, false, this.showInTooltip);
     }
 
     @Contract("->new")
     public DrinkPurityComponent filter() {
-        return this.copy(false, this.isContaminated, this.showInTooltip);
+        return this.copy(false, this.contaminated, this.showInTooltip);
     }
 
     @Contract("->new")
@@ -112,7 +107,7 @@ public record DrinkPurityComponent(
 
     @Contract("_->new")
     public DrinkPurityComponent withShowInTooltip(boolean showInTooltip) {
-        return this.copy(this.isDirty, this.isContaminated, showInTooltip);
+        return this.copy(this.dirty, this.contaminated, showInTooltip);
     }
 
     @Contract("_,_,_->new")
