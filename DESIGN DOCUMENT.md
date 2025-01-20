@@ -24,14 +24,24 @@ Alcohol will also dehydrate the player slightly, due to its diuretic effects. Th
 
 ## Water Purification and Salinity
 
-Water will need to be purified in order to be drunk. Water will have three states of cleanliness: dirty, clean, and pure. Water collected from the rain or from rivers, lakes, and aquifers will be dirty. Dirty water will always make the player sick when drunk, clean water will sometimes make them sick, and pure water will never make them sick.
+Water will need to be purified in order to be drunk. Water has three possible pollutants that can be removed: Dirt, (Microbial) Contamination, and Salt. The pollutants present in water depends on the biome in which it was collected. Most biomes will have dirty, contaminated, but fresh water. However oceans, swamps, and beaches will have salty water; rivers will NOT have contaminated water (as the moving water keeps it relatively safe); and oceans will NOT have dirty water (beaches will, due to waves kicking up sand). 
 
-There will be three ways to clean water: boiling, filtering, and distilling. Water will need to be cleaned through at least two of these methods into order to become fully clean. Boiling will be able to occur over campfires, in teapots (integrates with Farmer's Respite), and in furnaces. Filtering will require bamboo or possibly a custom cat tail plant in other biomes to make a filter. The filter will then be placed, and like a furance, will purify any water items placed within it over time. Distilling will occur when the water is brewed in a potion. I'm not sure if Create or any of its addons have a distilling method, but it would be cool to add that too.
+There will be three ways to clean water: boiling, filtering, and distilling. Distillation will be able to remove all pollutants, but boiling and filtering will only be able to remove one specific type of pollutant. So, water will need to be cleaned through at least two of these methods into order to become fully clean.  Boiling will be able to occur over campfires, in teapots (integrates with Farmer's Respite), and in furnaces. Filtering will require paper, bamboo, or possibly a custom cat tail plant in other biomes to make a filter. The filter will then be placed, and like a furance, will purify any water items placed within it over time. Distilling will occur when the water is brewed in a potion. I'm not sure if Create or any of its addons have a distilling method, but it would be cool to add that as an integration too.
 
-Water collected from the ocean will be salty. Like alcohol, this water will make the player thirstier. The only way to remove salt should be through distillation.
+The effects of each pollutant are as follows:
+- Dirty: TBD. Possibly just provides less hydration than clean water. Removed by Filtering or by Distillation.
+- Contaminated: Makes the player sick. Removed by Boiling or by Distillation.
+- Salty: Makes the player thirstier (like alcohol). Removed only by Distillation.
 
 The process of fully cleaning water should be able to be automated with Redstone.
 
 ## Food Rotting? 
 
 This may be a more controversial feature, and not something to include in the initial release, but making food rot if not properly preserved (eg by storing in an ice box, salting, or smoking) could be a neat feature.
+
+## Progression
+
+- Drink Sizes: Crafting a larger drink pouch is the most obvious form of progression, but should be limited as it isn't very interesting.
+- Drink Complexity: More complex drinks like juices, coffee, tea, or alcohol that can provide additional effects or interactions when drunk. This would increase the complexity of decision making around drinks, so it would not just be a one-size-fits-all approach like hunger is.
+- Redstone: Boiling and Filtering will be automatable with redstone. A separate large-scale distillation factory may also be the cap to this.
+- Food Rot: Automating the production of dried/smoked/salted food, or constructing chilled storage.

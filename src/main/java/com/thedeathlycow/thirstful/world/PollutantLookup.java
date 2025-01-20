@@ -21,7 +21,7 @@ public final class PollutantLookup {
 
     public static void intialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful pollutant lookup API");
-        PollutantLookup.API.registerForBlocks(PollutantLookup::find, Blocks.WATER);
+        PollutantLookup.API.registerFallback(PollutantLookup::find);
     }
 
     private static WaterPollutantContainer find(
