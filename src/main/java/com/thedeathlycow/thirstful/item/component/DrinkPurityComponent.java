@@ -21,6 +21,8 @@ public record DrinkPurityComponent(
         boolean showInTooltip
 ) implements TooltipAppender {
 
+    public static final DrinkPurityComponent DEFAULT = new DrinkPurityComponent();
+
     public static final Codec<DrinkPurityComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.BOOL
@@ -58,7 +60,7 @@ public record DrinkPurityComponent(
             .setStyle(Style.EMPTY.withColor(Formatting.AQUA));
 
     public DrinkPurityComponent() {
-        this(true, true, true);
+        this(false, false, true);
     }
 
     public DrinkPurityComponent(boolean isDirty, boolean isContaminated) {
@@ -92,30 +94,26 @@ public record DrinkPurityComponent(
 
     @Contract("->new")
     public DrinkPurityComponent boil() {
-        return this.copy(this.dirty, false, this.showInTooltip);
+        return new DrinkPurityComponent(this.dirty, false, this.showInTooltip);
     }
 
     @Contract("->new")
     public DrinkPurityComponent filter() {
-        return this.copy(false, this.contaminated, this.showInTooltip);
+        return new DrinkPurityComponent(false, this.contaminated, this.showInTooltip);
     }
 
     @Contract("->new")
     public DrinkPurityComponent distill() {
-        return this.copy(false, false, this.showInTooltip);
+        return new DrinkPurityComponent(false, false, this.showInTooltip);
     }
 
     @Contract("_->new")
     public DrinkPurityComponent withShowInTooltip(boolean showInTooltip) {
-        return this.copy(this.dirty, this.contaminated, showInTooltip);
+        return new DrinkPurityComponent(this.dirty, this.contaminated, showInTooltip);
     }
 
-    @Contract("_,_,_->new")
-    public DrinkPurityComponent copy(
-            boolean dirty,
-            boolean contaminated,
-            boolean showInTooltip
-    ) {
-        return new DrinkPurityComponent(dirty, contaminated, showInTooltip);
+    @Contract("_,_->new")
+    public DrinkPurityComponent copy(boolean dirty, boolean contaminated) {
+        return new DrinkPurityComponent(dirty, contaminated, this.showInTooltip);
     }
 }

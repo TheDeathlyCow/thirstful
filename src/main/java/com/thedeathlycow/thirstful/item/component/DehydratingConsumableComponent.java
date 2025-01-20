@@ -21,6 +21,9 @@ public record DehydratingConsumableComponent(
         boolean salty,
         boolean showInTooltip
 ) implements TooltipAppender {
+
+    public static final DehydratingConsumableComponent DEFAULT = new DehydratingConsumableComponent();
+
     public static final Codec<DehydratingConsumableComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.BOOL
@@ -62,6 +65,10 @@ public record DehydratingConsumableComponent(
             .append("Salty")
             .setStyle(Style.EMPTY.withColor(Formatting.RED));
 
+    public DehydratingConsumableComponent() {
+        this(false, false, false, true);
+    }
+
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
         if (!this.showInTooltip) {
@@ -82,21 +89,20 @@ public record DehydratingConsumableComponent(
 
     @Contract("->new")
     public DehydratingConsumableComponent distill() {
-        return this.copy(false, false, false, this.showInTooltip);
+        return new DehydratingConsumableComponent(false, false, false, this.showInTooltip);
     }
 
     @Contract("_->new")
-    public DehydratingConsumableComponent withShowInTooltip(boolean showInTooltip) {
-        return this.copy(this.alcoholic, this.caffeinated, this.salty, showInTooltip);
+    public DehydratingConsumableComponent withSalty(boolean salty) {
+        return new DehydratingConsumableComponent(this.alcoholic, this.caffeinated, salty, this.showInTooltip);
     }
 
-    @Contract("_,_,_,_->new")
+    @Contract("_,_,_->new")
     public DehydratingConsumableComponent copy(
             boolean alcoholic,
             boolean caffeinated,
-            boolean salty,
-            boolean showInTooltip
+            boolean salty
     ) {
-        return new DehydratingConsumableComponent(alcoholic, caffeinated, salty, showInTooltip);
+        return new DehydratingConsumableComponent(alcoholic, caffeinated, salty, this.showInTooltip);
     }
 }

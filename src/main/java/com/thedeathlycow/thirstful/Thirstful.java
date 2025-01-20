@@ -14,6 +14,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.GlassBottleItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.slf4j.Logger;
