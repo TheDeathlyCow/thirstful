@@ -2,8 +2,7 @@ package com.thedeathlycow.thirstful.item;
 
 import com.thedeathlycow.thirstful.mixin.common.accessor.ItemAccessor;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import com.thedeathlycow.thirstful.world.PollutantLookup;
-import com.thedeathlycow.thirstful.world.WaterPollutantContainer;
+import com.thedeathlycow.thirstful.world.WaterPollutants;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
@@ -22,10 +21,10 @@ public final class WaterCollection {
             return;
         }
 
-        if (output.contains(TDataComponentTypes.DRINK_PURITY)) {
+        if (output.contains(TDataComponentTypes.POLLUTANTS)) {
             BlockHitResult hitResult = ItemAccessor.invokeRaycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
             if (hitResult.getType() == HitResult.Type.BLOCK) {
-                WaterPollutantContainer pollutants = PollutantLookup.API.find(world, hitResult.getBlockPos(), null);
+                WaterPollutants pollutants = WaterPollutants.LOOKUP.find(world, hitResult.getBlockPos(), null);
                 pollutants.applyToStack(output);
             }
         }

@@ -4,7 +4,7 @@ import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.TItems;
 import com.thedeathlycow.thirstful.registry.TStatusEffects;
-import com.thedeathlycow.thirstful.world.PollutantLookup;
+import com.thedeathlycow.thirstful.world.WaterPollutants;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
@@ -27,7 +27,7 @@ public class Thirstful implements ModInitializer {
         TStatusEffects.initialize();
         TDataComponentTypes.initialize();
         TItems.initialize();
-        PollutantLookup.intialize();
+        WaterPollutants.intialize();
 
         Thirstful.LOGGER.info("Initialized Thirstful");
     }

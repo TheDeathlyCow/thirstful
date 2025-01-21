@@ -3,7 +3,7 @@ package com.thedeathlycow.thirstful.registry;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.item.ItemStackCreationCallback;
 import com.thedeathlycow.thirstful.item.component.DehydratingConsumableComponent;
-import com.thedeathlycow.thirstful.item.component.DrinkPurityComponent;
+import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
@@ -12,11 +12,11 @@ import net.minecraft.registry.Registry;
 import java.util.function.UnaryOperator;
 
 public final class TDataComponentTypes {
-    public static final ComponentType<DrinkPurityComponent> DRINK_PURITY = register(
-            "drink_purity",
+    public static final ComponentType<PollutantComponent> POLLUTANTS = register(
+            "pollutants",
             builder -> builder
-                    .codec(DrinkPurityComponent.CODEC)
-                    .packetCodec(DrinkPurityComponent.PACKET_CODEC)
+                    .codec(PollutantComponent.CODEC)
+                    .packetCodec(PollutantComponent.PACKET_CODEC)
                     .cache()
     );
 
@@ -32,12 +32,13 @@ public final class TDataComponentTypes {
         Thirstful.LOGGER.debug("Initialized Thirstful item components");
 
         ItemStackCreationCallback.EVENT.register(stack -> {
-            if (stack.isIn(TItemTags.DRINKS) && !stack.contains(TDataComponentTypes.DRINK_PURITY)) {
-                var component = new DrinkPurityComponent(
+            if (stack.isIn(TItemTags.DRINKS) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
+                var component = new PollutantComponent(
                         stack.isIn(TItemTags.DIRTY_BY_DEFAULT),
-                        stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT)
+                        stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT),
+                        false
                 );
-                stack.set(TDataComponentTypes.DRINK_PURITY, component);
+                stack.set(TDataComponentTypes.POLLUTANTS, component);
             }
         });
     }

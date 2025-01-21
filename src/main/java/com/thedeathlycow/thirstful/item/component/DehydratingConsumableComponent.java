@@ -18,7 +18,6 @@ import java.util.function.Consumer;
 public record DehydratingConsumableComponent(
         boolean alcoholic,
         boolean caffeinated,
-        boolean salty,
         boolean showInTooltip
 ) implements TooltipAppender {
 
@@ -33,9 +32,6 @@ public record DehydratingConsumableComponent(
                                     .optionalFieldOf("caffeinated", Boolean.FALSE)
                                     .forGetter(DehydratingConsumableComponent::caffeinated),
                             Codec.BOOL
-                                    .optionalFieldOf("salty", Boolean.FALSE)
-                                    .forGetter(DehydratingConsumableComponent::salty),
-                            Codec.BOOL
                                     .optionalFieldOf("show_in_tooltip", Boolean.TRUE)
                                     .forGetter(DehydratingConsumableComponent::showInTooltip)
                     )
@@ -46,8 +42,6 @@ public record DehydratingConsumableComponent(
             DehydratingConsumableComponent::alcoholic,
             PacketCodecs.BOOL,
             DehydratingConsumableComponent::caffeinated,
-            PacketCodecs.BOOL,
-            DehydratingConsumableComponent::salty,
             PacketCodecs.BOOL,
             DehydratingConsumableComponent::showInTooltip,
             DehydratingConsumableComponent::new
@@ -61,12 +55,8 @@ public record DehydratingConsumableComponent(
             .append("Caffeinated")
             .setStyle(Style.EMPTY.withColor(Formatting.RED));
 
-    private static final Text SALTY = Text.empty()
-            .append("Salty")
-            .setStyle(Style.EMPTY.withColor(Formatting.RED));
-
     public DehydratingConsumableComponent() {
-        this(false, false, false, true);
+        this(false, false, true);
     }
 
     @Override
@@ -81,28 +71,18 @@ public record DehydratingConsumableComponent(
         if (this.caffeinated) {
             tooltip.accept(CAFFEINATED);
         }
-
-        if (this.salty) {
-            tooltip.accept(SALTY);
-        }
     }
 
     @Contract("->new")
     public DehydratingConsumableComponent distill() {
-        return new DehydratingConsumableComponent(false, false, false, this.showInTooltip);
+        return new DehydratingConsumableComponent(false, false, this.showInTooltip);
     }
 
-    @Contract("_->new")
-    public DehydratingConsumableComponent withSalty(boolean salty) {
-        return new DehydratingConsumableComponent(this.alcoholic, this.caffeinated, salty, this.showInTooltip);
-    }
-
-    @Contract("_,_,_->new")
+    @Contract("_,_->new")
     public DehydratingConsumableComponent copy(
             boolean alcoholic,
-            boolean caffeinated,
-            boolean salty
+            boolean caffeinated
     ) {
-        return new DehydratingConsumableComponent(alcoholic, caffeinated, salty, this.showInTooltip);
+        return new DehydratingConsumableComponent(alcoholic, caffeinated, this.showInTooltip);
     }
 }

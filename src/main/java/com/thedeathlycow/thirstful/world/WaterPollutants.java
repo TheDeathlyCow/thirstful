@@ -1,30 +1,48 @@
 package com.thedeathlycow.thirstful.world;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.item.component.PollutantComponent;
+import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.tag.TBiomeTags;
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 
-public final class PollutantLookup {
-    public static final BlockApiLookup<WaterPollutantContainer, Void> API = BlockApiLookup.get(
+public record WaterPollutants(
+        boolean contaminated,
+        boolean dirty,
+        boolean salty
+) {
+    public static final BlockApiLookup<WaterPollutants, Void> LOOKUP = BlockApiLookup.get(
             Thirstful.id("water_pollutant_container"),
-            WaterPollutantContainer.class,
+            WaterPollutants.class,
             Void.class
     );
 
     public static void intialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful pollutant lookup API");
-        PollutantLookup.API.registerFallback(PollutantLookup::find);
+        LOOKUP.registerFallback(WaterPollutants::find);
     }
 
-    private static WaterPollutantContainer find(
+    public void applyToStack(ItemStack stack) {
+        PollutantComponent purityComponent = stack.getOrDefault(
+                TDataComponentTypes.POLLUTANTS,
+                PollutantComponent.DEFAULT
+        );
+
+        stack.set(
+                TDataComponentTypes.POLLUTANTS,
+                purityComponent.copy(this.dirty, this.contaminated, this.salty)
+        );
+    }
+
+    private static WaterPollutants find(
             World world,
             BlockPos pos,
             BlockState state,
@@ -49,10 +67,6 @@ public final class PollutantLookup {
             salty = true;
         }
 
-        return new WaterPollutantContainer(contaminated, dirty, salty);
-    }
-
-    private PollutantLookup() {
-
+        return new WaterPollutants(contaminated, dirty, salty);
     }
 }

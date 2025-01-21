@@ -19,7 +19,7 @@ public class ThirstfulTooltipAppender implements ItemTooltipCallback {
     public void getTooltip(ItemStack stack, Item.TooltipContext tooltipContext, TooltipType tooltipType, List<Text> lines) {
         Consumer<Text> builder = text -> addTooltipBeforeAdvanced(stack, tooltipType, lines, text);
 
-        this.appendTooltip(stack, TDataComponentTypes.DRINK_PURITY, tooltipContext, tooltipType, builder);
+        this.appendTooltip(stack, TDataComponentTypes.POLLUTANTS, tooltipContext, tooltipType, builder);
         this.appendTooltip(stack, TDataComponentTypes.DEHYDRATION_CONSUMABLE, tooltipContext, tooltipType, builder);
     }
 
