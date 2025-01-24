@@ -3,6 +3,7 @@
     "package": "com.thedeathlycow.thirstful.mixin.common",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
+        "ConsumeItemCriterionMixin",
         "ItemStackMixin",
         "ItemUsageMixin",
         "accessor.ItemAccessor"

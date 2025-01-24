@@ -37,7 +37,6 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(TItemTags.CONTAMINATED_BY_DEFAULT)
                 .add(Items.MILK_BUCKET)
-                .add(Items.HONEY_BOTTLE)
                 .addOptionalTag(ConventionalItemTags.RAW_MEAT_FOODS)
                 .addOptionalTag(ConventionalItemTags.FOOD_POISONING_FOODS)
                 .addOptionalTag(MILK_DRINKS)
