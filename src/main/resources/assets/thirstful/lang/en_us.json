@@ -1,4 +1,10 @@
 {
+    "item.thirstful.pollutant.dirty": "Dirty",
+    "item.thirstful.pollutant.contaminated": "Contaminated",
+    "item.thirstful.pollutant.salty": "Salty",
+    "item.thirstful.pollutant.safe": "Safe",
+    
+    
     "text.autoconfig.thirstful.title": "Thirstful",
     "text.autoconfig.thirstful.option.common": "Common Config",
     "text.autoconfig.thirstful.option.common.coolingEffectTemperatureChange": "Cooling effect temperature change per tick",

@@ -54,19 +54,19 @@ public record PollutantComponent(
     );
 
     private static final Text DIRTY_TOOLTIP = Text.empty()
-            .append("Dirty")
+            .append(Text.translatable("item.thirstful.pollutant.dirty"))
             .setStyle(Style.EMPTY.withColor(0x61492d));
 
     private static final Text CONTAMINATED_TOOLTIP = Text.empty()
-            .append("Contaminated")
+            .append(Text.translatable("item.thirstful.pollutant.contaminated"))
             .setStyle(Style.EMPTY.withColor(0x44612d));
 
     private static final Text SALTY_TOOLTIP = Text.empty()
-            .append("Salty")
+            .append(Text.translatable("item.thirstful.pollutant.salty"))
             .setStyle(Style.EMPTY.withColor(Formatting.RED));
 
-    private static final Text PURE_TOOLTIP = Text.empty()
-            .append("Pure")
+    private static final Text SAFE_TOOLTIP = Text.empty()
+            .append(Text.translatable("item.thirstful.pollutant.safe"))
             .setStyle(Style.EMPTY.withColor(Formatting.AQUA));
 
     public PollutantComponent() {
@@ -96,12 +96,12 @@ public record PollutantComponent(
             tooltip.accept(SALTY_TOOLTIP);
         }
 
-        if (this.pure()) {
-            tooltip.accept(PURE_TOOLTIP);
+        if (this.safe()) {
+            tooltip.accept(SAFE_TOOLTIP);
         }
     }
 
-    public boolean pure() {
+    public boolean safe() {
         return !dirty && !contaminated && !salty;
     }
 
