@@ -1,0 +1,30 @@
+{
+  "values": [
+    "minecraft:honey_bottle",
+    "minecraft:ominous_bottle",
+    {
+      "id": "#c:potions",
+      "required": false
+    },
+    {
+      "id": "#c:foods",
+      "required": false
+    },
+    {
+      "id": "#c:drinks",
+      "required": false
+    },
+    {
+      "id": "#thirstful:polluted_consumables/salty_by_default",
+      "required": false
+    },
+    {
+      "id": "#thirstful:polluted_consumables/contaminated_by_default",
+      "required": false
+    },
+    {
+      "id": "#thirstful:polluted_consumables/dirty_by_default",
+      "required": false
+    }
+  ]
+}

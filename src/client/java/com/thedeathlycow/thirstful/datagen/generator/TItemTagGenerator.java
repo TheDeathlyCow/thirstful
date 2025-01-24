@@ -25,18 +25,24 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(TItemTags.DRINKS)
+        getOrCreateTagBuilder(TItemTags.POLLUTED_CONSUMABLES)
                 .add(Items.HONEY_BOTTLE)
                 .add(Items.OMINOUS_BOTTLE)
                 .addOptionalTag(ConventionalItemTags.POTIONS)
+                .addOptionalTag(ConventionalItemTags.FOODS)
+                .addOptionalTag(DRINKS)
+                .addOptionalTag(TItemTags.SALTY_BY_DEFAULT)
                 .addOptionalTag(TItemTags.CONTAMINATED_BY_DEFAULT)
                 .addOptionalTag(TItemTags.DIRTY_BY_DEFAULT);
 
         getOrCreateTagBuilder(TItemTags.CONTAMINATED_BY_DEFAULT)
                 .add(Items.MILK_BUCKET)
                 .add(Items.HONEY_BOTTLE)
+                .addOptionalTag(ConventionalItemTags.RAW_MEAT_FOODS)
                 .addOptionalTag(MILK_DRINKS)
                 .addOptionalTag(WATER_DRINKS);
+
+        getOrCreateTagBuilder(TItemTags.SALTY_BY_DEFAULT);
 
         getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT);
     }

@@ -3,6 +3,10 @@
     "minecraft:milk_bucket",
     "minecraft:honey_bottle",
     {
+      "id": "#c:foods/raw_meat",
+      "required": false
+    },
+    {
       "id": "#c:drinks/milk",
       "required": false
     },

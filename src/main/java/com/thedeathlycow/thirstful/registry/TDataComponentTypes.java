@@ -32,11 +32,11 @@ public final class TDataComponentTypes {
         Thirstful.LOGGER.debug("Initialized Thirstful item components");
 
         ItemStackCreationCallback.EVENT.register(stack -> {
-            if (stack.isIn(TItemTags.DRINKS) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
+            if (stack.isIn(TItemTags.POLLUTED_CONSUMABLES) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
                 var component = new PollutantComponent(
                         stack.isIn(TItemTags.DIRTY_BY_DEFAULT),
                         stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT),
-                        false
+                        stack.isIn(TItemTags.SALTY_BY_DEFAULT)
                 );
                 stack.set(TDataComponentTypes.POLLUTANTS, component);
             }
