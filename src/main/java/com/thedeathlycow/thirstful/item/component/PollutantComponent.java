@@ -65,8 +65,8 @@ public record PollutantComponent(
             .append(Text.translatable("item.thirstful.pollutant.salty"))
             .setStyle(Style.EMPTY.withColor(Formatting.RED));
 
-    private static final Text SAFE_TOOLTIP = Text.empty()
-            .append(Text.translatable("item.thirstful.pollutant.safe"))
+    private static final Text CLEAN_TOOLTIP = Text.empty()
+            .append(Text.translatable("item.thirstful.pollutant.clean"))
             .setStyle(Style.EMPTY.withColor(Formatting.AQUA));
 
     public PollutantComponent() {
@@ -96,12 +96,12 @@ public record PollutantComponent(
             tooltip.accept(SALTY_TOOLTIP);
         }
 
-        if (this.safe()) {
-            tooltip.accept(SAFE_TOOLTIP);
+        if (this.clean()) {
+            tooltip.accept(CLEAN_TOOLTIP);
         }
     }
 
-    public boolean safe() {
+    public boolean clean() {
         return !dirty && !contaminated && !salty;
     }
 
