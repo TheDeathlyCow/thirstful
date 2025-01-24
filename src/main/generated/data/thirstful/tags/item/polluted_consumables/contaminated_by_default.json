@@ -7,6 +7,10 @@
       "required": false
     },
     {
+      "id": "#c:foods/food_poisoning",
+      "required": false
+    },
+    {
       "id": "#c:drinks/milk",
       "required": false
     },
