@@ -2,6 +2,7 @@ package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.effect.CoolingStatusEffect;
+import com.thedeathlycow.thirstful.effect.FeverStatusEffect;
 import com.thedeathlycow.thirstful.effect.TemperatureChangingStatusEffect;
 import com.thedeathlycow.thirstful.effect.WarmingStatusEffect;
 import net.minecraft.entity.effect.StatusEffect;
@@ -20,6 +21,11 @@ public final class TStatusEffects {
     public static final RegistryEntry<StatusEffect> WARMING = registerReference(
         "warming",
             new WarmingStatusEffect(Colors.RED)
+    );
+
+    public static final RegistryEntry<StatusEffect> FEVER = registerReference(
+            "fever",
+            new FeverStatusEffect(Colors.RED)
     );
 
     public static void initialize() {

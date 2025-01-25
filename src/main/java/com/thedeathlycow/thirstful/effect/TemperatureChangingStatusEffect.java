@@ -7,13 +7,10 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 
 import java.util.function.IntSupplier;
 
-public class TemperatureChangingStatusEffect extends StatusEffect {
+public abstract class TemperatureChangingStatusEffect extends StatusEffect {
 
-    private final IntSupplier temperatureChangePerLevel;
-
-    public TemperatureChangingStatusEffect(StatusEffectCategory category, int color, IntSupplier temperatureChange) {
+    public TemperatureChangingStatusEffect(StatusEffectCategory category, int color) {
         super(category, color);
-        this.temperatureChangePerLevel = temperatureChange;
     }
 
     @Override
@@ -29,7 +26,5 @@ public class TemperatureChangingStatusEffect extends StatusEffect {
         return true;
     }
 
-    private int getTemperatureChange(int amplifier) {
-        return this.temperatureChangePerLevel.getAsInt() * (amplifier + 1);
-    }
+    protected abstract int getTemperatureChange(int amplifier);
 }

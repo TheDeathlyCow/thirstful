@@ -6,11 +6,7 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class CoolingStatusEffect extends TemperatureChangingStatusEffect {
     public CoolingStatusEffect(int color) {
-        super(
-                StatusEffectCategory.BENEFICIAL,
-                color,
-                () -> Thirstful.getConfig().common().statusEffect().coolingEffectTemperatureChange()
-        );
+        super(StatusEffectCategory.BENEFICIAL, color);
     }
 
     @Override
@@ -19,5 +15,10 @@ public class CoolingStatusEffect extends TemperatureChangingStatusEffect {
             return super.applyUpdateEffect(entity, amplifier);
         }
         return false;
+    }
+
+    @Override
+    protected int getTemperatureChange(int amplifier) {
+        return Thirstful.getConfig().common().statusEffect().coolingEffectTemperatureChange() * (amplifier + 1);
     }
 }
