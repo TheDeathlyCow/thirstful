@@ -8,8 +8,16 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = Thirstful.MODID)
 public class ThirstfulConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
-    public final CommonConfig common = new CommonConfig();
+    private final CommonConfig common = new CommonConfig();
 
     @ConfigEntry.Gui.CollapsibleObject
-    public final ClientConfig client = new ClientConfig();
+    private final ClientConfig client = new ClientConfig();
+
+    public CommonConfig common() {
+        return common;
+    }
+
+    public ClientConfig client() {
+        return client;
+    }
 }

@@ -15,7 +15,7 @@ public final class TStatusEffects {
             new TemperatureChangingStatusEffect(
                     StatusEffectCategory.NEUTRAL,
                     Colors.BLUE,
-                    () -> Thirstful.getConfig().common.statusEffect.getCoolingEffectTemperatureChange()
+                    () -> Thirstful.getConfig().common().statusEffect().coolingEffectTemperatureChange()
             )
     );
 
@@ -24,7 +24,7 @@ public final class TStatusEffects {
             new TemperatureChangingStatusEffect(
                     StatusEffectCategory.NEUTRAL,
                     Colors.RED,
-                    () -> Thirstful.getConfig().common.statusEffect.getWarmingEffectTemperatureChange()
+                    () -> Thirstful.getConfig().common().statusEffect().warmingEffectTemperatureChange()
             )
     );
 
