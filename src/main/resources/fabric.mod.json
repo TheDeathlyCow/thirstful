@@ -27,6 +27,9 @@
 		],
 		"modmenu": [
 			"com.thedeathlycow.thirstful.ThirstfulModMenu"
+		],
+		"cardinal-components-entity": [
+			"com.thedeathlycow.thirstful.registry.TEntityComponents"
 		]
 	},
 	"mixins": [
@@ -42,7 +45,9 @@
 		"java": ">=21",
 		"fabric-api": "*",
 		"thermoo": ">=4.2.5",
-		"cloth-config": ">=15.0.140"
+		"cloth-config": ">=15.0.140",
+		"cardinal-components-base": ">=6.2.2",
+		"cardinal-components-entity": ">=6.2.2"
 	},
 	"suggests": {
 		"frostiful": "*",
