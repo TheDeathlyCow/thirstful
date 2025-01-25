@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 public record PollutantComponent(
         float dirtiness,
         float diseaseChance,
-        float saltiness,
+        boolean salty,
         boolean showInTooltip
 ) implements TooltipAppender {
     public static final PollutantComponent DEFAULT = new PollutantComponent();
@@ -31,9 +31,9 @@ public record PollutantComponent(
                             Codec.floatRange(0f, 1f)
                                     .optionalFieldOf("disease_chance", 0f)
                                     .forGetter(PollutantComponent::diseaseChance),
-                            Codec.floatRange(0f, 1f)
-                                    .optionalFieldOf("saltiness", 0f)
-                                    .forGetter(PollutantComponent::saltiness),
+                            Codec.BOOL
+                                    .optionalFieldOf("salty", Boolean.FALSE)
+                                    .forGetter(PollutantComponent::salty),
                             Codec.BOOL
                                     .optionalFieldOf("show_in_tooltip", Boolean.TRUE)
                                     .forGetter(PollutantComponent::showInTooltip)
@@ -45,8 +45,8 @@ public record PollutantComponent(
             PollutantComponent::dirtiness,
             PacketCodecs.FLOAT,
             PollutantComponent::diseaseChance,
-            PacketCodecs.FLOAT,
-            PollutantComponent::saltiness,
+            PacketCodecs.BOOL,
+            PollutantComponent::salty,
             PacketCodecs.BOOL,
             PollutantComponent::showInTooltip,
             PollutantComponent::new
@@ -69,11 +69,11 @@ public record PollutantComponent(
             .setStyle(Style.EMPTY.withColor(Formatting.AQUA));
 
     public PollutantComponent() {
-        this(0f, 0f, 0f, true);
+        this(0f, 0f, false, true);
     }
 
-    public PollutantComponent(float dirtiness, float diseaseChance, float saltiness) {
-        this(dirtiness, diseaseChance, saltiness, true);
+    public PollutantComponent(float dirtiness, float diseaseChance, boolean salty) {
+        this(dirtiness, diseaseChance, salty, true);
     }
 
     /**
@@ -108,36 +108,32 @@ public record PollutantComponent(
         return diseaseChance > 0f;
     }
 
-    public boolean salty() {
-        return saltiness > 0f;
-    }
-
     public boolean clean() {
         return !this.dirty() && !this.contaminated() && !this.salty();
     }
 
     @Contract("->new")
     public PollutantComponent boil() {
-        return new PollutantComponent(this.dirtiness, 0f, this.saltiness, this.showInTooltip);
+        return new PollutantComponent(this.dirtiness, 0f, this.salty, this.showInTooltip);
     }
 
     @Contract("->new")
     public PollutantComponent filter() {
-        return new PollutantComponent(0f, this.diseaseChance, this.saltiness, this.showInTooltip);
+        return new PollutantComponent(0f, this.diseaseChance, this.salty, this.showInTooltip);
     }
 
     @Contract("->new")
     public PollutantComponent distill() {
-        return new PollutantComponent(0f, 0f, 0f, this.showInTooltip);
+        return new PollutantComponent(0f, 0f, false, this.showInTooltip);
     }
 
     @Contract("_->new")
-    public PollutantComponent withSaltiness(float saltiness) {
-        return new PollutantComponent(this.dirtiness, this.diseaseChance, saltiness, this.showInTooltip);
+    public PollutantComponent withSaltiness(boolean salty) {
+        return new PollutantComponent(this.dirtiness, this.diseaseChance, salty, this.showInTooltip);
     }
 
     @Contract("_,_,_->new")
-    public PollutantComponent copy(float dirtiness, float diseaseChance, float saltiness) {
-        return new PollutantComponent(dirtiness, diseaseChance, saltiness, this.showInTooltip);
+    public PollutantComponent copy(float dirtiness, float diseaseChance, boolean salty) {
+        return new PollutantComponent(dirtiness, diseaseChance, salty, this.showInTooltip);
     }
 }

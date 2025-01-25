@@ -15,8 +15,8 @@ import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 
 public record WaterPollutants(
-        boolean contaminated,
-        boolean dirty,
+        float dirtiness,
+        float diseaseChance,
         boolean salty
 ) {
     public static final BlockApiLookup<WaterPollutants, Void> LOOKUP = BlockApiLookup.get(
@@ -38,7 +38,7 @@ public record WaterPollutants(
 
         stack.set(
                 TDataComponentTypes.POLLUTANTS,
-                purityComponent.copy(this.dirty ? 1f : 0, this.contaminated ? 1f : 0, this.salty ? 1f : 0)
+                purityComponent.copy(this.dirtiness, this.diseaseChance, this.salty)
         );
     }
 
@@ -49,24 +49,24 @@ public record WaterPollutants(
             @Nullable BlockEntity blockEntity,
             Void context
     ) {
-        boolean contaminated = true;
-        boolean dirty = true;
+        float distanceChance = 1.0f;
+        float dirtiness = 1.0f;
         boolean salty = false;
 
         RegistryEntry<Biome> biome = world.getBiome(pos);
 
         if (biome.isIn(TBiomeTags.HAS_SAFE_WATER)) {
-            contaminated = false;
+            distanceChance = 0f;
         }
 
         if (biome.isIn(TBiomeTags.HAS_CLEAN_WATER)) {
-            dirty = false;
+            dirtiness = 0f;
         }
 
         if (biome.isIn(TBiomeTags.HAS_SALTY_WATER)) {
             salty = true;
         }
 
-        return new WaterPollutants(contaminated, dirty, salty);
+        return new WaterPollutants(dirtiness, distanceChance, salty);
     }
 }
