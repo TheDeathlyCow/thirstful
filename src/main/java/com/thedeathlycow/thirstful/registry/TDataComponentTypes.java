@@ -36,7 +36,7 @@ public final class TDataComponentTypes {
                 var component = new PollutantComponent(
                         stack.isIn(TItemTags.DIRTY_BY_DEFAULT) ? 1f : 0,
                         stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT) ? 1f : 0,
-                        stack.isIn(TItemTags.SALTY_BY_DEFAULT) ? 1f : 0
+                        stack.isIn(TItemTags.SALTY_BY_DEFAULT)
                 );
                 stack.set(TDataComponentTypes.POLLUTANTS, component);
             }
