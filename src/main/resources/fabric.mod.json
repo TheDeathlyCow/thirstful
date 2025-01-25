@@ -53,5 +53,10 @@
 		"frostiful": "*",
 		"scorchful": "*",
 		"thermoo-patches": "*"
+	},
+	"custom": {
+		"cardinal-components": [
+			"thirstful:player_thirst"
+		]
 	}
 }

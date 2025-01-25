@@ -38,7 +38,7 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent 
     }
 
     public double getThirstScale() {
-        return ((double) this.thirstTicks) / MAX_THIRST_TICKS;
+        return ((double) this.thirstTicks) / this.getMaxThirstTicks();
     }
 
     @Override
@@ -46,8 +46,12 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent 
         this.increaseThirst();
     }
 
+    public int getMaxThirstTicks() {
+        return MAX_THIRST_TICKS;
+    }
+
     private void increaseThirst() {
         this.thirstTicks++;
-        this.thirstTicks = MathHelper.clamp(this.thirstTicks, 0, MAX_THIRST_TICKS);
+        this.thirstTicks = MathHelper.clamp(this.thirstTicks, 0, this.getMaxThirstTicks());
     }
 }
