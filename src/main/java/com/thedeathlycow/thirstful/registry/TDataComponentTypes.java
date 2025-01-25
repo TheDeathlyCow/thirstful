@@ -34,9 +34,9 @@ public final class TDataComponentTypes {
         ItemStackCreationCallback.EVENT.register(stack -> {
             if (stack.isIn(TItemTags.POLLUTED_CONSUMABLES) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
                 var component = new PollutantComponent(
-                        stack.isIn(TItemTags.DIRTY_BY_DEFAULT),
-                        stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT),
-                        stack.isIn(TItemTags.SALTY_BY_DEFAULT)
+                        stack.isIn(TItemTags.DIRTY_BY_DEFAULT) ? 1f : 0,
+                        stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT) ? 1f : 0,
+                        stack.isIn(TItemTags.SALTY_BY_DEFAULT) ? 1f : 0
                 );
                 stack.set(TDataComponentTypes.POLLUTANTS, component);
             }

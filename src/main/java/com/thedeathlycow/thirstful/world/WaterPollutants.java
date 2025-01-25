@@ -38,7 +38,7 @@ public record WaterPollutants(
 
         stack.set(
                 TDataComponentTypes.POLLUTANTS,
-                purityComponent.copy(this.dirty, this.contaminated, this.salty)
+                purityComponent.copy(this.dirty ? 1f : 0, this.contaminated ? 1f : 0, this.salty ? 1f : 0)
         );
     }
 
