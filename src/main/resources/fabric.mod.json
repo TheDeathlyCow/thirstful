@@ -46,8 +46,8 @@
 		"fabric-api": "*",
 		"thermoo": ">=4.2.5",
 		"cloth-config": ">=15.0.140",
-		"cardinal-components-base": ">=6.2.2",
-		"cardinal-components-entity": ">=6.2.2"
+		"cardinal-components-base": ">=6.1.2",
+		"cardinal-components-entity": ">=6.1.2"
 	},
 	"suggests": {
 		"frostiful": "*",
