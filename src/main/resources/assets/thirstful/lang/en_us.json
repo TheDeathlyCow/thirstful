@@ -1,4 +1,9 @@
 {
+    "effect.thirstful.cooling": "Cooling",
+    "effect.thirstful.warming": "Warming",
+    "effect.thirstful.fever": "Fever",
+    
+    
     "item.thirstful.pollutant.dirty": "Dirty",
     "item.thirstful.pollutant.contaminated": "Contaminated",
     "item.thirstful.pollutant.salty": "Salty",
