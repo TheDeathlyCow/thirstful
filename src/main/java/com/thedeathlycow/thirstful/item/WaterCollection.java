@@ -24,7 +24,7 @@ public final class WaterCollection {
         if (output.contains(TDataComponentTypes.POLLUTANTS)) {
             BlockHitResult hitResult = ItemAccessor.invokeRaycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
             if (hitResult.getType() == HitResult.Type.BLOCK) {
-                WaterPollutants pollutants = WaterPollutants.LOOKUP.find(world, hitResult.getBlockPos(), null);
+                WaterPollutants pollutants = WaterPollutants.lookup(world, hitResult.getBlockPos());
                 pollutants.applyToStack(output);
             }
         }

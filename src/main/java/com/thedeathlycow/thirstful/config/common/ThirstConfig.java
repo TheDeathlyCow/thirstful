@@ -5,6 +5,7 @@ import com.thedeathlycow.thirstful.Thirstful;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
+import net.minecraft.util.math.MathHelper;
 
 @Config(name = Thirstful.MODID + ".status_effect")
 public class ThirstConfig implements ConfigData {

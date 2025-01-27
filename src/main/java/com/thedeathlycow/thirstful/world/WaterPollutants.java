@@ -1,33 +1,24 @@
 package com.thedeathlycow.thirstful.world;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.tag.TBiomeTags;
-import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import org.jetbrains.annotations.Nullable;
 
 public record WaterPollutants(
         float dirtiness,
         float diseaseChance,
         boolean salty
 ) {
-    public static final BlockApiLookup<WaterPollutants, Void> LOOKUP = BlockApiLookup.get(
-            Thirstful.id("water_pollutant_container"),
-            WaterPollutants.class,
-            Void.class
-    );
 
     public static void intialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful pollutant lookup API");
-        LOOKUP.registerFallback(WaterPollutants::find);
     }
 
     public void applyToStack(ItemStack stack) {
@@ -42,24 +33,24 @@ public record WaterPollutants(
         );
     }
 
-    private static WaterPollutants find(
-            World world,
-            BlockPos pos,
-            BlockState state,
-            @Nullable BlockEntity blockEntity,
-            Void context
-    ) {
-        float distanceChance = 1.0f;
-        float dirtiness = 1.0f;
+    public static WaterPollutants lookup(World world, BlockPos pos) {
+        WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
+
+        float diseaseChance = config.defaultWaterDiseaseChance();
+        float dirtiness = config.defaultWaterDirtiness();
         boolean salty = false;
 
         RegistryEntry<Biome> biome = world.getBiome(pos);
 
-        if (biome.isIn(TBiomeTags.HAS_SAFE_WATER)) {
-            distanceChance = 0f;
+        if (biome.isIn(TBiomeTags.HAS_VERY_UNSAFE_WATER)) {
+            diseaseChance = config.extraContaminatedWaterDiseaseChance();
+        } else if (biome.isIn(TBiomeTags.HAS_SAFE_WATER)) {
+            diseaseChance = 0f;
         }
 
-        if (biome.isIn(TBiomeTags.HAS_CLEAN_WATER)) {
+        if (biome.isIn(TBiomeTags.HAS_VERY_DIRTY_WATER)) {
+            diseaseChance = config.extraDirtyWaterDirtiness();
+        } else if (biome.isIn(TBiomeTags.HAS_CLEAN_WATER)) {
             dirtiness = 0f;
         }
 
@@ -67,6 +58,6 @@ public record WaterPollutants(
             salty = true;
         }
 
-        return new WaterPollutants(dirtiness, distanceChance, salty);
+        return new WaterPollutants(dirtiness, diseaseChance, salty);
     }
 }

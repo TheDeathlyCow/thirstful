@@ -30,7 +30,8 @@ public class TBiomeTagGenerator extends FabricTagProvider<Biome> {
                 .addOptionalTag(ConventionalBiomeTags.IS_SWAMP);
 
         getOrCreateTagBuilder(TBiomeTags.HAS_VERY_DIRTY_WATER)
-                .addOptionalTag(ConventionalBiomeTags.IS_SWAMP);
+                .addOptionalTag(ConventionalBiomeTags.IS_SWAMP)
+                .addOptionalTag(ConventionalBiomeTags.IS_NETHER);
 
         getOrCreateTagBuilder(TBiomeTags.HAS_VERY_UNSAFE_WATER)
                 .addOptionalTag(ConventionalBiomeTags.IS_SWAMP);

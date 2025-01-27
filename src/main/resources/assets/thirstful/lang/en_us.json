@@ -29,5 +29,11 @@
     "text.autoconfig.thirstful.option.common.thirst.maxThirstTicks": "Max thirst ticks",
     "text.autoconfig.thirstful.option.common.thirst.enableThirstDamage": "Enable thirst damage",
     
+    "text.autoconfig.thirstful.option.common.waterPollution": "Water Pollution Config",
+    "text.autoconfig.thirstful.option.common.waterPollution.defaultWaterDirtiness": "Default water dirtiness",
+    "text.autoconfig.thirstful.option.common.waterPollution.extraDirtyWaterDirtiness": "Extra dirty water dirtiness",
+    "text.autoconfig.thirstful.option.common.waterPollution.defaultWaterDiseaseChance": "Default water disease chance",
+    "text.autoconfig.thirstful.option.common.waterPollution.extraContaminatedWaterDiseaseChance": "Extra contaminated water disease chance",
+    
     "text.autoconfig.thirstful.option.client": "Client Config"
 }
