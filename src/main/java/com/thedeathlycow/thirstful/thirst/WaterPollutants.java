@@ -1,4 +1,4 @@
-package com.thedeathlycow.thirstful.world;
+package com.thedeathlycow.thirstful.thirst;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;

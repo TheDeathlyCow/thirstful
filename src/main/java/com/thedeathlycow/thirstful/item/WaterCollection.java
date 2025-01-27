@@ -2,7 +2,7 @@ package com.thedeathlycow.thirstful.item;
 
 import com.thedeathlycow.thirstful.mixin.common.accessor.ItemAccessor;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import com.thedeathlycow.thirstful.world.WaterPollutants;
+import com.thedeathlycow.thirstful.thirst.WaterPollutants;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
