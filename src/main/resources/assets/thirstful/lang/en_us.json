@@ -10,6 +10,12 @@
     "item.thirstful.pollutant.clean": "Clean",
     
     
+    "tag.item.thirstful.polluted_consumables": "Polluted Consumables",
+    "tag.item.thirstful.polluted_consumables.salty_by_default": "Salty Consumables",
+    "tag.item.thirstful.polluted_consumables.contaminated_by_default": "Contaminated Consumables",
+    "tag.item.thirstful.polluted_consumables.dirty_by_default": "Dirty Consumables",
+    
+    
     "text.autoconfig.thirstful.title": "Thirstful",
     "text.autoconfig.thirstful.option.common": "Common Config",
     
