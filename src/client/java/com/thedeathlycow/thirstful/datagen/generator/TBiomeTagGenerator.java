@@ -26,6 +26,13 @@ public class TBiomeTagGenerator extends FabricTagProvider<Biome> {
         getOrCreateTagBuilder(TBiomeTags.HAS_SALTY_WATER)
                 .addOptionalTag(ConventionalBiomeTags.IS_OCEAN)
                 .addOptionalTag(ConventionalBiomeTags.IS_BEACH)
+                .addOptionalTag(ConventionalBiomeTags.IS_STONY_SHORES)
+                .addOptionalTag(ConventionalBiomeTags.IS_SWAMP);
+
+        getOrCreateTagBuilder(TBiomeTags.HAS_VERY_DIRTY_WATER)
+                .addOptionalTag(ConventionalBiomeTags.IS_SWAMP);
+
+        getOrCreateTagBuilder(TBiomeTags.HAS_VERY_UNSAFE_WATER)
                 .addOptionalTag(ConventionalBiomeTags.IS_SWAMP);
     }
 }
