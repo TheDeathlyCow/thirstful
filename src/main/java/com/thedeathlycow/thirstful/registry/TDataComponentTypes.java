@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.item.ItemStackCreationCallback;
 import com.thedeathlycow.thirstful.item.component.DehydratingConsumableComponent;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
@@ -32,10 +33,11 @@ public final class TDataComponentTypes {
         Thirstful.LOGGER.debug("Initialized Thirstful item components");
 
         ItemStackCreationCallback.EVENT.register(stack -> {
+            WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
             if (stack.isIn(TItemTags.POLLUTED_CONSUMABLES) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
                 var component = new PollutantComponent(
-                        stack.isIn(TItemTags.DIRTY_BY_DEFAULT) ? 1f : 0,
-                        stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT) ? 1f : 0,
+                        stack.isIn(TItemTags.DIRTY_BY_DEFAULT) ? config.defaultWaterDirtiness() : 0,
+                        stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT) ? config.defaultWaterDiseaseChance() : 0,
                         stack.isIn(TItemTags.SALTY_BY_DEFAULT)
                 );
                 stack.set(TDataComponentTypes.POLLUTANTS, component);

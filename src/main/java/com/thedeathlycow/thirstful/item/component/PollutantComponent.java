@@ -2,6 +2,8 @@ package com.thedeathlycow.thirstful.item.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.Item;
 import net.minecraft.item.tooltip.TooltipAppender;
@@ -52,21 +54,34 @@ public record PollutantComponent(
             PollutantComponent::new
     );
 
+    private static final Style DIRTY_STYLE = Style.EMPTY.withColor(0x61492d);
+    private static final Style CONTAMINATED_STYLE = Style.EMPTY.withColor(0x44612d);
+    private static final Style SALTY_STYLE = Style.EMPTY.withColor(Formatting.RED);
+    private static final Style CLEAN_STYLE = Style.EMPTY.withColor(Formatting.AQUA);
+
     private static final Text DIRTY_TOOLTIP = Text.empty()
             .append(Text.translatable("item.thirstful.pollutant.dirty"))
-            .setStyle(Style.EMPTY.withColor(0x61492d));
+            .setStyle(DIRTY_STYLE);
 
     private static final Text CONTAMINATED_TOOLTIP = Text.empty()
             .append(Text.translatable("item.thirstful.pollutant.contaminated"))
-            .setStyle(Style.EMPTY.withColor(0x44612d));
+            .setStyle(CONTAMINATED_STYLE);
+
+    private static final Text VERY_DIRTY_TOOLTIP = Text.empty()
+            .append(Text.translatable("item.thirstful.pollutant.very_dirty"))
+            .setStyle(DIRTY_STYLE);
+
+    private static final Text VERY_CONTAMINATED_TOOLTIP = Text.empty()
+            .append(Text.translatable("item.thirstful.pollutant.very_contaminated"))
+            .setStyle(CONTAMINATED_STYLE);
 
     private static final Text SALTY_TOOLTIP = Text.empty()
             .append(Text.translatable("item.thirstful.pollutant.salty"))
-            .setStyle(Style.EMPTY.withColor(Formatting.RED));
+            .setStyle(SALTY_STYLE);
 
     private static final Text CLEAN_TOOLTIP = Text.empty()
             .append(Text.translatable("item.thirstful.pollutant.clean"))
-            .setStyle(Style.EMPTY.withColor(Formatting.AQUA));
+            .setStyle(CLEAN_STYLE);
 
     public PollutantComponent() {
         this(0f, 0f, false, true);
@@ -85,11 +100,13 @@ public record PollutantComponent(
             return;
         }
 
+        WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
+
         if (this.dirty()) {
-            tooltip.accept(DIRTY_TOOLTIP);
+            tooltip.accept(this.veryDirty(config) ? VERY_DIRTY_TOOLTIP : DIRTY_TOOLTIP);
         }
         if (this.contaminated()) {
-            tooltip.accept(CONTAMINATED_TOOLTIP);
+            tooltip.accept(this.veryContaminated(config) ? VERY_CONTAMINATED_TOOLTIP : CONTAMINATED_TOOLTIP);
         }
         if (this.salty()) {
             tooltip.accept(SALTY_TOOLTIP);
@@ -104,8 +121,16 @@ public record PollutantComponent(
         return dirtiness > 0f;
     }
 
+    public boolean veryDirty(WaterPollutionConfig config) {
+        return dirtiness >= config.extraDirtyWaterDirtiness();
+    }
+
     public boolean contaminated() {
         return diseaseChance > 0f;
+    }
+
+    public boolean veryContaminated(WaterPollutionConfig config) {
+        return diseaseChance >= config.extraContaminatedWaterDiseaseChance();
     }
 
     public boolean clean() {

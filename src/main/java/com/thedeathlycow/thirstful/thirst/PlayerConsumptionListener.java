@@ -27,14 +27,14 @@ public class PlayerConsumptionListener implements ConsumeItemCallback {
     }
 
     private void applyDisease(ServerPlayerEntity player, PollutantComponent component) {
-        if (player.getRandom().nextFloat() < component.diseaseChance()) {
+        if (player.getRandom().nextFloat() <= component.diseaseChance()) {
             player.addStatusEffect(new StatusEffectInstance(TStatusEffects.FEVER, 60 * 20));
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 10 * 20));
         }
     }
 
     private void applyDirtiness(ServerPlayerEntity player, PollutantComponent component) {
-        if (player.getRandom().nextFloat() < component.dirtiness()) {
+        if (player.getRandom().nextFloat() <= component.dirtiness()) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 60 * 20));
         }
     }

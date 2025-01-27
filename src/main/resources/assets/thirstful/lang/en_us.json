@@ -6,6 +6,8 @@
     
     "item.thirstful.pollutant.dirty": "Dirty",
     "item.thirstful.pollutant.contaminated": "Contaminated",
+    "item.thirstful.pollutant.very_dirty": "Very Dirty",
+    "item.thirstful.pollutant.very_contaminated": "Very Contaminated",
     "item.thirstful.pollutant.salty": "Salty",
     "item.thirstful.pollutant.clean": "Clean",
     

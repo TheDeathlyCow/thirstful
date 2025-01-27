@@ -49,7 +49,7 @@ public record WaterPollutants(
         }
 
         if (biome.isIn(TBiomeTags.HAS_VERY_DIRTY_WATER)) {
-            diseaseChance = config.extraDirtyWaterDirtiness();
+            dirtiness = config.extraDirtyWaterDirtiness();
         } else if (biome.isIn(TBiomeTags.HAS_CLEAN_WATER)) {
             dirtiness = 0f;
         }
