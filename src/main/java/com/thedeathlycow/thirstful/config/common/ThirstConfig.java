@@ -12,7 +12,13 @@ public class ThirstConfig implements ConfigData {
     @Comment("How long a player can go without drinking before death, in ticks (default: 2 days)")
     int maxThirstTicks = 24_000;
 
+    boolean enableThirstDamage = false;
+
     public int maxThirstTicks() {
         return maxThirstTicks;
+    }
+
+    public boolean enableThirstDamage() {
+        return this.enableThirstDamage;
     }
 }

@@ -19,8 +19,9 @@
     "text.autoconfig.thirstful.option.common.statusEffect.feverMinTemperatureScale": "Warming effect temperature change per tick",
     "text.autoconfig.thirstful.option.common.statusEffect.feverEffectTemperatureChange": "Warming effect temperature change per tick",
     
-    "text.autoconfig.thirstful.option.common.thirstConfig": "Thirst Config",
-    "text.autoconfig.thirstful.option.common.thirstConfig.maxThirstTicks": "Max thirst ticks",
+    "text.autoconfig.thirstful.option.common.thirst": "Thirst Config",
+    "text.autoconfig.thirstful.option.common.thirst.maxThirstTicks": "Max thirst ticks",
+    "text.autoconfig.thirstful.option.common.thirst.enableThirstDamage": "Enable thirst damage",
     
     "text.autoconfig.thirstful.option.client": "Client Config"
 }
