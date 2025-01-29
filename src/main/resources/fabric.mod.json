@@ -54,6 +54,9 @@
 		"frostiful": "*",
 		"thermoo-patches": "*"
 	},
+	"breaks": {
+		"dehydration": "*"
+	},
 	"custom": {
 		"cardinal-components": [
 			"thirstful:player_thirst"
