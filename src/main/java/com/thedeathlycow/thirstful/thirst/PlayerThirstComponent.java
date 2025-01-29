@@ -39,13 +39,29 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent 
         this.thirstTicks = nbtCompound.getInt(THIRST_TICKS_KEY);
     }
 
+    public void addThirstTicks(int ticks) {
+        this.thirstTicks = MathHelper.clamp(this.thirstTicks + ticks, 0, this.getMaxThirstTicks());
+    }
+
+    public void removeThirstTicks(int ticks) {
+        this.addThirstTicks(-ticks);
+    }
+
+    public int getThirstTicks() {
+        return this.thirstTicks;
+    }
+
     public double getThirstScale() {
         return ((double) this.thirstTicks) / this.getMaxThirstTicks();
     }
 
+    public float getThirstScaleAsFloat() {
+        return ((float) this.thirstTicks) / this.getMaxThirstTicks();
+    }
+
     @Override
     public void serverTick() {
-        this.increaseThirst();
+        this.addThirstTicks(1);
 
         if (isThirstDamageEnabled() && this.thirstTicks == this.getMaxThirstTicks()) {
             World world = this.provider.getWorld();
@@ -59,9 +75,5 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent 
 
     public static boolean isThirstDamageEnabled() {
         return Thirstful.getConfig().common().thirst().enableThirstDamage();
-    }
-
-    private void increaseThirst() {
-        this.thirstTicks = MathHelper.clamp(this.thirstTicks + 1, 0, this.getMaxThirstTicks());
     }
 }

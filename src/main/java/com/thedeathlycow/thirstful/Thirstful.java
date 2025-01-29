@@ -1,9 +1,11 @@
 package com.thedeathlycow.thirstful;
 
+import com.github.thedeathlycow.scorchful.api.ServerThirstPlugin;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.TItems;
 import com.thedeathlycow.thirstful.registry.TStatusEffects;
+import com.thedeathlycow.thirstful.thirst.ScorchfulServerIntegration;
 import com.thedeathlycow.thirstful.thirst.WaterPollutants;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
@@ -28,6 +30,7 @@ public class Thirstful implements ModInitializer {
         TDataComponentTypes.initialize();
         TItems.initialize();
         WaterPollutants.intialize();
+        ServerThirstPlugin.registerPlugin(new ScorchfulServerIntegration());
 
         Thirstful.LOGGER.info("Initialized Thirstful");
     }
