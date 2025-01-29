@@ -1,6 +1,6 @@
 package com.thedeathlycow.thirstful.thirst;
 
-import com.thedeathlycow.thirstful.item.ConsumeItemCallback;
+import com.github.thedeathlycow.scorchful.event.ScorchfulItemEvents;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.TStatusEffects;
@@ -11,9 +11,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class PlayerConsumptionListener implements ConsumeItemCallback {
+public class PlayerConsumptionListener implements ScorchfulItemEvents.ConsumeItemCallback {
     @Override
-    public void onConsume(ServerPlayerEntity player, ItemStack stack) {
+    public void consume(ItemStack stack, ServerPlayerEntity player) {
         FoodComponent foodComponent = stack.get(DataComponentTypes.FOOD);
         if (foodComponent != null && !foodComponent.effects().isEmpty()) {
             return;
@@ -38,4 +38,6 @@ public class PlayerConsumptionListener implements ConsumeItemCallback {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 60 * 20));
         }
     }
+
+
 }
