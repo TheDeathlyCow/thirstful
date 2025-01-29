@@ -4,4 +4,4 @@ An upcoming thirst mod for Minecraft Fabric 1.21.1+ that focuses on adding great
 
 # Design Document
 
-This mod is still in planning phase. Ideas are currently being documented in the [Design Document](./DESIGN%20DOCUMENT.md).
+This mod is still in early development. Ideas are currently being documented in the [Design Document](./DESIGN%20DOCUMENT.md).

@@ -46,12 +46,12 @@
 		"fabric-api": "*",
 		"thermoo": ">=4.2.5",
 		"cloth-config": ">=15.0.140",
+		"scorchful": ">=0.13",
 		"cardinal-components-base": ">=6.1.2",
 		"cardinal-components-entity": ">=6.1.2"
 	},
 	"suggests": {
 		"frostiful": "*",
-		"scorchful": "*",
 		"thermoo-patches": "*"
 	},
 	"custom": {
