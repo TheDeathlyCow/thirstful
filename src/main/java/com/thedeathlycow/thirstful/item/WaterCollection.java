@@ -11,11 +11,7 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 public final class WaterCollection {
-    public static void polluteWater(
-            PlayerEntity user,
-            ItemStack input,
-            ItemStack output
-    ) {
+    public static void polluteWater(PlayerEntity user, ItemStack output) {
         World world = user.getWorld();
         if (world.isClient() || user.isCreative()) {
             return;

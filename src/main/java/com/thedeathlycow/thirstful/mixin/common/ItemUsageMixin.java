@@ -20,7 +20,7 @@ public class ItemUsageMixin {
             boolean creativeOverride,
             Operation<ItemStack> original
     ) {
-        WaterCollection.polluteWater(player, inputStack, outputStack);
+        WaterCollection.polluteWater(player, outputStack);
         return original.call(inputStack, player, outputStack, creativeOverride);
     }
 }
