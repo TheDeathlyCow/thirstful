@@ -145,7 +145,9 @@ public record PollutantComponent(
 
     private void applyEffects(LivingEntity entity, List<StatusEffectEntry> effects) {
         for (StatusEffectEntry effect : effects) {
-            entity.addStatusEffect(effect.effect());
+            if (entity.getRandom().nextFloat() < effect.probability()) {
+                entity.addStatusEffect(effect.effect());
+            }
         }
     }
 
