@@ -102,39 +102,51 @@ public record PollutantComponent(
 
         WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
 
-        if (this.dirty()) {
+        if (this.dirty(config)) {
             tooltip.accept(this.veryDirty(config) ? VERY_DIRTY_TOOLTIP : DIRTY_TOOLTIP);
         }
-        if (this.contaminated()) {
+        if (this.contaminated(config)) {
             tooltip.accept(this.veryContaminated(config) ? VERY_CONTAMINATED_TOOLTIP : CONTAMINATED_TOOLTIP);
         }
-        if (this.salty()) {
+        if (this.salty(config)) {
             tooltip.accept(SALTY_TOOLTIP);
         }
 
-        if (this.clean()) {
+        if (this.clean(config)) {
             tooltip.accept(CLEAN_TOOLTIP);
         }
     }
 
-    public boolean dirty() {
-        return dirtiness > 0f;
+    public float dirtiness(WaterPollutionConfig config) {
+        return config.enableDirtiness() ? dirtiness : 0f;
+    }
+
+    public float diseaseChance(WaterPollutionConfig config) {
+        return config.enableDisease() ? diseaseChance : 0f;
+    }
+
+    public boolean salty(WaterPollutionConfig config) {
+        return salty && config.enableSaltiness();
+    }
+
+    public boolean dirty(WaterPollutionConfig config) {
+        return this.dirtiness(config) > 0f;
     }
 
     public boolean veryDirty(WaterPollutionConfig config) {
-        return dirtiness >= config.extraDirtyWaterDirtiness();
+        return this.dirtiness() >= config.extraDirtyWaterDirtiness();
     }
 
-    public boolean contaminated() {
-        return diseaseChance > 0f;
+    public boolean contaminated(WaterPollutionConfig config) {
+        return this.diseaseChance() > 0f;
     }
 
     public boolean veryContaminated(WaterPollutionConfig config) {
-        return diseaseChance >= config.extraContaminatedWaterDiseaseChance();
+        return this.diseaseChance() >= config.extraContaminatedWaterDiseaseChance();
     }
 
-    public boolean clean() {
-        return !this.dirty() && !this.contaminated() && !this.salty();
+    public boolean clean(WaterPollutionConfig config) {
+        return !this.dirty(config) && !this.contaminated(config) && !this.salty(config);
     }
 
     @Contract("->new")

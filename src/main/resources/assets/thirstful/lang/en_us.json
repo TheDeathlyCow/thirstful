@@ -32,6 +32,9 @@
     "text.autoconfig.thirstful.option.common.thirst.enableThirstDamage": "Enable thirst damage",
     
     "text.autoconfig.thirstful.option.common.waterPollution": "Water Pollution Config",
+    "text.autoconfig.thirstful.option.common.waterPollution.enableDisease": "Enable disease",
+    "text.autoconfig.thirstful.option.common.waterPollution.enableDirtiness": "Enable dirtiness",
+    "text.autoconfig.thirstful.option.common.waterPollution.enableSaltiness": "Enable saltiness",
     "text.autoconfig.thirstful.option.common.waterPollution.defaultWaterDirtiness": "Default water dirtiness",
     "text.autoconfig.thirstful.option.common.waterPollution.extraDirtyWaterDirtiness": "Extra dirty water dirtiness",
     "text.autoconfig.thirstful.option.common.waterPollution.defaultWaterDiseaseChance": "Default water disease chance",

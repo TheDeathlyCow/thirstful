@@ -9,6 +9,12 @@ import net.minecraft.util.math.MathHelper;
 @Config(name = Thirstful.MODID + ".water_pollution")
 public class WaterPollutionConfig implements ConfigData {
 
+    boolean enableDisease = true;
+
+    boolean enableDirtiness = true;
+
+    boolean enableSaltiness = true;
+
     float defaultWaterDirtiness = 0.5f;
 
     float extraDirtyWaterDirtiness = 1.0f;
@@ -25,6 +31,18 @@ public class WaterPollutionConfig implements ConfigData {
         extraDirtyWaterDirtiness = MathHelper.clamp(extraDirtyWaterDirtiness, 0f, 1f);
         defaultWaterDiseaseChance = MathHelper.clamp(defaultWaterDiseaseChance, 0f, 1f);
         extraContaminatedWaterDiseaseChance = MathHelper.clamp(extraContaminatedWaterDiseaseChance, 0f, 1f);
+    }
+
+    public boolean enableDisease() {
+        return enableDisease;
+    }
+
+    public boolean enableDirtiness() {
+        return enableDirtiness;
+    }
+
+    public boolean enableSaltiness() {
+        return enableSaltiness;
     }
 
     public float defaultWaterDirtiness() {
