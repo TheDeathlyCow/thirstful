@@ -1,10 +1,7 @@
 package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.effect.CoolingStatusEffect;
-import com.thedeathlycow.thirstful.effect.FeverStatusEffect;
-import com.thedeathlycow.thirstful.effect.TemperatureChangingStatusEffect;
-import com.thedeathlycow.thirstful.effect.WarmingStatusEffect;
+import com.thedeathlycow.thirstful.effect.*;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
@@ -30,6 +27,7 @@ public final class TStatusEffects {
 
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful status effects");
+        AllowStatusEffectCallback.EVENT.register(FeverStatusEffect::canHaveFever);
     }
 
     private static RegistryEntry<StatusEffect> registerReference(String name, StatusEffect statusEffect) {
