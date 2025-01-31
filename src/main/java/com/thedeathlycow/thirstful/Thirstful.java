@@ -1,16 +1,16 @@
 package com.thedeathlycow.thirstful;
 
-import com.github.thedeathlycow.scorchful.api.ServerThirstPlugin;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.TItems;
 import com.thedeathlycow.thirstful.registry.TStatusEffects;
-import com.thedeathlycow.thirstful.thirst.ScorchfulServerIntegration;
+import com.thedeathlycow.thirstful.thirst.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.thirst.WaterPollutants;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,9 @@ public class Thirstful implements ModInitializer {
         TDataComponentTypes.initialize();
         TItems.initialize();
         WaterPollutants.intialize();
-        ServerThirstPlugin.registerPlugin(new ScorchfulServerIntegration());
+        if (FabricLoader.getInstance().isModLoaded("scorchful")) {
+            ScorchfulIntegration.initialize();
+        }
 
         Thirstful.LOGGER.info("Initialized Thirstful");
     }
