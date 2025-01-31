@@ -32,10 +32,10 @@ public record PollutantComponent(
     public static final Codec<PollutantComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.list(StatusEffectEntry.CODEC)
-                                    .lenientOptionalFieldOf("dirtiness", List.of())
+                                    .lenientOptionalFieldOf("dirtiness_effects", List.of())
                                     .forGetter(PollutantComponent::dirtinessEffects),
                             Codec.list(StatusEffectEntry.CODEC)
-                                    .lenientOptionalFieldOf("disease_chance", List.of())
+                                    .lenientOptionalFieldOf("disease_effects", List.of())
                                     .forGetter(PollutantComponent::diseaseEffects),
                             Codec.BOOL
                                     .optionalFieldOf("salty", Boolean.FALSE)
