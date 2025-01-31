@@ -11,7 +11,7 @@ import net.minecraft.util.math.MathHelper;
 public class ThirstConfig implements ConfigData {
 
     @Comment("How long a player can go without drinking before death, in ticks (default: 2 days)")
-    int maxThirstTicks = 24_000;
+    int maxThirstTicks = 48_000;
 
     boolean enableThirstDamage = false;
 
