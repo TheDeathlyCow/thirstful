@@ -28,7 +28,10 @@ public class PlayerConsumptionListener implements ConsumeItemCallback {
 
     private void applyDisease(ServerPlayerEntity player, PollutantComponent component) {
         if (player.getRandom().nextFloat() <= component.diseaseChance()) {
-            player.addStatusEffect(new StatusEffectInstance(TStatusEffects.FEVER, 60 * 20));
+            if (player.thermoo$getMaxTemperature() <= 0) {
+                player.addStatusEffect(new StatusEffectInstance(TStatusEffects.FEVER, 60 * 20));
+            }
+
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 10 * 20));
         }
     }
