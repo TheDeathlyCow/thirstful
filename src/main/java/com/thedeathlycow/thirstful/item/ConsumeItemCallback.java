@@ -2,6 +2,7 @@ package com.thedeathlycow.thirstful.item;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -9,12 +10,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 public interface ConsumeItemCallback {
     Event<ConsumeItemCallback> EVENT = EventFactory.createArrayBacked(
             ConsumeItemCallback.class,
-            listeners -> (player, stack) -> {
+            listeners -> (entity, stack) -> {
                 for (ConsumeItemCallback listener : listeners) {
-                    listener.onConsume(player, stack);
+                    listener.onConsume(entity, stack);
                 }
             }
     );
 
-    void onConsume(ServerPlayerEntity player, ItemStack stack);
+    void onConsume(LivingEntity entity, ItemStack stack);
 }

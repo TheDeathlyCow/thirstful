@@ -22,15 +22,7 @@ public record WaterPollutants(
     }
 
     public void applyToStack(ItemStack stack) {
-        PollutantComponent purityComponent = stack.getOrDefault(
-                TDataComponentTypes.POLLUTANTS,
-                PollutantComponent.DEFAULT
-        );
-
-        stack.set(
-                TDataComponentTypes.POLLUTANTS,
-                purityComponent.copy(this.dirtiness, this.diseaseChance, this.salty)
-        );
+        stack.set(TDataComponentTypes.POLLUTANTS, new PollutantComponent(this.dirtiness, this.diseaseChance, this.salty));
     }
 
     public static WaterPollutants lookup(World world, BlockPos pos) {
