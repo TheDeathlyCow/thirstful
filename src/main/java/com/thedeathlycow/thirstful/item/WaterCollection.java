@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
@@ -16,13 +17,16 @@ public final class WaterCollection {
         if (world.isClient() || user.isCreative()) {
             return;
         }
+        BlockHitResult hitResult = ItemAccessor.invokeRaycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
+        if (hitResult.getType() == HitResult.Type.BLOCK) {
+            polluteStack(output, world, hitResult.getBlockPos());
+        }
+    }
 
+    public static void polluteStack(ItemStack output, World world, BlockPos source) {
         if (output.contains(TDataComponentTypes.POLLUTANTS)) {
-            BlockHitResult hitResult = ItemAccessor.invokeRaycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
-            if (hitResult.getType() == HitResult.Type.BLOCK) {
-                WaterPollutants pollutants = WaterPollutants.lookup(world, hitResult.getBlockPos());
-                pollutants.applyToStack(output);
-            }
+            WaterPollutants pollutants = WaterPollutants.lookup(world, source);
+            pollutants.applyToStack(output);
         }
     }
 

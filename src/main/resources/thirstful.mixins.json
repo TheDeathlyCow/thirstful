@@ -4,6 +4,7 @@
     "compatibilityLevel": "JAVA_21",
     "mixins": [
         "ConsumeItemCriterionMixin",
+        "ItemDispenserBehaviorMixin",
         "ItemStackMixin",
         "ItemUsageMixin",
         "LivingEntityMixin",
