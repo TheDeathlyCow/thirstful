@@ -5,7 +5,6 @@ import com.thedeathlycow.thirstful.Thirstful;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
-import net.minecraft.util.math.MathHelper;
 
 @Config(name = Thirstful.MODID + ".status_effect")
 public class ThirstConfig implements ConfigData {
@@ -15,11 +14,24 @@ public class ThirstConfig implements ConfigData {
 
     boolean enableThirstDamage = false;
 
+    @Comment("Modifies the max stack size of potions (must be between 1 and 99). Requires a restart.")
+    int potionStackSize = 16;
+
     public int maxThirstTicks() {
         return maxThirstTicks;
     }
 
     public boolean enableThirstDamage() {
         return this.enableThirstDamage;
+    }
+
+    public int potionStackSize() {
+        return potionStackSize;
+    }
+
+    @Override
+    public void validatePostLoad() throws ValidationException {
+        ConfigData.super.validatePostLoad();
+        this.potionStackSize = Math.clamp(this.potionStackSize, 1, 99);
     }
 }

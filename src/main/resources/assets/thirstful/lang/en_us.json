@@ -30,6 +30,7 @@
     "text.autoconfig.thirstful.option.common.thirst": "Thirst Config",
     "text.autoconfig.thirstful.option.common.thirst.maxThirstTicks": "Max thirst ticks",
     "text.autoconfig.thirstful.option.common.thirst.enableThirstDamage": "Enable thirst damage",
+    "text.autoconfig.thirstful.option.common.thirst.potionStackSize": "Potion item default max stack size",
     
     "text.autoconfig.thirstful.option.common.waterPollution": "Water Pollution Config",
     "text.autoconfig.thirstful.option.common.waterPollution.enableDisease": "Enable disease",
