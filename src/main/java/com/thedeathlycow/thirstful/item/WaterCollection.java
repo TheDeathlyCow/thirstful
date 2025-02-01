@@ -1,5 +1,6 @@
 package com.thedeathlycow.thirstful.item;
 
+import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.WaterPollutants;
@@ -30,9 +31,22 @@ public final class WaterCollection {
      * @param source The position of the water source or cauldron to collect from
      */
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos source) {
-        if (!world.isClient() && stack.contains(TDataComponentTypes.POLLUTANTS) && stack.isIn(TItemTags.WATERY_DRINKS)) {
+        if (!world.isClient()) {
+            return;
+        }
+
+        PollutantComponent pollutantComponent = stack.get(TDataComponentTypes.POLLUTANTS);
+        if (pollutantComponent != null && stack.isIn(TItemTags.WATERY_DRINKS)) {
             WaterPollutants pollutants = WaterPollutants.lookup(world, source);
-            pollutants.applyToStack(stack);
+            stack.set(
+                    TDataComponentTypes.POLLUTANTS,
+                    new PollutantComponent(
+                            pollutants.dirtiness(),
+                            pollutants.diseaseChance(),
+                            pollutants.salty(),
+                            pollutantComponent.showInTooltip()
+                    )
+            );
         }
     }
 

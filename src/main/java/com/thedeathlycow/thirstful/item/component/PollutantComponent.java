@@ -89,6 +89,18 @@ public record PollutantComponent(
      * @param salty         Saltiness flag
      */
     public PollutantComponent(float dirtiness, float diseaseChance, boolean salty) {
+        this(dirtiness, diseaseChance, salty, true);
+    }
+
+    /**
+     * Creates a component using the default effects of hunger, poison, and fever using a custom chance
+     *
+     * @param dirtiness     Chance for dirtiness effects
+     * @param diseaseChance Chance for disease effects
+     * @param salty         Saltiness flag
+     * @param showInTooltip Whether to show this component in a tooltip
+     */
+    public PollutantComponent(float dirtiness, float diseaseChance, boolean salty, boolean showInTooltip) {
         this(defaultDirtinessEffects(dirtiness), defaultDiseaseEffects(diseaseChance), salty, true);
     }
 

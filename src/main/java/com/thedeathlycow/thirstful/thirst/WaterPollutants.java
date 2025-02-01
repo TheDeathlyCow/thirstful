@@ -21,10 +21,6 @@ public record WaterPollutants(
         Thirstful.LOGGER.debug("Initialized Thirstful pollutant lookup API");
     }
 
-    public void applyToStack(ItemStack stack) {
-        stack.set(TDataComponentTypes.POLLUTANTS, new PollutantComponent(this.dirtiness, this.diseaseChance, this.salty));
-    }
-
     public static WaterPollutants lookup(World world, BlockPos pos) {
         WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
 
