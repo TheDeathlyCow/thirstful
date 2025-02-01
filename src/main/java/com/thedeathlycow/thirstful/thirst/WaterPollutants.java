@@ -29,7 +29,11 @@ public record WaterPollutants(
     public static WaterPollutants lookup(World world, BlockState state, BlockPos pos) {
         WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
         if (state.isIn(TBlockTags.IS_WATER_STORAGE)) {
-            return lookupCauldron(world, state, pos, config);
+            return new WaterPollutants(
+                    config.defaultWaterDirtiness(),
+                    config.defaultWaterDiseaseChance(),
+                    false
+            );
         } else {
             return lookupWaterSource(world, state, pos, config);
         }
@@ -59,9 +63,5 @@ public record WaterPollutants(
         }
 
         return new WaterPollutants(dirtiness, diseaseChance, salty);
-    }
-
-    private static WaterPollutants lookupCauldron(World world, BlockState state, BlockPos pos, WaterPollutionConfig config) {
-        return new WaterPollutants(0f, 0f, false);
     }
 }

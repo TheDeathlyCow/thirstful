@@ -16,16 +16,16 @@ public class WaterPollutionConfig implements ConfigData {
 
     boolean enableSaltiness = true;
 
-    @Comment("Chance of getting hunger from water collected in most biomes")
+    @Comment("Chance of getting hunger from water collected in most biomes and Cauldrons")
     float defaultWaterDirtiness = 0.5f;
 
-    @Comment("Chance of getting hunger from water collected in swamps and Warped Lilies")
+    @Comment("Chance of getting hunger from water collected in swamps")
     float extraDirtyWaterDirtiness = 1.0f;
 
-    @Comment("Chance of getting poison and fever from water collected in most biomes")
+    @Comment("Chance of getting poison and fever from water collected in most biomes and Cauldrons")
     float defaultWaterDiseaseChance = 0.5f;
 
-    @Comment("Chance of getting poison and fever from water collected in swamps and Warped Lilies")
+    @Comment("Chance of getting poison and fever from water collected in swamps")
     float extraContaminatedWaterDiseaseChance = 1.0f;
 
     @Override
