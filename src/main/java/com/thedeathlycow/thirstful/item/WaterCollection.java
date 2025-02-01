@@ -31,7 +31,7 @@ public final class WaterCollection {
      * @param source The position of the water source or cauldron to collect from
      */
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos source) {
-        if (!world.isClient()) {
+        if (world.isClient()) {
             return;
         }
 
