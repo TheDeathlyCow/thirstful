@@ -28,10 +28,6 @@ public final class ScorchfulIntegration {
         }
     }
 
-    public static boolean isLoaded() {
-        return FabricLoader.getInstance().isModLoaded("scorchful");
-    }
-
     private ScorchfulIntegration() {
 
     }

@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:campfire_cooking",
+    "category": "food",
+    "cookingtime": 600,
+    "experience": 0.35,
+    "ingredient": {
+        "item": "scorchful:cactus_juice"
+    },
+    "result": {
+        "id": "scorchful:cactus_juice"
+    },
+    "fabric:load_conditions": [
+        {
+            "condition": "fabric:all_mods_loaded",
+            "values": [
+                "scorchful"
+            ]
+        }
+    ]
+}

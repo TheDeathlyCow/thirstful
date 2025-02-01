@@ -1,7 +1,6 @@
 package com.thedeathlycow.thirstful.mixin.common.recipe;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.thirst.PurificationUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.AbstractCookingRecipe;

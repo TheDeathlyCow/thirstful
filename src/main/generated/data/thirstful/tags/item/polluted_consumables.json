@@ -3,19 +3,7 @@
     "minecraft:honey_bottle",
     "minecraft:ominous_bottle",
     {
-      "id": "#c:potions",
-      "required": false
-    },
-    {
-      "id": "#c:foods",
-      "required": false
-    },
-    {
-      "id": "#c:buckets/milk",
-      "required": false
-    },
-    {
-      "id": "#c:drinks",
+      "id": "scorchful:cactus_juice",
       "required": false
     },
     {
@@ -32,6 +20,18 @@
     },
     {
       "id": "#thirstful:polluted_consumables/dirty_by_default",
+      "required": false
+    },
+    {
+      "id": "#c:potions",
+      "required": false
+    },
+    {
+      "id": "#c:foods",
+      "required": false
+    },
+    {
+      "id": "#c:buckets/milk",
       "required": false
     }
   ]

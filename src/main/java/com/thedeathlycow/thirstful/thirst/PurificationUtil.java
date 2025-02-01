@@ -1,5 +1,6 @@
 package com.thedeathlycow.thirstful.thirst;
 
+import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
@@ -148,7 +149,7 @@ public final class PurificationUtil {
     }
 
     private static <T extends RecipeInput> void copyScorchfulDrinksComponent(T input, ItemStack output) {
-        if (input instanceof SingleStackRecipeInput singleInput && ScorchfulIntegration.isLoaded()) {
+        if (input instanceof SingleStackRecipeInput singleInput && ModIntegration.isScorchfulLoaded()) {
             ScorchfulIntegration.copyDrinksToOutput(singleInput, output);
         }
     }

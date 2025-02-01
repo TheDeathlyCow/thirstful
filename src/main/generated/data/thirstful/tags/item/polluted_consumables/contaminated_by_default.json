@@ -10,11 +10,7 @@
       "required": false
     },
     {
-      "id": "#c:drinks/milk",
-      "required": false
-    },
-    {
-      "id": "#c:drinks/watery",
+      "id": "#c:buckets/milk",
       "required": false
     }
   ]

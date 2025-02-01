@@ -30,6 +30,7 @@ public class AbstractFurnaceBlockEntityMixin {
             Operation<ItemStack> original,
             @Local(argsOnly = true) DefaultedList<ItemStack> slots
     ) {
+        // why the fuck do furnaces not use the craft method? we may never know
         ItemStack result = original.call(instance, wrapperLookup);
         PurificationUtil.pasteurize(new SingleStackRecipeInput(slots.get(0)), result);
         return result;

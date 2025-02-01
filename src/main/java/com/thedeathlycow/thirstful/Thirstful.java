@@ -1,5 +1,6 @@
 package com.thedeathlycow.thirstful;
 
+import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.TItems;
@@ -30,7 +31,7 @@ public class Thirstful implements ModInitializer {
         TDataComponentTypes.initialize();
         TItems.initialize();
         WaterPollution.initialize();
-        if (ScorchfulIntegration.isLoaded()) {
+        if (ModIntegration.isScorchfulLoaded()) {
             ScorchfulIntegration.initialize();
         }
 
