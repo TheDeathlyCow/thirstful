@@ -3,11 +3,14 @@ package com.thedeathlycow.thirstful.item;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
-import com.thedeathlycow.thirstful.thirst.WaterPollutants;
+import com.thedeathlycow.thirstful.thirst.PollutantContainer;
+import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Objects;
 
 public final class WaterCollection {
     /**
@@ -33,7 +36,8 @@ public final class WaterCollection {
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos sourcePos) {
         PollutantComponent pollutantComponent = stack.get(TDataComponentTypes.POLLUTANTS);
         if (pollutantComponent != null && stack.isIn(TItemTags.WATERY_DRINKS)) {
-            WaterPollutants pollutants = WaterPollutants.lookup(world, world.getBlockState(sourcePos), sourcePos);
+            PollutantContainer pollutants = WaterPollution.POLLUTANT_CONTAINER.find(world, sourcePos, null);
+            Objects.requireNonNull(pollutants);
             stack.set(
                     TDataComponentTypes.POLLUTANTS,
                     new PollutantComponent(

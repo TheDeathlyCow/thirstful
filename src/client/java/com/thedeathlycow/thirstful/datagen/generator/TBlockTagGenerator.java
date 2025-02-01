@@ -18,8 +18,6 @@ public class TBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(TBlockTags.IS_WATER_STORAGE)
-                .addOptionalTag(BlockTags.CAULDRONS)
-                .addOptional(ThirstfulDataGenerator.scorchfulId("warped_lily"));
+
     }
 }

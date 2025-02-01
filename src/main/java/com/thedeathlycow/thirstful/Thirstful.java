@@ -5,7 +5,8 @@ import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.TItems;
 import com.thedeathlycow.thirstful.registry.TStatusEffects;
 import com.thedeathlycow.thirstful.thirst.ScorchfulIntegration;
-import com.thedeathlycow.thirstful.thirst.WaterPollutants;
+import com.thedeathlycow.thirstful.thirst.PollutantContainer;
+import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
@@ -29,7 +30,7 @@ public class Thirstful implements ModInitializer {
         TStatusEffects.initialize();
         TDataComponentTypes.initialize();
         TItems.initialize();
-        WaterPollutants.intialize();
+        WaterPollution.intialize();
         if (FabricLoader.getInstance().isModLoaded("scorchful")) {
             ScorchfulIntegration.initialize();
         }
