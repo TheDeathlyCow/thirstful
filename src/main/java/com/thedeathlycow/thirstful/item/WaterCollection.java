@@ -15,7 +15,7 @@ public final class WaterCollection {
      *
      * @param stack The watery stack to pollute
      * @param user  The player collecting water
-     * @param pos   The position of the water source or cauldron to collect from
+     * @param pos   The position of the water source to collect from
      */
     public static void pollutePlayerCollectedWater(ItemStack stack, PlayerEntity user, BlockPos pos) {
         if (!user.isCreative()) {
@@ -28,7 +28,7 @@ public final class WaterCollection {
      *
      * @param stack  The watery stack to pollute
      * @param world  The world the stack is being collected in
-     * @param source The position of the water source or cauldron to collect from
+     * @param source The position of the water source to collect from
      */
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos source) {
         if (world.isClient()) {
