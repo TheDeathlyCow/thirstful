@@ -1,4 +1,4 @@
-package com.thedeathlycow.thirstful.thirst;
+package com.thedeathlycow.thirstful.compat;
 
 import com.github.thedeathlycow.scorchful.api.CollectWaterCallback;
 import com.github.thedeathlycow.scorchful.api.ServerThirstPlugin;

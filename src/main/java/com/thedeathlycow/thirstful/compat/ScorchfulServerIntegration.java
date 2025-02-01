@@ -1,6 +1,7 @@
-package com.thedeathlycow.thirstful.thirst;
+package com.thedeathlycow.thirstful.compat;
 
 import com.github.thedeathlycow.scorchful.api.ServerThirstPlugin;
+import com.thedeathlycow.thirstful.thirst.PlayerThirstComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 

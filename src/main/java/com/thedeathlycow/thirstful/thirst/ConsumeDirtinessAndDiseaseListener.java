@@ -8,7 +8,7 @@ import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
-public class ConsumeDirtinessAndDiseaseCallback implements ConsumeItemCallback {
+public class ConsumeDirtinessAndDiseaseListener implements ConsumeItemCallback {
     @Override
     public void onConsume(LivingEntity entity, ItemStack stack) {
         FoodComponent foodComponent = stack.get(DataComponentTypes.FOOD);
