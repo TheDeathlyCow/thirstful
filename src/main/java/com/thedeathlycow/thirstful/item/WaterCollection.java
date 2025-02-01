@@ -31,10 +31,6 @@ public final class WaterCollection {
      * @param source The position of the water source to collect from
      */
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos source) {
-        if (world.isClient()) {
-            return;
-        }
-
         PollutantComponent pollutantComponent = stack.get(TDataComponentTypes.POLLUTANTS);
         if (pollutantComponent != null && stack.isIn(TItemTags.WATERY_DRINKS)) {
             WaterPollutants pollutants = WaterPollutants.lookup(world, source);
