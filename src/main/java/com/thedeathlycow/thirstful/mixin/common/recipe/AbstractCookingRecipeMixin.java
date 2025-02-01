@@ -17,9 +17,6 @@ public class AbstractCookingRecipeMixin {
     )
     private ItemStack modifyCookingRemainder(ItemStack original, SingleStackRecipeInput input) {
         PurificationUtil.pasteurize(input, original);
-        if (ScorchfulIntegration.isLoaded()) {
-            ScorchfulIntegration.copyDrinksToOutput(input, original);
-        }
         return original;
     }
 }

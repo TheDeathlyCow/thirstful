@@ -1,9 +1,11 @@
 package com.thedeathlycow.thirstful.thirst;
 
+import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +19,7 @@ public final class PurificationUtil {
     public static <T extends RecipeInput> void copy(T input, ItemStack output) {
         PollutantComponent combined = getCombinedPollutantsFromInput(input, output, false, false);
         output.set(TDataComponentTypes.POLLUTANTS, combined);
+        copyScorchfulDrinksComponent(input, output);
     }
 
     /**
@@ -26,6 +29,7 @@ public final class PurificationUtil {
     public static <T extends RecipeInput> void pasteurize(T input, ItemStack output) {
         PollutantComponent combined = getCombinedPollutantsFromInput(input, output, false, true);
         output.set(TDataComponentTypes.POLLUTANTS, combined);
+        copyScorchfulDrinksComponent(input, output);
     }
 
     /**
@@ -35,6 +39,7 @@ public final class PurificationUtil {
     public static <T extends RecipeInput> void filter(T input, ItemStack output) {
         PollutantComponent combined = getCombinedPollutantsFromInput(input, output, true, false);
         output.set(TDataComponentTypes.POLLUTANTS, combined);
+        copyScorchfulDrinksComponent(input, output);
     }
 
 
@@ -52,6 +57,7 @@ public final class PurificationUtil {
         );
 
         output.set(TDataComponentTypes.POLLUTANTS, combined);
+        copyScorchfulDrinksComponent(input, output);
     }
 
     private static PollutantComponent getCombinedPollutantsFromInput(
@@ -139,6 +145,12 @@ public final class PurificationUtil {
             probability *= effect.probability();
         }
         return probability;
+    }
+
+    private static <T extends RecipeInput> void copyScorchfulDrinksComponent(T input, ItemStack output) {
+        if (input instanceof SingleStackRecipeInput singleInput && ScorchfulIntegration.isLoaded()) {
+            ScorchfulIntegration.copyDrinksToOutput(singleInput, output);
+        }
     }
 
     private PurificationUtil() {

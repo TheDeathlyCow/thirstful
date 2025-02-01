@@ -11,7 +11,8 @@
         "item.GlassBottleItemMixin",
         "item.ItemStackMixin",
         "item.MilkBucketItemMixin",
-        "recipe.AbstractCookingRecipeMixin"
+        "recipe.AbstractCookingRecipeMixin",
+        "recipe.AbstractFurnaceBlockEntityMixin"
     ],
     "injectors": {
         "defaultRequire": 1
