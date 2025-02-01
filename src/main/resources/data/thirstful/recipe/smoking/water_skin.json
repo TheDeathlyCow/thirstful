@@ -1,7 +1,7 @@
 {
-    "type": "minecraft:campfire_cooking",
+    "type": "minecraft:smoking",
     "category": "food",
-    "cookingtime": 600,
+    "cookingtime": 100,
     "experience": 0.35,
     "ingredient": {
         "item": "scorchful:water_skin"

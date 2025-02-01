@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:smelting",
+    "category": "food",
+    "cookingtime": 200,
+    "experience": 0.35,
+    "ingredient": {
+        "item": "minecraft:potion"
+    },
+    "result": {
+        "id": "minecraft:potion",
+        "components": {
+            "minecraft:potion_contents": {
+                "potion": "minecraft:water"
+            }
+        }
+    }
+}
