@@ -18,6 +18,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -78,7 +79,7 @@ public record PollutantComponent(
     private static final int SHORT_EFFECT_TIME = 10 * 20;
 
     public PollutantComponent() {
-        this(List.of(), List.of(), false, true);
+        this(Collections.emptyList(), Collections.emptyList(), false, true);
     }
 
     /**
@@ -198,7 +199,7 @@ public record PollutantComponent(
                     )
             );
         }
-        return List.of();
+        return Collections.emptyList();
     }
 
     private static List<StatusEffectEntry> defaultDiseaseEffects(float chance) {
@@ -214,6 +215,6 @@ public record PollutantComponent(
                     )
             );
         }
-        return List.of();
+        return Collections.emptyList();
     }
 }
