@@ -18,8 +18,7 @@ public class WarpedLilyBlockMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/item/ItemUsage;exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"
-            ),
-            remap = false
+            )
     )
     private static ItemStack polluteNetherLily(
             ItemStack inputStack,
