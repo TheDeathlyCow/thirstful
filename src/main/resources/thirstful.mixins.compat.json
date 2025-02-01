@@ -1,0 +1,13 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.thedeathlycow.thirstful.mixin.common.compat",
+    "plugin": "com.thedeathlycow.thirstful.mixin.common.compat.Plugin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

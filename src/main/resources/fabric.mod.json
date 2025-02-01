@@ -34,6 +34,7 @@
 	},
 	"mixins": [
 		"thirstful.mixins.json",
+		"thirstful.mixins.compat.json",
 		{
 			"config": "thirstful.client.mixins.json",
 			"environment": "client"
