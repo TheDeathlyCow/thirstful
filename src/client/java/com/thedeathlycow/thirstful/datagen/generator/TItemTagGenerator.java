@@ -47,8 +47,5 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TItemTags.SALTY_BY_DEFAULT);
 
         getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT);
-
-        getOrCreateTagBuilder(TItemTags.WATERY_DRINKS)
-                .add(Items.POTION);
     }
 }

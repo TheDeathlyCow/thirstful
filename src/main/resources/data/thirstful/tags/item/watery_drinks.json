@@ -1,0 +1,9 @@
+{
+    "values": [
+        "minecraft:potion",
+        {
+            "required": false,
+            "id": "scorchful:water_skin"
+        }
+    ]
+}
