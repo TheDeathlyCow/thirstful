@@ -1,7 +1,5 @@
 package com.thedeathlycow.thirstful.thirst;
 
-import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.item.ConsumeItemCallback;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
