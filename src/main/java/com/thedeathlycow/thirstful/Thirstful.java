@@ -30,7 +30,7 @@ public class Thirstful implements ModInitializer {
         TDataComponentTypes.initialize();
         TItems.initialize();
         WaterPollution.initialize();
-        if (FabricLoader.getInstance().isModLoaded("scorchful")) {
+        if (ScorchfulIntegration.isLoaded()) {
             ScorchfulIntegration.initialize();
         }
 
