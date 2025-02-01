@@ -17,7 +17,7 @@ public class StatusEffectConfig implements ConfigData {
     float feverMinTemperatureScale = 0.5f;
 
     @Comment("Temperature rise from the fever effect per level of fever")
-    int feverEffectTemperatureChange = 5;
+    int feverEffectTemperatureChange = 10;
 
     public int coolingEffectTemperatureChange() {
         return coolingEffectTemperatureChange;

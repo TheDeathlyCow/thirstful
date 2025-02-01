@@ -24,8 +24,8 @@
     "text.autoconfig.thirstful.option.common.statusEffect": "Status Effect Config",
     "text.autoconfig.thirstful.option.common.statusEffect.coolingEffectTemperatureChange": "Cooling effect temperature change per tick",
     "text.autoconfig.thirstful.option.common.statusEffect.warmingEffectTemperatureChange": "Warming effect temperature change per tick",
-    "text.autoconfig.thirstful.option.common.statusEffect.feverMinTemperatureScale": "Warming effect temperature change per tick",
-    "text.autoconfig.thirstful.option.common.statusEffect.feverEffectTemperatureChange": "Warming effect temperature change per tick",
+    "text.autoconfig.thirstful.option.common.statusEffect.feverMinTemperatureScale": "Fever effect minimum temperature scale",
+    "text.autoconfig.thirstful.option.common.statusEffect.feverEffectTemperatureChange": "Fever effect temperature change per tick",
     
     "text.autoconfig.thirstful.option.common.thirst": "Thirst Config",
     "text.autoconfig.thirstful.option.common.thirst.maxThirstTicks": "Max thirst ticks",
