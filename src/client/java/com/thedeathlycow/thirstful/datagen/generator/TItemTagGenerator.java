@@ -30,7 +30,9 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(Items.OMINOUS_BOTTLE)
                 .addOptionalTag(ConventionalItemTags.POTIONS)
                 .addOptionalTag(ConventionalItemTags.FOODS)
+                .addOptionalTag(ConventionalItemTags.MILK_BUCKETS)
                 .addOptionalTag(DRINKS)
+                .addOptionalTag(TItemTags.WATERY_DRINKS)
                 .addOptionalTag(TItemTags.SALTY_BY_DEFAULT)
                 .addOptionalTag(TItemTags.CONTAMINATED_BY_DEFAULT)
                 .addOptionalTag(TItemTags.DIRTY_BY_DEFAULT);
@@ -45,5 +47,8 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TItemTags.SALTY_BY_DEFAULT);
 
         getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT);
+
+        getOrCreateTagBuilder(TItemTags.WATERY_DRINKS)
+                .add(Items.POTION);
     }
 }

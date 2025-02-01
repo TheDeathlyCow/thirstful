@@ -19,6 +19,6 @@ public class ItemDispenserBehaviorMixin {
     )
     private void polluteCollectedStacks(BlockPointer pointer, ItemStack stack, CallbackInfo ci) {
         BlockPos pos = pointer.pos().offset(pointer.state().get(DispenserBlock.FACING));
-        WaterCollection.polluteStack(stack, pointer.world(), pos);
+        WaterCollection.polluteCollectedWater(stack, pointer.world(), pos);
     }
 }

@@ -6,7 +6,7 @@
         "ConsumeItemCriterionMixin",
         "ItemDispenserBehaviorMixin",
         "ItemStackMixin",
-        "ItemUsageMixin",
+        "GlassBottleItemMixin",
         "LivingEntityMixin",
         "accessor.ItemAccessor"
     ],

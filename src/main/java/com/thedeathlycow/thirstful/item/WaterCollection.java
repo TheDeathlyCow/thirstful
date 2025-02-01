@@ -1,32 +1,31 @@
 package com.thedeathlycow.thirstful.item;
 
-import com.thedeathlycow.thirstful.mixin.common.accessor.ItemAccessor;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
+import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.WaterPollutants;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 public final class WaterCollection {
-    public static void polluteWater(PlayerEntity user, ItemStack output) {
-        World world = user.getWorld();
-        if (world.isClient() || user.isCreative()) {
-            return;
-        }
-        BlockHitResult hitResult = ItemAccessor.invokeRaycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
-        if (hitResult.getType() == HitResult.Type.BLOCK) {
-            polluteStack(output, world, hitResult.getBlockPos());
+    /**
+     * Pollutes water collected by a player from a position. If the player is in creative mode, then the water will be clean.
+     *
+     * @param stack The watery stack to pollute
+     * @param user  The player collecting water
+     * @param pos   The position of the water source or cauldron to collect from
+     */
+    public static void pollutePlayerCollectedWater(ItemStack stack, PlayerEntity user, BlockPos pos) {
+        if (!user.isCreative()) {
+            polluteCollectedWater(stack, user.getWorld(), pos);
         }
     }
 
-    public static void polluteStack(ItemStack output, World world, BlockPos source) {
-        if (output.contains(TDataComponentTypes.POLLUTANTS)) {
+    public static void polluteCollectedWater(ItemStack stack, World world, BlockPos source) {
+        if (!world.isClient() && stack.contains(TDataComponentTypes.POLLUTANTS) && stack.isIn(TItemTags.WATERY_DRINKS)) {
             WaterPollutants pollutants = WaterPollutants.lookup(world, source);
-            pollutants.applyToStack(output);
+            pollutants.applyToStack(stack);
         }
     }
 

@@ -3,6 +3,10 @@
     {
       "id": "#c:is_swamp",
       "required": false
+    },
+    {
+      "id": "#c:is_nether",
+      "required": false
     }
   ]
 }
