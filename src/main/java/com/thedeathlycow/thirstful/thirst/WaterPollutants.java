@@ -5,6 +5,7 @@ import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.tag.TBiomeTags;
+import com.thedeathlycow.thirstful.registry.tag.TBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
@@ -27,7 +28,7 @@ public record WaterPollutants(
 
     public static WaterPollutants lookup(World world, BlockState state, BlockPos pos) {
         WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
-        if (state.isIn(BlockTags.CAULDRONS)) {
+        if (state.isIn(TBlockTags.IS_WATER_STORAGE)) {
             return lookupCauldron(world, state, pos, config);
         } else {
             return lookupWaterSource(world, state, pos, config);
