@@ -26,14 +26,14 @@ public final class WaterCollection {
     /**
      * Pollutes water collected from a position in the world
      *
-     * @param stack  The watery stack to pollute
-     * @param world  The world the stack is being collected in
-     * @param source The position of the water source to collect from
+     * @param stack     The watery stack to pollute
+     * @param world     The world the stack is being collected in
+     * @param sourcePos The position of the water sourcePos to collect from
      */
-    public static void polluteCollectedWater(ItemStack stack, World world, BlockPos source) {
+    public static void polluteCollectedWater(ItemStack stack, World world, BlockPos sourcePos) {
         PollutantComponent pollutantComponent = stack.get(TDataComponentTypes.POLLUTANTS);
         if (pollutantComponent != null && stack.isIn(TItemTags.WATERY_DRINKS)) {
-            WaterPollutants pollutants = WaterPollutants.lookup(world, source);
+            WaterPollutants pollutants = WaterPollutants.lookup(world, world.getBlockState(sourcePos), sourcePos);
             stack.set(
                     TDataComponentTypes.POLLUTANTS,
                     new PollutantComponent(

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:cauldrons",
+      "required": false
+    },
+    {
+      "id": "scorchful:warped_lily",
+      "required": false
+    }
+  ]
+}

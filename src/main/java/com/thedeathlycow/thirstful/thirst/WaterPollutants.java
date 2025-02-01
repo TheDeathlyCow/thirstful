@@ -5,8 +5,12 @@ import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.tag.TBiomeTags;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -21,9 +25,16 @@ public record WaterPollutants(
         Thirstful.LOGGER.debug("Initialized Thirstful pollutant lookup API");
     }
 
-    public static WaterPollutants lookup(World world, BlockPos pos) {
+    public static WaterPollutants lookup(World world, BlockState state, BlockPos pos) {
         WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
+        if (state.isIn(BlockTags.CAULDRONS)) {
+            return lookupCauldron(world, state, pos, config);
+        } else {
+            return lookupWaterSource(world, state, pos, config);
+        }
+    }
 
+    private static WaterPollutants lookupWaterSource(World world, BlockState state, BlockPos pos, WaterPollutionConfig config) {
         float diseaseChance = config.defaultWaterDiseaseChance();
         float dirtiness = config.defaultWaterDirtiness();
         boolean salty = false;
@@ -47,5 +58,9 @@ public record WaterPollutants(
         }
 
         return new WaterPollutants(dirtiness, diseaseChance, salty);
+    }
+
+    private static WaterPollutants lookupCauldron(World world, BlockState state, BlockPos pos, WaterPollutionConfig config) {
+        return new WaterPollutants(0f, 0f, false);
     }
 }

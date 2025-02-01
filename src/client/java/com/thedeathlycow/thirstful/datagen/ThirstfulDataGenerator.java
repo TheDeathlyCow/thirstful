@@ -5,6 +5,7 @@ import com.thedeathlycow.thirstful.datagen.generator.TBlockTagGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TItemTagGenerator;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.util.Identifier;
 
 public class ThirstfulDataGenerator implements DataGeneratorEntrypoint {
     @Override
@@ -14,5 +15,13 @@ public class ThirstfulDataGenerator implements DataGeneratorEntrypoint {
         TBlockTagGenerator blockTags = pack.addProvider(TBlockTagGenerator::new);
         pack.addProvider((output, wrapperLookup) -> new TItemTagGenerator(output, wrapperLookup, blockTags));
         pack.addProvider(TBiomeTagGenerator::new);
+    }
+
+    public static Identifier commonId(String path) {
+        return Identifier.of("c", path);
+    }
+
+    public static Identifier scorchfulId(String path) {
+        return Identifier.of("scorchful", path);
     }
 }

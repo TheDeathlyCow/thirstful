@@ -44,8 +44,4 @@ public class Thirstful implements ModInitializer {
     public static Identifier id(String path) {
         return Identifier.of(MODID, path);
     }
-
-    public static Identifier commonId(String path) {
-        return Identifier.of("c", path);
-    }
 }

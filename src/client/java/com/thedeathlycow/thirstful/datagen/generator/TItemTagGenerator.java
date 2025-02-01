@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.datagen.generator;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.datagen.ThirstfulDataGenerator;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -15,9 +16,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
-    public static final TagKey<Item> WATER_DRINKS = TagKey.of(RegistryKeys.ITEM, Thirstful.commonId("drinks/watery"));
-    public static final TagKey<Item> MILK_DRINKS = TagKey.of(RegistryKeys.ITEM, Thirstful.commonId("drinks/milk"));
-    public static final TagKey<Item> DRINKS = TagKey.of(RegistryKeys.ITEM, Thirstful.commonId("drinks"));
+    public static final TagKey<Item> WATER_DRINKS = TagKey.of(RegistryKeys.ITEM, ThirstfulDataGenerator.commonId("drinks/watery"));
+    public static final TagKey<Item> MILK_DRINKS = TagKey.of(RegistryKeys.ITEM, ThirstfulDataGenerator.commonId("drinks/milk"));
+    public static final TagKey<Item> DRINKS = TagKey.of(RegistryKeys.ITEM, ThirstfulDataGenerator.commonId("drinks"));
 
     public TItemTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture, @Nullable FabricTagProvider.BlockTagProvider blockTagProvider) {
         super(output, completableFuture, blockTagProvider);
@@ -47,5 +48,9 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TItemTags.SALTY_BY_DEFAULT);
 
         getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT);
+
+        getOrCreateTagBuilder(TItemTags.WATERY_DRINKS)
+                .addOptional(ThirstfulDataGenerator.scorchfulId("water_skin"))
+                .add(Items.POTION);
     }
 }
