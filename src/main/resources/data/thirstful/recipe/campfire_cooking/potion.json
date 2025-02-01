@@ -7,6 +7,11 @@
         "item": "minecraft:potion"
     },
     "result": {
-        "id": "minecraft:potion"
+        "id": "minecraft:potion",
+        "components": {
+            "minecraft:potion_contents": {
+                "potion": "minecraft:water"
+            }
+        }
     }
 }
