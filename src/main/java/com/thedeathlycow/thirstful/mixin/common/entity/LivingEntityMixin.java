@@ -1,4 +1,4 @@
-package com.thedeathlycow.thirstful.mixin.common;
+package com.thedeathlycow.thirstful.mixin.common.entity;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.thedeathlycow.thirstful.effect.AllowStatusEffectCallback;

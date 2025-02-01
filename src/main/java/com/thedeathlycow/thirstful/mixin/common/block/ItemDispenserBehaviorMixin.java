@@ -1,4 +1,4 @@
-package com.thedeathlycow.thirstful.mixin.common;
+package com.thedeathlycow.thirstful.mixin.common.block;
 
 import com.thedeathlycow.thirstful.item.WaterCollection;
 import net.minecraft.block.DispenserBlock;

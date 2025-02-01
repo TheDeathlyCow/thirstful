@@ -1,4 +1,4 @@
-package com.thedeathlycow.thirstful.mixin.common;
+package com.thedeathlycow.thirstful.mixin.common.item;
 
 import com.thedeathlycow.thirstful.item.ConsumeItemCallback;
 import net.minecraft.entity.LivingEntity;

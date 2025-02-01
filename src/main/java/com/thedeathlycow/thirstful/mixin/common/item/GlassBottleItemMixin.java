@@ -1,4 +1,4 @@
-package com.thedeathlycow.thirstful.mixin.common;
+package com.thedeathlycow.thirstful.mixin.common.item;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
