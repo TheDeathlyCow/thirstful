@@ -20,7 +20,7 @@ public final class WaterPollution {
             Void.class
     );
 
-    public static void intialize() {
+    public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful pollutant lookup API");
         POLLUTANT_CONTAINER.registerForBlocks(WaterPollution::waterSourceLookup, Blocks.WATER);
         POLLUTANT_CONTAINER.registerFallback(WaterPollution::fallbackLookup);

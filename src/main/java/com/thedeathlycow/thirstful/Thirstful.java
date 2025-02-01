@@ -29,7 +29,7 @@ public class Thirstful implements ModInitializer {
         TStatusEffects.initialize();
         TDataComponentTypes.initialize();
         TItems.initialize();
-        WaterPollution.intialize();
+        WaterPollution.initialize();
         if (FabricLoader.getInstance().isModLoaded("scorchful")) {
             ScorchfulIntegration.initialize();
         }
