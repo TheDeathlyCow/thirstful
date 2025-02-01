@@ -22,6 +22,13 @@ public final class WaterCollection {
         }
     }
 
+    /**
+     * Pollutes water collected from a position in the world
+     *
+     * @param stack  The watery stack to pollute
+     * @param world  The world the stack is being collected in
+     * @param source The position of the water source or cauldron to collect from
+     */
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos source) {
         if (!world.isClient() && stack.contains(TDataComponentTypes.POLLUTANTS) && stack.isIn(TItemTags.WATERY_DRINKS)) {
             WaterPollutants pollutants = WaterPollutants.lookup(world, source);

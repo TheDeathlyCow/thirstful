@@ -3,10 +3,11 @@
     "package": "com.thedeathlycow.thirstful.mixin.common",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
+        "CauldronBehaviorMixin",
         "ConsumeItemCriterionMixin",
+        "GlassBottleItemMixin",
         "ItemDispenserBehaviorMixin",
         "ItemStackMixin",
-        "GlassBottleItemMixin",
         "LivingEntityMixin",
         "accessor.ItemAccessor"
     ],
