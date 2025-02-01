@@ -33,16 +33,16 @@ public record PollutantComponent(
     public static final Codec<PollutantComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.list(StatusEffectEntry.CODEC)
-                                    .lenientOptionalFieldOf("dirtiness_effects", List.of())
+                                    .lenientOptionalFieldOf("dirtiness_effects", DEFAULT.dirtinessEffects())
                                     .forGetter(PollutantComponent::dirtinessEffects),
                             Codec.list(StatusEffectEntry.CODEC)
-                                    .lenientOptionalFieldOf("disease_effects", List.of())
+                                    .lenientOptionalFieldOf("disease_effects", DEFAULT.diseaseEffects())
                                     .forGetter(PollutantComponent::diseaseEffects),
                             Codec.BOOL
-                                    .optionalFieldOf("salty", Boolean.FALSE)
+                                    .optionalFieldOf("salty", DEFAULT.salty())
                                     .forGetter(PollutantComponent::salty),
                             Codec.BOOL
-                                    .optionalFieldOf("show_in_tooltip", Boolean.TRUE)
+                                    .optionalFieldOf("show_in_tooltip", DEFAULT.showInTooltip())
                                     .forGetter(PollutantComponent::showInTooltip)
                     )
                     .apply(instance, PollutantComponent::new)
@@ -90,7 +90,7 @@ public record PollutantComponent(
      * @param salty         Saltiness flag
      */
     public PollutantComponent(float dirtiness, float diseaseChance, boolean salty) {
-        this(dirtiness, diseaseChance, salty, true);
+        this(dirtiness, diseaseChance, salty, DEFAULT.showInTooltip());
     }
 
     /**
@@ -102,7 +102,7 @@ public record PollutantComponent(
      * @param showInTooltip Whether to show this component in a tooltip
      */
     public PollutantComponent(float dirtiness, float diseaseChance, boolean salty, boolean showInTooltip) {
-        this(defaultDirtinessEffects(dirtiness), defaultDiseaseEffects(diseaseChance), salty, true);
+        this(defaultDirtinessEffects(dirtiness), defaultDiseaseEffects(diseaseChance), salty, showInTooltip);
     }
 
     /**
