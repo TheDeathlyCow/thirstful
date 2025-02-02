@@ -5,6 +5,7 @@
     "plugin": "com.thedeathlycow.thirstful.mixin.common.compat.Plugin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
+        "farmersdelight.present.StoveBlockEntityMixin",
         "scorchful.present.WarpedLilyBlockMixin"
     ],
     "injectors": {
