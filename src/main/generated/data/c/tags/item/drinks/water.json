@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#c:drinks/watery",
+      "id": "scorchful:water_skin",
       "required": false
     }
   ]

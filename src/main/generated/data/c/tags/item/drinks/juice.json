@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#c:drinks/juice/apple",
+      "required": false
+    },
+    {
+      "id": "#c:drinks/juice/beetroot",
+      "required": false
+    },
+    {
+      "id": "#c:drinks/juice/carrot",
+      "required": false
+    },
+    {
+      "id": "#c:drinks/juice/melon",
+      "required": false
+    },
+    {
+      "id": "#c:drinks/juice/cactus",
+      "required": false
+    }
+  ]
+}

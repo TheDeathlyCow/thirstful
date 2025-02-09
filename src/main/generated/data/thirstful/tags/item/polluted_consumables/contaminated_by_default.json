@@ -1,6 +1,9 @@
 {
   "values": [
-    "minecraft:milk_bucket",
+    {
+      "id": "#c:drinks/milk",
+      "required": false
+    },
     {
       "id": "#c:foods/raw_meat",
       "required": false
