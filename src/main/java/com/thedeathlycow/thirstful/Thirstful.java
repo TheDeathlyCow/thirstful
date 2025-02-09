@@ -25,6 +25,10 @@ public class Thirstful implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        initialize();
+    }
+
+    public static void initialize() {
         configHolder = AutoConfig.register(ThirstfulConfig.class, JanksonConfigSerializer::new); //NOSONAR
 
         TStatusEffects.initialize();

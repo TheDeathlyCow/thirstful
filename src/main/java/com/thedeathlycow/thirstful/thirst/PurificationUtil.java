@@ -136,7 +136,7 @@ public final class PurificationUtil {
         return List.copyOf(highestSoFar != null ? highestSoFar : fallback);
     }
 
-    private static float probabilityOfAnyEffect(List<PollutantComponent.StatusEffectEntry> effects) {
+    static float probabilityOfAnyEffect(List<PollutantComponent.StatusEffectEntry> effects) {
         if (effects.isEmpty()) {
             return 0f;
         }
