@@ -22,9 +22,6 @@
 		"client": [
 			"com.thedeathlycow.thirstful.ThirstfulClient"
 		],
-		"fabric-datagen": [
-			"com.thedeathlycow.thirstful.datagen.ThirstfulDataGenerator"
-		],
 		"modmenu": [
 			"com.thedeathlycow.thirstful.ThirstfulModMenu"
 		],

@@ -106,8 +106,9 @@ loom {
 }
 
 fabricApi {
-    configureDataGeneration {
-        client = true
+    configureDataGeneration() {
+        createSourceSet = true
+        modId = "thirstful-datagen"
     }
 }
 
