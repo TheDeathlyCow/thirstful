@@ -1,11 +1,13 @@
 package com.thedeathlycow.thirstful.datagen;
 
+import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.datagen.generator.TBiomeTagGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TBlockTagGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TItemTagGenerator;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 public class ThirstfulDataGenerator implements DataGeneratorEntrypoint {
     @Override
@@ -23,5 +25,10 @@ public class ThirstfulDataGenerator implements DataGeneratorEntrypoint {
 
     public static Identifier scorchfulId(String path) {
         return Identifier.of("scorchful", path);
+    }
+
+    @Override
+    public @Nullable String getEffectiveModId() {
+        return Thirstful.MODID;
     }
 }
