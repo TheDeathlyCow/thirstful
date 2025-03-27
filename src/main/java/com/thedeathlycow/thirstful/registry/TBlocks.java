@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.block.PotionCauldronBehavior;
 import com.thedeathlycow.thirstful.block.PotionCauldronBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -15,7 +16,7 @@ import java.util.function.Function;
 public final class TBlocks {
     public static final Block POTION_CAULDRON = register(
             "potion_cauldron",
-            settings -> new PotionCauldronBlock(CauldronBehavior.WATER_CAULDRON_BEHAVIOR, settings)
+            settings -> new PotionCauldronBlock(PotionCauldronBehavior.BEHAVIOR_MAP, settings)
     );
 
     public static void initialize() {

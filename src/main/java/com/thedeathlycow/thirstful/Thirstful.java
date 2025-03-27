@@ -1,5 +1,6 @@
 package com.thedeathlycow.thirstful;
 
+import com.thedeathlycow.thirstful.block.PotionCauldronBehavior;
 import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.*;
@@ -29,6 +30,7 @@ public class Thirstful implements ModInitializer {
     public static void initialize() {
         configHolder = AutoConfig.register(ThirstfulConfig.class, JanksonConfigSerializer::new); //NOSONAR
 
+        PotionCauldronBehavior.initialize();
         TBlocks.initialize();
         TBlockEntityTypes.initialize();
         TItems.initialize();
