@@ -7,7 +7,6 @@
         "block.CauldronBehaviorMixin",
         "block.ItemDispenserBehaviorMixin",
         "entity.LivingEntityMixin",
-        "item.ConsumeItemCriterionMixin",
         "item.GlassBottleItemMixin",
         "item.ItemStackMixin",
         "item.MilkBucketItemMixin",
@@ -16,5 +15,5 @@
     ],
     "injectors": {
         "defaultRequire": 1
-	}
+    }
 }
