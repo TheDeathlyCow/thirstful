@@ -6,13 +6,10 @@ import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
-import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -22,9 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-import java.util.Optional;
-
-public class PotionCauldronBehavior {
+public final class PotionCauldronBehavior {
     public static final CauldronBehavior.CauldronBehaviorMap BEHAVIOR_MAP = CauldronBehavior.createMap("thirstful_potion_cauldron");
 
     public static void initialize() {
@@ -51,5 +46,9 @@ public class PotionCauldronBehavior {
         }
 
         return ItemActionResult.success(world.isClient);
+    }
+
+    private PotionCauldronBehavior() {
+
     }
 }
