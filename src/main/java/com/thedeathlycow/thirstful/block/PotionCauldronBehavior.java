@@ -1,6 +1,8 @@
 package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.block.entity.PotionCauldronBlockEntity;
+import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -20,6 +22,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
+import java.util.Optional;
+
 public class PotionCauldronBehavior {
     public static final CauldronBehavior.CauldronBehaviorMap BEHAVIOR_MAP = CauldronBehavior.createMap("thirstful_potion_cauldron");
 
@@ -31,13 +35,11 @@ public class PotionCauldronBehavior {
 
     private static ItemActionResult glassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (!world.isClient()) {
-            // TODO: set this from potion contents of cauldron
-            ItemStack resultStack = PotionContentsComponent.createStack(Items.POTION, Potions.WATER);
+            PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON)
+                    .orElseThrow(() -> new IllegalStateException("Missing potion cauldron block entity at " + pos));
 
-            player.setStackInHand(
-                    hand,
-                    ItemUsage.exchangeStack(stack, player, resultStack)
-            );
+            ItemStack resultStack = blockEntity.createFilledPotion(Items.POTION);
+            player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, resultStack));
 
             player.incrementStat(Stats.USE_CAULDRON);
             player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
