@@ -2,9 +2,7 @@ package com.thedeathlycow.thirstful;
 
 import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
-import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import com.thedeathlycow.thirstful.registry.TItems;
-import com.thedeathlycow.thirstful.registry.TStatusEffects;
+import com.thedeathlycow.thirstful.registry.*;
 import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -31,9 +29,11 @@ public class Thirstful implements ModInitializer {
     public static void initialize() {
         configHolder = AutoConfig.register(ThirstfulConfig.class, JanksonConfigSerializer::new); //NOSONAR
 
+        TBlocks.initialize();
+        TBlockEntityTypes.initialize();
+        TItems.initialize();
         TStatusEffects.initialize();
         TDataComponentTypes.initialize();
-        TItems.initialize();
         WaterPollution.initialize();
         if (ModIntegration.isScorchfulLoaded()) {
             ScorchfulIntegration.initialize();
