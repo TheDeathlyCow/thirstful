@@ -146,6 +146,10 @@ public record PollutantComponent(
         return !this.dirty(config) && !this.contaminated(config) && !this.salty(config);
     }
 
+    public boolean clean() {
+        return this.clean(Thirstful.getConfig().common().waterPollution());
+    }
+
     public void applyEffects(LivingEntity entity) {
         WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
         if (this.dirty(config)) {
