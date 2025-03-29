@@ -1,5 +1,6 @@
 package com.thedeathlycow.thirstful.mixin.common.block;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -29,5 +30,16 @@ public interface CauldronBehaviorMixin {
     ) {
         WaterCollection.pollutePlayerCollectedWater(outputStack, player, pos);
         return original.call(inputStack, player, outputStack);
+    }
+
+    @ModifyExpressionValue(
+            method = "method_32222",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/component/type/PotionContentsComponent;matches(Lnet/minecraft/registry/entry/RegistryEntry;)Z"
+            )
+    )
+    private static boolean alwaysPlaceWaterCauldron(boolean original) {
+        return true;
     }
 }

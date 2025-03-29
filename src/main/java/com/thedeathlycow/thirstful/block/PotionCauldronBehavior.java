@@ -7,7 +7,6 @@ import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TBlocks;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
@@ -15,7 +14,6 @@ import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
@@ -25,7 +23,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -64,58 +61,38 @@ public final class PotionCauldronBehavior {
         return ItemActionResult.success(world.isClient);
     }
 
-    public static boolean tryPlacePotionCauldron(
-            ItemStack stack,
-            BlockState state,
+    public static void replaceWithPotionCauldron(
+            ItemStack inputStack,
+            BlockState afterState,
             World world,
-            BlockPos pos,
-            PlayerEntity player,
-            Hand hand,
-            BlockHitResult hit
+            BlockPos pos
     ) {
-        if (!state.isOf(Blocks.CAULDRON)) {
-            return false;
+        if (!afterState.isOf(Blocks.WATER_CAULDRON)) {
+            return;
         }
 
-        PollutantComponent pollution = stack.getOrDefault(
+        PollutantComponent pollution = inputStack.getOrDefault(
                 TDataComponentTypes.POLLUTANTS,
                 PollutantComponent.DEFAULT
         );
 
-        PotionContentsComponent potionContents = stack.getOrDefault(
+        PotionContentsComponent potionContents = inputStack.getOrDefault(
                 DataComponentTypes.POTION_CONTENTS,
                 WATER_POTION.get()
         );
 
         if (pollution.clean() && potionContents.matches(Potions.WATER)) {
-            return false;
+            return;
         }
 
         if (!world.isClient) {
-            Item item = stack.getItem();
-
-            ItemStack remainder = getUseRemainder(stack);
-            player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, remainder));
-
-            player.incrementStat(Stats.USE_CAULDRON);
-            player.incrementStat(Stats.USED.getOrCreateStat(item));
-
-            int potionLevel = stack.isIn(ConventionalItemTags.BUCKETS)
-                    ? LeveledCauldronBlock.MAX_LEVEL
-                    : LeveledCauldronBlock.MIN_LEVEL;
-
             BlockState potionCauldron = TBlocks.POTION_CAULDRON.getDefaultState()
-                    .with(LeveledCauldronBlock.LEVEL, potionLevel);
+                    .with(LeveledCauldronBlock.LEVEL, afterState.get(LeveledCauldronBlock.LEVEL));
 
             world.setBlockState(pos, potionCauldron);
             PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON).orElseThrow();
             blockEntity.setContents(potionContents, pollution);
-
-            world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
         }
-
-        return true;
     }
 
     private static ItemStack getUseRemainder(ItemStack stack) {
