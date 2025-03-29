@@ -2,6 +2,7 @@ package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.block.entity.PotionCauldronBlockEntity;
 import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -25,5 +26,10 @@ public class PotionCauldronBlock extends LeveledCauldronBlock implements BlockEn
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new PotionCauldronBlockEntity(pos, state);
+    }
+
+    @Override
+    protected BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 }

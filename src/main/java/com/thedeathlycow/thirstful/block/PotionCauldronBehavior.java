@@ -7,9 +7,7 @@ import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TBlocks;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeveledCauldronBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
@@ -63,11 +61,11 @@ public final class PotionCauldronBehavior {
 
     public static void replaceWithPotionCauldron(
             ItemStack inputStack,
-            BlockState afterState,
+            BlockState state,
             World world,
             BlockPos pos
     ) {
-        if (!afterState.isOf(Blocks.WATER_CAULDRON)) {
+        if (!state.isOf(Blocks.WATER_CAULDRON)) {
             return;
         }
 
@@ -85,23 +83,13 @@ public final class PotionCauldronBehavior {
             return;
         }
 
-        if (!world.isClient) {
+        if (!world.isClient()) {
             BlockState potionCauldron = TBlocks.POTION_CAULDRON.getDefaultState()
-                    .with(LeveledCauldronBlock.LEVEL, afterState.get(LeveledCauldronBlock.LEVEL));
+                    .with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL));
 
             world.setBlockState(pos, potionCauldron);
             PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON).orElseThrow();
             blockEntity.setContents(potionContents, pollution);
-        }
-    }
-
-    private static ItemStack getUseRemainder(ItemStack stack) {
-        ItemStack recipeRemainder = stack.getRecipeRemainder();
-
-        if (recipeRemainder.isEmpty()) {
-            return Items.GLASS_BOTTLE.getDefaultStack();
-        } else {
-            return recipeRemainder;
         }
     }
 

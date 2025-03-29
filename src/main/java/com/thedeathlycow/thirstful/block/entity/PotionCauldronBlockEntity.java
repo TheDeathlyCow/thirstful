@@ -4,9 +4,9 @@ import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.component.ComponentHolder;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 
@@ -36,9 +37,31 @@ public class PotionCauldronBlockEntity extends BlockEntity {
         return stack;
     }
 
+    public PotionContentsComponent getPotionContents() {
+        return potionContents;
+    }
+
     public void setContents(PotionContentsComponent potionContents, PollutantComponent pollutants) {
         this.potionContents = potionContents;
         this.pollutants = pollutants;
+        this.updateListeners();
+    }
+
+    @Override
+    public BlockEntityUpdateS2CPacket toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        var nbt = new NbtCompound();
+        nbt.put(
+                POTION_CONTENTS_KEY,
+                PotionContentsComponent.CODEC
+                        .encodeStart(registryLookup.getOps(NbtOps.INSTANCE), this.potionContents)
+                        .getOrThrow()
+        );
+        return nbt;
     }
 
     @Override
@@ -93,5 +116,10 @@ public class PotionCauldronBlockEntity extends BlockEntity {
         super.addComponents(componentMapBuilder);
         componentMapBuilder.add(DataComponentTypes.POTION_CONTENTS, this.potionContents);
         componentMapBuilder.add(TDataComponentTypes.POLLUTANTS, this.pollutants);
+    }
+
+    private void updateListeners() {
+        this.markDirty();
+        this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
     }
 }
