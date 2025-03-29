@@ -119,7 +119,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modApi "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modApi "com.github.thedeathlycow:thermoo:v${project.thermoo_version}"
+    modApi "maven.modrinth:thermoo:${project.thermoo_version}"
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
