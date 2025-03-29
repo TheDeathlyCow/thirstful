@@ -36,6 +36,7 @@ public final class PotionCauldronBehavior {
         Thirstful.LOGGER.debug("Initialized Thirstful potion cauldron behaviours");
 
         BEHAVIOR_MAP.map().put(Items.GLASS_BOTTLE, PotionCauldronBehavior::glassBottle);
+        BEHAVIOR_MAP.map().put(Items.POTION, PotionCauldronBehavior::potion);
     }
 
     private static ItemActionResult glassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
@@ -56,7 +57,35 @@ public final class PotionCauldronBehavior {
             world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pos);
         }
 
-        return ItemActionResult.success(world.isClient);
+        return ItemActionResult.success(world.isClient());
+    }
+
+    private static ItemActionResult potion(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        if (state.get(LeveledCauldronBlock.LEVEL) == LeveledCauldronBlock.MAX_LEVEL) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        PotionContentsComponent potionContents = stack.get(DataComponentTypes.POTION_CONTENTS);
+        PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON).orElseThrow();
+
+        if (potionContents != null && potionContents.equals(blockEntity.getPotionContents())) {
+
+            if (!world.isClient()) {
+                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+
+                player.incrementStat(Stats.USE_CAULDRON);
+                player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+
+                world.setBlockState(pos, state.cycle(LeveledCauldronBlock.LEVEL));
+
+                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
+            }
+
+            return ItemActionResult.success(world.isClient());
+        } else {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
     }
 
     public static void replaceWithPotionCauldron(
