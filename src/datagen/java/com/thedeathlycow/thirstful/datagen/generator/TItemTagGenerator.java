@@ -36,5 +36,10 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TItemTags.SALTY_BY_DEFAULT);
 
         getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT);
+
+        getOrCreateTagBuilder(TItemTags.IS_WATER)
+                .addOptionalTag(ConventionalItemTags.WATERY_DRINKS)
+                .addOptionalTag(ConventionalItemTags.WATER_DRINKS)
+                .addOptionalTag(ConventionalItemTags.WATER_BUCKETS);
     }
 }
