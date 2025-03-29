@@ -27,6 +27,10 @@
     {
       "id": "#c:buckets/milk",
       "required": false
+    },
+    {
+      "id": "#c:buckets/water",
+      "required": false
     }
   ]
 }

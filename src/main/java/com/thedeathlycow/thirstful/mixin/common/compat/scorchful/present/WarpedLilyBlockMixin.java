@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(NetherLilyBehaviours.class)
 public class WarpedLilyBlockMixin {
     @WrapOperation(
-            method = "lambda$registerBehaviours$1",
+            method = "lambda$initialize$1",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/item/ItemUsage;exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"

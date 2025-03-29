@@ -5,6 +5,7 @@
     "mixins": [
         "accessor.ItemAccessor",
         "block.CauldronBehaviorMixin",
+        "block.FluidBlockMixin",
         "block.ItemDispenserBehaviorMixin",
         "entity.LivingEntityMixin",
         "item.GlassBottleItemMixin",
