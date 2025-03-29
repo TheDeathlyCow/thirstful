@@ -9,20 +9,15 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentHolder;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.potion.Potions;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
-public class PotionCauldronBlockEntity extends BlockEntity implements ComponentHolder {
+public class PotionCauldronBlockEntity extends BlockEntity {
     private static final String POTION_CONTENTS_KEY = "potion_contents";
     private static final String POLLUTANTS_KEY = "pollutants";
     private PotionContentsComponent potionContents = PotionContentsComponent.DEFAULT;
@@ -39,6 +34,11 @@ public class PotionCauldronBlockEntity extends BlockEntity implements ComponentH
         stack.set(TDataComponentTypes.POLLUTANTS, this.pollutants);
 
         return stack;
+    }
+
+    public void setContents(PotionContentsComponent potionContents, PollutantComponent pollutants) {
+        this.potionContents = potionContents;
+        this.pollutants = pollutants;
     }
 
     @Override

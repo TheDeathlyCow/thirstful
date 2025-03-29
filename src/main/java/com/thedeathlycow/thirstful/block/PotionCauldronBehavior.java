@@ -30,7 +30,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-import java.util.Map;
 import java.util.function.Supplier;
 
 public final class PotionCauldronBehavior {
@@ -49,7 +48,8 @@ public final class PotionCauldronBehavior {
             PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON)
                     .orElseThrow(() -> new IllegalStateException("Missing potion cauldron block entity at " + pos));
 
-            ItemStack resultStack = blockEntity.createFilledPotion(Items.POTION);
+            ItemStack resultStack = Items.POTION.getDefaultStack();
+            resultStack.applyComponentsFrom(blockEntity.createComponentMap());
             player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, resultStack));
 
             player.incrementStat(Stats.USE_CAULDRON);
@@ -108,6 +108,8 @@ public final class PotionCauldronBehavior {
                     .with(LeveledCauldronBlock.LEVEL, potionLevel);
 
             world.setBlockState(pos, potionCauldron);
+            PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON).orElseThrow();
+            blockEntity.setContents(potionContents, pollution);
 
             world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
             world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
