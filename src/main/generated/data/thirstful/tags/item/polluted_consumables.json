@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "#thirstful:watery_drinks",
-      "required": false
-    },
-    {
       "id": "#thirstful:polluted_consumables/salty_by_default",
       "required": false
     },

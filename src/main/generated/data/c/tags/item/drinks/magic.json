@@ -1,9 +1,0 @@
-{
-  "values": [
-    "minecraft:potion",
-    {
-      "id": "#c:drinks/magic/ominous",
-      "required": false
-    }
-  ]
-}
