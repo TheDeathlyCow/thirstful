@@ -6,12 +6,10 @@ import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.state.property.BooleanProperty;
 
 import java.util.function.Function;
 

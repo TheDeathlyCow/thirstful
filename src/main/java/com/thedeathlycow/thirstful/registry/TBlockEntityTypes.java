@@ -12,7 +12,7 @@ import net.minecraft.util.Util;
 
 public final class TBlockEntityTypes {
     public static final BlockEntityType<PollutedWaterCauldronBlockEntity> POLLUTED_WATER_CAULDRON = create(
-            "potion_cauldron",
+            "polluted_water_cauldron",
             BlockEntityType.Builder.create(PollutedWaterCauldronBlockEntity::new, TBlocks.POLLUTED_WATER_CAULDRON)
     );
 

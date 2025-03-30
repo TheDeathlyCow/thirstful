@@ -10,7 +10,9 @@ import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Hand;
@@ -38,6 +40,11 @@ public class PollutedWaterCauldronBlock extends LeveledCauldronBlock implements 
                         .with(CONTAMINED, false)
                         .with(DIRTY, false)
         );
+    }
+
+    @Override
+    public Item asItem() {
+        return Items.CAULDRON;
     }
 
     @Override
