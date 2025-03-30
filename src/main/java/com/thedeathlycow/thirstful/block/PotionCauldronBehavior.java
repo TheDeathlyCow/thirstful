@@ -6,8 +6,9 @@ import com.thedeathlycow.thirstful.block.entity.PotionCauldronBlockEntity;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TBlocks;
-import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
@@ -30,13 +31,29 @@ import java.util.function.Supplier;
 public final class PotionCauldronBehavior {
     public static final CauldronBehavior.CauldronBehaviorMap BEHAVIOR_MAP = CauldronBehavior.createMap("thirstful_potion_cauldron");
 
-    private static final Supplier<PotionContentsComponent> WATER_POTION = Suppliers.memoize(() -> new PotionContentsComponent(Potions.WATER));
+    public static final Supplier<PotionContentsComponent> WATER_POTION = Suppliers.memoize(() -> new PotionContentsComponent(Potions.WATER));
 
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful potion cauldron behaviours");
-
         BEHAVIOR_MAP.map().put(Items.GLASS_BOTTLE, PotionCauldronBehavior::glassBottle);
         BEHAVIOR_MAP.map().put(Items.POTION, PotionCauldronBehavior::potion);
+    }
+
+    public static void replaceWaterCauldronWithPotionCauldron(
+            PotionContentsComponent inputPotion,
+            PollutantComponent inputPollution,
+            BlockState state,
+            World world,
+            BlockPos pos
+    ) {
+        if (state.isOf(Blocks.WATER_CAULDRON) && !world.isClient()) {
+            BlockState potionCauldron = TBlocks.POTION_CAULDRON.getDefaultState()
+                    .with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL));
+
+            world.setBlockState(pos, potionCauldron);
+            PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON).orElseThrow();
+            blockEntity.setContents(inputPotion, inputPollution);
+        }
     }
 
     private static ItemActionResult glassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
@@ -85,32 +102,6 @@ public final class PotionCauldronBehavior {
             return ItemActionResult.success(world.isClient());
         } else {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        }
-    }
-
-    public static void replaceWithPotionCauldron(
-            ItemStack inputStack,
-            BlockState state,
-            World world,
-            BlockPos pos
-    ) {
-        if (state.isOf(Blocks.WATER_CAULDRON) && !world.isClient()) {
-            PollutantComponent pollution = inputStack.getOrDefault(
-                    TDataComponentTypes.POLLUTANTS,
-                    PollutantComponent.DEFAULT
-            );
-
-            PotionContentsComponent potionContents = inputStack.getOrDefault(
-                    DataComponentTypes.POTION_CONTENTS,
-                    WATER_POTION.get()
-            );
-
-            BlockState potionCauldron = TBlocks.POTION_CAULDRON.getDefaultState()
-                    .with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL));
-
-            world.setBlockState(pos, potionCauldron);
-            PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON).orElseThrow();
-            blockEntity.setContents(potionContents, pollution);
         }
     }
 
