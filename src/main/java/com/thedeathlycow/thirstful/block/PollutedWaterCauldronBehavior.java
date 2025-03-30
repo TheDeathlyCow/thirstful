@@ -2,6 +2,8 @@ package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.block.entity.PollutedWaterCauldronBlockEntity;
+import com.thedeathlycow.thirstful.compat.ModIntegration;
+import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TBlocks;
@@ -34,6 +36,10 @@ public final class PollutedWaterCauldronBehavior {
         BEHAVIOR_MAP.map().put(Items.GLASS_BOTTLE, PollutedWaterCauldronBehavior::emptyIntoGlassBottle);
         BEHAVIOR_MAP.map().put(Items.BUCKET, PollutedWaterCauldronBehavior::emptyIntoBucket);
         BEHAVIOR_MAP.map().put(Items.POTION, PollutedWaterCauldronBehavior::fillFromPotion);
+
+        if (ModIntegration.isScorchfulLoaded()) {
+            ScorchfulIntegration.registerWaterSkinCauldronBehavior(BEHAVIOR_MAP);
+        }
     }
 
     public static void replaceWithPollutedWaterCauldron(
