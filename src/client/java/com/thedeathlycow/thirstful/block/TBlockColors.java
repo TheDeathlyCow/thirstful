@@ -1,8 +1,6 @@
 package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.block.entity.PotionCauldronBlockEntity;
-import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TBlocks;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.BlockState;
@@ -13,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 public final class TBlockColors {
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful block colors");
-        ColorProviderRegistry.BLOCK.register(TBlockColors::getPotionCauldronColor, TBlocks.POTION_CAULDRON);
+        ColorProviderRegistry.BLOCK.register(TBlockColors::getPotionCauldronColor, TBlocks.POLLUTED_WATER_CAULDRON);
     }
 
     private static int getPotionCauldronColor(

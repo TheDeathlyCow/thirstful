@@ -1,8 +1,7 @@
 package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.block.PotionCauldronBehavior;
-import com.thedeathlycow.thirstful.block.PotionCauldronBlock;
+import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -11,14 +10,14 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.state.property.BooleanProperty;
 
 import java.util.function.Function;
 
 public final class TBlocks {
-    public static final Block POTION_CAULDRON = register(
-            "potion_cauldron",
-            settings -> new PotionCauldronBlock(
-                    PotionCauldronBehavior.BEHAVIOR_MAP,
+    public static final Block POLLUTED_WATER_CAULDRON = register(
+            "polluted_water_cauldron",
+            settings -> new PollutedWaterCauldronBlock(
                     CauldronBehavior.WATER_CAULDRON_BEHAVIOR,
                     settings
             ),

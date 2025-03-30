@@ -138,6 +138,10 @@ public record PollutantComponent(
         return config.enableDisease() && !this.diseaseEffects.isEmpty();
     }
 
+    public boolean contaminated() {
+        return this.contaminated(Thirstful.getConfig().common().waterPollution());
+    }
+
     public boolean salty(WaterPollutionConfig config) {
         return config.enableSaltiness() && this.salty;
     }

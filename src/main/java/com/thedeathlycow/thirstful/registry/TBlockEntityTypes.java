@@ -2,7 +2,7 @@ package com.thedeathlycow.thirstful.registry;
 
 import com.mojang.datafixers.types.Type;
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.block.entity.PotionCauldronBlockEntity;
+import com.thedeathlycow.thirstful.block.entity.PollutedWaterCauldronBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.datafixer.TypeReferences;
@@ -11,9 +11,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Util;
 
 public final class TBlockEntityTypes {
-    public static final BlockEntityType<PotionCauldronBlockEntity> POTION_CAULDRON = create(
+    public static final BlockEntityType<PollutedWaterCauldronBlockEntity> POLLUTED_WATER_CAULDRON = create(
             "potion_cauldron",
-            BlockEntityType.Builder.create(PotionCauldronBlockEntity::new, TBlocks.POTION_CAULDRON)
+            BlockEntityType.Builder.create(PollutedWaterCauldronBlockEntity::new, TBlocks.POLLUTED_WATER_CAULDRON)
     );
 
     public static void initialize() {

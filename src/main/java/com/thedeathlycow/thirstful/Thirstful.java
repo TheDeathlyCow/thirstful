@@ -1,6 +1,6 @@
 package com.thedeathlycow.thirstful;
 
-import com.thedeathlycow.thirstful.block.PotionCauldronBehavior;
+import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBehavior;
 import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.*;
@@ -10,7 +10,6 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +29,7 @@ public class Thirstful implements ModInitializer {
     public static void initialize() {
         configHolder = AutoConfig.register(ThirstfulConfig.class, JanksonConfigSerializer::new); //NOSONAR
 
-        PotionCauldronBehavior.initialize();
+        PollutedWaterCauldronBehavior.initialize();
         TBlocks.initialize();
         TBlockEntityTypes.initialize();
         TItems.initialize();
