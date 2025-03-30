@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.registry.TStatusEffects;
+import com.thedeathlycow.thirstful.thirst.PurificationUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -128,6 +129,15 @@ public record PollutantComponent(
         if (this.clean(config)) {
             tooltip.accept(CLEAN_TOOLTIP);
         }
+    }
+
+    public PollutantComponent mixWith(PollutantComponent other) {
+        return new PollutantComponent(
+                PurificationUtil.max(this.dirtinessEffects, other.dirtinessEffects),
+                PurificationUtil.max(this.diseaseEffects, other.diseaseEffects),
+                this.salty || other.salty,
+                this.showInTooltip
+        );
     }
 
     public boolean dirty(WaterPollutionConfig config) {

@@ -35,7 +35,7 @@ public class PollutedWaterCauldronBlockEntity extends BlockEntity {
     }
 
     public void setContents(PollutantComponent pollutants) {
-        this.pollutants = pollutants;
+        this.pollutants = this.pollutants.mixWith(pollutants);
         this.markDirty();
     }
 
