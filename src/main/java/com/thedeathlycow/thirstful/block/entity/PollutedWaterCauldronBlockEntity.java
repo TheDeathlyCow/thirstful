@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.block.entity;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBlock;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
@@ -25,12 +26,12 @@ public class PollutedWaterCauldronBlockEntity extends BlockEntity {
         super(TBlockEntityTypes.POLLUTED_WATER_CAULDRON, pos, state);
     }
 
-    public ItemStack createFilledPotion(Item itemType) {
-        var stack = new ItemStack(itemType);
+    public PollutantComponent getPollutants() {
+        return pollutants;
+    }
 
-        stack.set(TDataComponentTypes.POLLUTANTS, this.pollutants);
-
-        return stack;
+    public void mixContents(PollutantComponent pollutants) {
+        this.setContents(pollutants);
     }
 
     public void setContents(PollutantComponent pollutants) {

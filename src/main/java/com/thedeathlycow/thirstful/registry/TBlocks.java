@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBehavior;
 import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -18,7 +19,7 @@ public final class TBlocks {
     public static final Block POLLUTED_WATER_CAULDRON = register(
             "polluted_water_cauldron",
             settings -> new PollutedWaterCauldronBlock(
-                    CauldronBehavior.WATER_CAULDRON_BEHAVIOR,
+                    PollutedWaterCauldronBehavior.BEHAVIOR_MAP,
                     settings
             ),
             AbstractBlock.Settings.copyShallow(Blocks.CAULDRON)
