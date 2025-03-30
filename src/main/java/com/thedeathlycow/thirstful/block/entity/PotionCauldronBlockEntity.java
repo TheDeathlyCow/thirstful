@@ -17,6 +17,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
 public class PotionCauldronBlockEntity extends BlockEntity {
     private static final String POTION_CONTENTS_KEY = "potion_contents";
@@ -35,6 +36,12 @@ public class PotionCauldronBlockEntity extends BlockEntity {
         stack.set(TDataComponentTypes.POLLUTANTS, this.pollutants);
 
         return stack;
+    }
+
+    @Override
+    @Nullable
+    public Object getRenderData() {
+        return this.potionContents.getColor();
     }
 
     public PotionContentsComponent getPotionContents() {
@@ -102,6 +109,8 @@ public class PotionCauldronBlockEntity extends BlockEntity {
                     .resultOrPartial(pollutants -> Thirstful.LOGGER.error("Failed to parse pollutants: '{}'", pollutants))
                     .ifPresent(pollutants -> this.pollutants = pollutants);
         }
+
+        this.updateListeners();
     }
 
     @Override
@@ -119,7 +128,9 @@ public class PotionCauldronBlockEntity extends BlockEntity {
     }
 
     private void updateListeners() {
-        this.markDirty();
-        this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+        if (this.world != null) {
+            this.markDirty();
+            this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+        }
     }
 }

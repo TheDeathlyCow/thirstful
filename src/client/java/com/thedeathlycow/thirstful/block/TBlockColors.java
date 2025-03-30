@@ -23,10 +23,10 @@ public final class TBlockColors {
             int tintIndex
     ) {
         if (world != null && pos != null) {
-            PotionCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POTION_CAULDRON)
-                    .orElse(null);
-            if (blockEntity != null) {
-                return blockEntity.getPotionContents().getColor();
+            Object renderData = world.getBlockEntityRenderData(pos);
+
+            if (renderData instanceof Integer color) {
+                return color;
             }
         }
 
