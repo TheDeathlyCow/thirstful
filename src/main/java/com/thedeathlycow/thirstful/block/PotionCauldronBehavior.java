@@ -94,25 +94,17 @@ public final class PotionCauldronBehavior {
             World world,
             BlockPos pos
     ) {
-        if (!state.isOf(Blocks.WATER_CAULDRON)) {
-            return;
-        }
+        if (state.isOf(Blocks.WATER_CAULDRON) && !world.isClient()) {
+            PollutantComponent pollution = inputStack.getOrDefault(
+                    TDataComponentTypes.POLLUTANTS,
+                    PollutantComponent.DEFAULT
+            );
 
-        PollutantComponent pollution = inputStack.getOrDefault(
-                TDataComponentTypes.POLLUTANTS,
-                PollutantComponent.DEFAULT
-        );
+            PotionContentsComponent potionContents = inputStack.getOrDefault(
+                    DataComponentTypes.POTION_CONTENTS,
+                    WATER_POTION.get()
+            );
 
-        PotionContentsComponent potionContents = inputStack.getOrDefault(
-                DataComponentTypes.POTION_CONTENTS,
-                WATER_POTION.get()
-        );
-
-        if (pollution.clean() && potionContents.matches(Potions.WATER)) {
-            return;
-        }
-
-        if (!world.isClient()) {
             BlockState potionCauldron = TBlocks.POTION_CAULDRON.getDefaultState()
                     .with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL));
 
