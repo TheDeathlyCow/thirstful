@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class PollutedWaterCauldronBlock extends LeveledCauldronBlock implements BlockEntityProvider {
     public static final BooleanProperty CONTAMINED = BooleanProperty.of("contaminated");
+    public static final BooleanProperty DIRTY = BooleanProperty.of("dirty");
 
     /**
      * Constructs a leveled cauldron block.
@@ -35,6 +36,7 @@ public class PollutedWaterCauldronBlock extends LeveledCauldronBlock implements 
         this.setDefaultState(
                 this.getDefaultState()
                         .with(CONTAMINED, false)
+                        .with(DIRTY, false)
         );
     }
 
@@ -50,29 +52,13 @@ public class PollutedWaterCauldronBlock extends LeveledCauldronBlock implements 
     ) {
         CauldronBehavior cauldronBehavior = this.behaviorMap.map().get(stack.getItem());
         ItemActionResult result = cauldronBehavior.interact(state, world, pos, player, hand, stack);
-
-        this.updateBlockStatePostInteraction(world, pos, world.getBlockState(pos));
-
         return result;
-    }
-
-    private void updateBlockStatePostInteraction(World world, BlockPos pos, BlockState state) {
-        PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POLLUTED_WATER_CAULDRON).orElse(null);
-
-        if (blockEntity != null) {
-            PollutantComponent pollutants = blockEntity.getPollutants();
-
-            BlockState updated = state
-                    .with(CONTAMINED, pollutants.contaminated());
-
-            world.setBlockState(pos, updated);
-        }
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(CONTAMINED);
+        builder.add(CONTAMINED, DIRTY);
     }
 
     @Nullable

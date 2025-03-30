@@ -144,6 +144,10 @@ public record PollutantComponent(
         return config.enableDirtiness() && !this.dirtinessEffects.isEmpty();
     }
 
+    public boolean dirty() {
+        return this.dirty(Thirstful.getConfig().common().waterPollution());
+    }
+
     public boolean contaminated(WaterPollutionConfig config) {
         return config.enableDisease() && !this.diseaseEffects.isEmpty();
     }

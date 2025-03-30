@@ -44,8 +44,7 @@ public final class PollutedWaterCauldronBehavior {
     ) {
         if (state.isOf(Blocks.WATER_CAULDRON) && !world.isClient()) {
             BlockState pollutedCauldron = TBlocks.POLLUTED_WATER_CAULDRON.getDefaultState()
-                    .with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL))
-                    .with(PollutedWaterCauldronBlock.CONTAMINED, inputPollution.contaminated());
+                    .with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL));
 
             world.setBlockState(pos, pollutedCauldron);
 
@@ -91,7 +90,7 @@ public final class PollutedWaterCauldronBehavior {
             if (!world.isClient()) {
                 PollutantComponent pollutants = stack.getOrDefault(TDataComponentTypes.POLLUTANTS, PollutantComponent.DEFAULT);
                 PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POLLUTED_WATER_CAULDRON).orElseThrow();
-                blockEntity.mixContents(pollutants);
+                blockEntity.setContents(pollutants);
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 

@@ -8,10 +8,6 @@ import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.PotionContentsComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
@@ -30,13 +26,22 @@ public class PollutedWaterCauldronBlockEntity extends BlockEntity {
         return pollutants;
     }
 
-    public void mixContents(PollutantComponent pollutants) {
-        this.setContents(pollutants);
-    }
-
     public void setContents(PollutantComponent pollutants) {
         this.pollutants = this.pollutants.mixWith(pollutants);
+        this.updateBlockState();
         this.markDirty();
+    }
+
+    private void updateBlockState() {
+        if (this.world != null && !this.world.isClient()) {
+            PollutantComponent pollutants = this.getPollutants();
+
+            BlockState updated = this.getCachedState()
+                    .with(PollutedWaterCauldronBlock.CONTAMINED, pollutants.contaminated())
+                    .with(PollutedWaterCauldronBlock.DIRTY, pollutants.dirty());
+
+            world.setBlockState(pos, updated);
+        }
     }
 
     @Override

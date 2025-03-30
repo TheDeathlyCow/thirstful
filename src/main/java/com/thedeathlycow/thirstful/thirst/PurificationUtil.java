@@ -150,7 +150,7 @@ public final class PurificationUtil {
         // calculates the probability of any the effects in the list applying by finding the inverse probability
         // of none of the effects occurring.
 
-        float probability = 1.0f;   
+        float probability = 1.0f;
         for (PollutantComponent.StatusEffectEntry effect : effects) {
             probability *= 1 - effect.probability(); // probability of effect not applying
         }
