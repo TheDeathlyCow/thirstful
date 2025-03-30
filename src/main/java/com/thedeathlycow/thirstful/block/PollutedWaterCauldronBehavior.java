@@ -2,7 +2,6 @@ package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.block.entity.PollutedWaterCauldronBlockEntity;
-import com.thedeathlycow.thirstful.item.WaterCollection;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TBlocks;
@@ -33,6 +32,7 @@ public final class PollutedWaterCauldronBehavior {
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful potion cauldron behaviours");
         BEHAVIOR_MAP.map().put(Items.GLASS_BOTTLE, PollutedWaterCauldronBehavior::emptyIntoGlassBottle);
+        BEHAVIOR_MAP.map().put(Items.BUCKET, PollutedWaterCauldronBehavior::emptyIntoBucket);
         BEHAVIOR_MAP.map().put(Items.POTION, PollutedWaterCauldronBehavior::fillFromPotion);
     }
 
@@ -77,6 +77,26 @@ public final class PollutedWaterCauldronBehavior {
         }
 
         return ItemActionResult.success(world.isClient());
+    }
+
+    private static ItemActionResult emptyIntoBucket(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POLLUTED_WATER_CAULDRON)
+                .orElseThrow(() -> new IllegalStateException("Missing potion cauldron block entity at " + pos));
+
+        ItemStack output = Items.WATER_BUCKET.getDefaultStack();
+        output.set(TDataComponentTypes.POLLUTANTS, blockEntity.getPollutants());
+
+        return CauldronBehavior.emptyCauldron(
+                state,
+                world,
+                pos,
+                player,
+                hand,
+                stack,
+                output,
+                s -> s.get(LeveledCauldronBlock.LEVEL) == LeveledCauldronBlock.MAX_LEVEL,
+                SoundEvents.ITEM_BUCKET_FILL
+        );
     }
 
     private static ItemActionResult fillFromPotion(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {

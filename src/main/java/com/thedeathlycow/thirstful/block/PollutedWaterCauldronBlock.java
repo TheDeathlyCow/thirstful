@@ -1,8 +1,6 @@
 package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.block.entity.PollutedWaterCauldronBlockEntity;
-import com.thedeathlycow.thirstful.item.component.PollutantComponent;
-import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -58,8 +56,7 @@ public class PollutedWaterCauldronBlock extends LeveledCauldronBlock implements 
             BlockHitResult hit
     ) {
         CauldronBehavior cauldronBehavior = this.behaviorMap.map().get(stack.getItem());
-        ItemActionResult result = cauldronBehavior.interact(state, world, pos, player, hand, stack);
-        return result;
+        return cauldronBehavior.interact(state, world, pos, player, hand, stack);
     }
 
     @Override
