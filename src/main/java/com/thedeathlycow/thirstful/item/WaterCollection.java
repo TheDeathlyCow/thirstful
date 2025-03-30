@@ -36,21 +36,13 @@ public final class WaterCollection {
      */
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos sourcePos) {
         if (stack.isIn(TItemTags.CAN_BE_POLLUTED)) {
-            PollutantComponent pollutantComponent = stack.getOrDefault(
+            PollutantComponent current = stack.getOrDefault(
                     TDataComponentTypes.POLLUTANTS,
                     PollutantComponent.DEFAULT
             );
             PollutantContainer pollutants = WaterPollution.POLLUTANT_CONTAINER.find(world, sourcePos, null);
             Objects.requireNonNull(pollutants);
-            stack.set(
-                    TDataComponentTypes.POLLUTANTS,
-                    new PollutantComponent(
-                            pollutants.dirtiness(),
-                            pollutants.diseaseChance(),
-                            pollutants.salty(),
-                            pollutantComponent.showInTooltip()
-                    )
-            );
+            stack.set(TDataComponentTypes.POLLUTANTS, current.mixWith(pollutants.toComponent()));
         }
     }
 

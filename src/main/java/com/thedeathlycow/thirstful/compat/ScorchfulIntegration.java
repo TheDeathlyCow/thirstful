@@ -12,14 +12,13 @@ import com.thedeathlycow.thirstful.item.WaterCollection;
 import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
@@ -32,7 +31,9 @@ public final class ScorchfulIntegration {
         Thirstful.LOGGER.info("Loading Scorchful compatibility for Thirstful");
         ServerThirstPlugin.registerPlugin(new ScorchfulServerIntegration());
         CollectWaterCallback.EVENT.register((user, stack, sourcePos) -> {
-            WaterCollection.pollutePlayerCollectedWater(stack, user, sourcePos);
+            if (!user.getWorld().getBlockState(sourcePos).isOf(Blocks.WATER_CAULDRON)) {
+                WaterCollection.pollutePlayerCollectedWater(stack, user, sourcePos);
+            }
         });
     }
 
@@ -49,12 +50,16 @@ public final class ScorchfulIntegration {
     }
 
     private static ItemActionResult emptyIntoWaterSkin(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        if (WaterSkinItem.getNumDrinks(stack) >= WaterSkinItem.MAX_DRINKS) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
         PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POLLUTED_WATER_CAULDRON)
                 .orElseThrow(() -> new IllegalStateException("Missing potion cauldron block entity at " + pos));
 
         stack.set(TDataComponentTypes.POLLUTANTS, blockEntity.getPollutants());
 
-        if (!world.isClient) {
+        if (!world.isClient()) {
             world.playSound(
                     null,
                     player.getBlockPos(),
@@ -65,7 +70,6 @@ public final class ScorchfulIntegration {
             player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
             WaterSkinItem.addDrinks(stack, 1);
 
-            CollectWaterCallback.EVENT.invoker().onWaterCollected(player, stack, pos);
             player.incrementStat(Stats.USE_CAULDRON);
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
         }
