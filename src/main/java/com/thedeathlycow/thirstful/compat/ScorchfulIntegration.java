@@ -7,9 +7,9 @@ import com.github.thedeathlycow.scorchful.registry.SDataComponentTypes;
 import com.github.thedeathlycow.scorchful.registry.SItems;
 import com.github.thedeathlycow.scorchful.registry.SSoundEvents;
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.block.entity.PollutedWaterCauldronBlockEntity;
+import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBlock;
 import com.thedeathlycow.thirstful.item.WaterCollection;
-import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
+import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -54,12 +54,12 @@ public final class ScorchfulIntegration {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POLLUTED_WATER_CAULDRON)
-                .orElseThrow(() -> new IllegalStateException("Missing potion cauldron block entity at " + pos));
-
-        stack.set(TDataComponentTypes.POLLUTANTS, blockEntity.getPollutants());
-
         if (!world.isClient()) {
+            PollutantComponent incomingPollutants = stack.getOrDefault(TDataComponentTypes.POLLUTANTS, PollutantComponent.DEFAULT);
+            PollutantComponent existingPollutants = PollutedWaterCauldronBlock.toPollutants(state);
+
+            state = PollutedWaterCauldronBlock.addPollutants(state, existingPollutants.mixWith(incomingPollutants));
+
             world.playSound(
                     null,
                     player.getBlockPos(),

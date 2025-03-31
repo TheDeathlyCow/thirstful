@@ -2,9 +2,7 @@ package com.thedeathlycow.thirstful.item;
 
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import com.thedeathlycow.thirstful.registry.TItems;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
-import com.thedeathlycow.thirstful.thirst.PollutantContainer;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -40,9 +38,9 @@ public final class WaterCollection {
                     TDataComponentTypes.POLLUTANTS,
                     PollutantComponent.DEFAULT
             );
-            PollutantContainer pollutants = WaterPollution.POLLUTANT_CONTAINER.find(world, sourcePos, null);
+            PollutantComponent pollutants = WaterPollution.POLLUTANT_CONTAINER.find(world, sourcePos, null);
             Objects.requireNonNull(pollutants);
-            stack.set(TDataComponentTypes.POLLUTANTS, current.mixWith(pollutants.toComponent()));
+            stack.set(TDataComponentTypes.POLLUTANTS, current.mixWith(pollutants));
         }
     }
 

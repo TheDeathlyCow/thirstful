@@ -1,11 +1,9 @@
 package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.block.entity.PollutedWaterCauldronBlockEntity;
 import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
-import com.thedeathlycow.thirstful.registry.TBlockEntityTypes;
 import com.thedeathlycow.thirstful.registry.TBlocks;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import net.minecraft.block.BlockState;
@@ -49,27 +47,19 @@ public final class PollutedWaterCauldronBehavior {
             BlockPos pos
     ) {
         if (state.isOf(Blocks.WATER_CAULDRON) && !world.isClient()) {
-            BlockState pollutedCauldron = TBlocks.POLLUTED_WATER_CAULDRON.getDefaultState()
-                    .with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL));
+            BlockState pollutedCauldron = PollutedWaterCauldronBlock.addPollutants(
+                    TBlocks.POLLUTED_WATER_CAULDRON.getDefaultState(),
+                    inputPollution
+            ).with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL));
 
             world.setBlockState(pos, pollutedCauldron);
-
-            PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(
-                    pos,
-                    TBlockEntityTypes.POLLUTED_WATER_CAULDRON
-            ).orElseThrow();
-
-            blockEntity.setContents(inputPollution);
         }
     }
 
     private static ItemActionResult emptyIntoGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (!world.isClient()) {
-            PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POLLUTED_WATER_CAULDRON)
-                    .orElseThrow(() -> new IllegalStateException("Missing potion cauldron block entity at " + pos));
-
             ItemStack resultStack = PotionContentsComponent.createStack(Items.POTION, Potions.WATER);
-            resultStack.set(TDataComponentTypes.POLLUTANTS, blockEntity.getPollutants());
+            resultStack.set(TDataComponentTypes.POLLUTANTS, PollutedWaterCauldronBlock.toPollutants(state));
 
             player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, resultStack));
 
@@ -86,11 +76,8 @@ public final class PollutedWaterCauldronBehavior {
     }
 
     private static ItemActionResult emptyIntoBucket(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POLLUTED_WATER_CAULDRON)
-                .orElseThrow(() -> new IllegalStateException("Missing potion cauldron block entity at " + pos));
-
         ItemStack output = Items.WATER_BUCKET.getDefaultStack();
-        output.set(TDataComponentTypes.POLLUTANTS, blockEntity.getPollutants());
+        output.set(TDataComponentTypes.POLLUTANTS, PollutedWaterCauldronBlock.toPollutants(state));
 
         return CauldronBehavior.emptyCauldron(
                 state,
@@ -114,9 +101,10 @@ public final class PollutedWaterCauldronBehavior {
 
         if (potionContents != null && potionContents.matches(Potions.WATER)) {
             if (!world.isClient()) {
-                PollutantComponent pollutants = stack.getOrDefault(TDataComponentTypes.POLLUTANTS, PollutantComponent.DEFAULT);
-                PollutedWaterCauldronBlockEntity blockEntity = world.getBlockEntity(pos, TBlockEntityTypes.POLLUTED_WATER_CAULDRON).orElseThrow();
-                blockEntity.setContents(pollutants);
+                PollutantComponent incomingPollutants = stack.getOrDefault(TDataComponentTypes.POLLUTANTS, PollutantComponent.DEFAULT);
+                PollutantComponent existingPollutants = PollutedWaterCauldronBlock.toPollutants(state);
+
+                state = PollutedWaterCauldronBlock.addPollutants(state, existingPollutants.mixWith(incomingPollutants));
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 
