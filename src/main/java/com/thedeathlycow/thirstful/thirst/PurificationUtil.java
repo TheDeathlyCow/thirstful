@@ -8,8 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 
-import java.util.List;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class PurificationUtil {
@@ -59,13 +57,13 @@ public final class PurificationUtil {
     ) {
         PollutantComponent fallback = output.getOrDefault(TDataComponentTypes.POLLUTANTS, PollutantComponent.DEFAULT);
 
-        boolean dirty = !clearDirtiness && disjunctionOrDefault(input, PollutantComponent::dirty, fallback.dirty());
-        boolean contaminated = !clearDisease && disjunctionOrDefault(input, PollutantComponent::contaminated, fallback.contaminated());
+        boolean dirty = !clearDirtiness && disjunctionOrDefault(input, PollutantComponent::checkedDirty, fallback.checkedDirty());
+        boolean contaminated = !clearDisease && disjunctionOrDefault(input, PollutantComponent::checkedContaminated, fallback.checkedContaminated());
 
         return new PollutantComponent(
                 dirty,
                 contaminated,
-                disjunctionOrDefault(input, PollutantComponent::salty, fallback.salty())
+                disjunctionOrDefault(input, PollutantComponent::checkedSalty, fallback.checkedSalty())
         );
     }
 
@@ -85,7 +83,7 @@ public final class PurificationUtil {
 
         return fallback;
     }
-    
+
     private static <T extends RecipeInput> void copyScorchfulDrinksComponent(T input, ItemStack output) {
         if (input instanceof SingleStackRecipeInput singleInput && ModIntegration.isScorchfulLoaded()) {
             ScorchfulIntegration.copyDrinksToOutput(singleInput, output);

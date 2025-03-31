@@ -18,33 +18,33 @@ import net.minecraft.util.Formatting;
 import java.util.function.Consumer;
 
 public record PollutantComponent(
-        boolean dirty,
-        boolean contaminated,
-        boolean salty
+        boolean checkedDirty,
+        boolean checkedContaminated,
+        boolean checkedSalty
 ) implements TooltipAppender {
     public static final PollutantComponent DEFAULT = new PollutantComponent();
 
     public static final Codec<PollutantComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.BOOL
-                                    .optionalFieldOf("dirty", DEFAULT.dirty())
-                                    .forGetter(PollutantComponent::dirty),
+                                    .optionalFieldOf("dirty", DEFAULT.checkedDirty())
+                                    .forGetter(PollutantComponent::checkedDirty),
                             Codec.BOOL
-                                    .optionalFieldOf("contaminated", DEFAULT.contaminated())
-                                    .forGetter(PollutantComponent::contaminated),
+                                    .optionalFieldOf("contaminated", DEFAULT.checkedContaminated())
+                                    .forGetter(PollutantComponent::checkedContaminated),
                             Codec.BOOL
-                                    .optionalFieldOf("salty", DEFAULT.salty())
-                                    .forGetter(PollutantComponent::salty)
+                                    .optionalFieldOf("salty", DEFAULT.checkedSalty())
+                                    .forGetter(PollutantComponent::checkedSalty)
                     )
                     .apply(instance, PollutantComponent::new)
     );
     public static final PacketCodec<RegistryByteBuf, PollutantComponent> PACKET_CODEC = PacketCodec.tuple(
             PacketCodecs.BOOL,
-            PollutantComponent::dirty,
+            PollutantComponent::checkedDirty,
             PacketCodecs.BOOL,
-            PollutantComponent::contaminated,
+            PollutantComponent::checkedContaminated,
             PacketCodecs.BOOL,
-            PollutantComponent::salty,
+            PollutantComponent::checkedSalty,
             PollutantComponent::new
     );
 
@@ -74,13 +74,13 @@ public record PollutantComponent(
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
         WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
-        if (this.dirty(config)) {
+        if (this.checkedDirty(config)) {
             tooltip.accept(DIRTY_TOOLTIP);
         }
-        if (this.contaminated(config)) {
+        if (this.checkedContaminated(config)) {
             tooltip.accept(CONTAMINATED_TOOLTIP);
         }
-        if (this.salty(config)) {
+        if (this.checkedSalty(config)) {
             tooltip.accept(SALTY_TOOLTIP);
         }
 
@@ -97,28 +97,20 @@ public record PollutantComponent(
         );
     }
 
-    public boolean dirty(WaterPollutionConfig config) {
+    public boolean checkedDirty(WaterPollutionConfig config) {
         return config.enableDirtiness() && this.dirty;
     }
 
-    public boolean dirty() {
-        return this.dirty(Thirstful.getConfig().common().waterPollution());
-    }
-
-    public boolean contaminated(WaterPollutionConfig config) {
+    public boolean checkedContaminated(WaterPollutionConfig config) {
         return config.enableDisease() && this.contaminated;
     }
 
-    public boolean contaminated() {
-        return this.contaminated(Thirstful.getConfig().common().waterPollution());
-    }
-
-    public boolean salty(WaterPollutionConfig config) {
+    public boolean checkedSalty(WaterPollutionConfig config) {
         return config.enableSaltiness() && this.salty;
     }
 
     public boolean clean(WaterPollutionConfig config) {
-        return !this.dirty(config) && !this.contaminated(config) && !this.salty(config);
+        return !this.checkedDirty(config) && !this.checkedContaminated(config) && !this.checkedSalty(config);
     }
 
     public boolean clean() {
