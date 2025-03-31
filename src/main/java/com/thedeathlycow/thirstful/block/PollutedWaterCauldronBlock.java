@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
+import com.thedeathlycow.thirstful.registry.TBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeveledCauldronBlock;
@@ -52,6 +53,17 @@ public class PollutedWaterCauldronBlock extends LeveledCauldronBlock {
                 .with(DIRTY, pollutants.dirty())
                 .with(CONTAMINED, pollutants.contaminated())
                 .with(SALTY, pollutants.salty());
+    }
+
+    public static BlockState fillWithRain(BlockState state) {
+        return TBlocks.POLLUTED_WATER_CAULDRON.getStateWithProperties(state)
+                .with(CONTAMINED, true);
+    }
+
+    public static BlockState fillFromDripstone(BlockState state) {
+        return TBlocks.POLLUTED_WATER_CAULDRON.getStateWithProperties(state)
+                .with(DIRTY, true)
+                .with(CONTAMINED, true);
     }
 
     @Override
