@@ -50,11 +50,10 @@ public class PollutedWaterCauldronBlock extends LeveledCauldronBlock {
     }
 
     public static BlockState addPollutants(BlockState state, PollutantComponent pollutants) {
-        WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
         return state
-                .with(DIRTY, pollutants.checkedDirty(config))
-                .with(CONTAMINED, pollutants.checkedContaminated(config))
-                .with(SALTY, pollutants.checkedSalty(config));
+                .with(DIRTY, pollutants.dirty())
+                .with(CONTAMINED, pollutants.contaminated())
+                .with(SALTY, pollutants.salty());
     }
 
     @Override

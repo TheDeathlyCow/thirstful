@@ -2,6 +2,8 @@ package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.client.ColorConfig;
+import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
+import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlocks;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.BlockState;
@@ -25,17 +27,20 @@ public final class TBlockColors {
             @Nullable BlockPos pos,
             int tintIndex
     ) {
-        boolean contaminated = state.get(PollutedWaterCauldronBlock.CONTAMINED);
-        boolean dirty = state.get(PollutedWaterCauldronBlock.DIRTY);
+        // TODO: This config needs to be synced
+        WaterPollutionConfig pollutionConfig = Thirstful.getConfig().common().waterPollution();
 
-        ColorConfig config = Thirstful.getConfig().client().color();
+        boolean dirty = pollutionConfig.enableDirtiness() && state.get(PollutedWaterCauldronBlock.DIRTY);
+        boolean contaminated = pollutionConfig.enableDisease() && state.get(PollutedWaterCauldronBlock.CONTAMINED);
+
+        ColorConfig colorConfig = Thirstful.getConfig().client().color();
 
         if (contaminated && dirty) {
-            return ColorHelper.Argb.mixColor(config.contaminatedWaterColor(), config.dirtyWaterColor());
+            return ColorHelper.Argb.mixColor(colorConfig.contaminatedWaterColor(), colorConfig.dirtyWaterColor());
         } else if (contaminated) {
-            return config.contaminatedWaterColor();
+            return colorConfig.contaminatedWaterColor();
         } else if (dirty) {
-            return config.dirtyWaterColor();
+            return colorConfig.dirtyWaterColor();
         } else if (world != null && pos != null) {
             return BiomeColors.getWaterColor(world, pos);
         } else {

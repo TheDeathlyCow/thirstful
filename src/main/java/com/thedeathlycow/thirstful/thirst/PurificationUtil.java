@@ -57,13 +57,13 @@ public final class PurificationUtil {
     ) {
         PollutantComponent fallback = output.getOrDefault(TDataComponentTypes.POLLUTANTS, PollutantComponent.DEFAULT);
 
-        boolean dirty = !clearDirtiness && disjunctionOrDefault(input, PollutantComponent::checkedDirty, fallback.checkedDirty());
-        boolean contaminated = !clearDisease && disjunctionOrDefault(input, PollutantComponent::checkedContaminated, fallback.checkedContaminated());
+        boolean dirty = !clearDirtiness && disjunctionOrDefault(input, PollutantComponent::dirty, fallback.dirty());
+        boolean contaminated = !clearDisease && disjunctionOrDefault(input, PollutantComponent::contaminated, fallback.contaminated());
 
         return new PollutantComponent(
                 dirty,
                 contaminated,
-                disjunctionOrDefault(input, PollutantComponent::checkedSalty, fallback.checkedSalty())
+                disjunctionOrDefault(input, PollutantComponent::salty, fallback.salty())
         );
     }
 

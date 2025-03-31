@@ -18,33 +18,33 @@ import net.minecraft.util.Formatting;
 import java.util.function.Consumer;
 
 public record PollutantComponent(
-        boolean checkedDirty,
-        boolean checkedContaminated,
-        boolean checkedSalty
+        boolean dirty,
+        boolean contaminated,
+        boolean salty
 ) implements TooltipAppender {
     public static final PollutantComponent DEFAULT = new PollutantComponent();
 
     public static final Codec<PollutantComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                             Codec.BOOL
-                                    .optionalFieldOf("dirty", DEFAULT.checkedDirty())
-                                    .forGetter(PollutantComponent::checkedDirty),
+                                    .optionalFieldOf("dirty", DEFAULT.dirty())
+                                    .forGetter(PollutantComponent::dirty),
                             Codec.BOOL
-                                    .optionalFieldOf("contaminated", DEFAULT.checkedContaminated())
-                                    .forGetter(PollutantComponent::checkedContaminated),
+                                    .optionalFieldOf("contaminated", DEFAULT.contaminated())
+                                    .forGetter(PollutantComponent::contaminated),
                             Codec.BOOL
-                                    .optionalFieldOf("salty", DEFAULT.checkedSalty())
-                                    .forGetter(PollutantComponent::checkedSalty)
+                                    .optionalFieldOf("salty", DEFAULT.salty())
+                                    .forGetter(PollutantComponent::salty)
                     )
                     .apply(instance, PollutantComponent::new)
     );
     public static final PacketCodec<RegistryByteBuf, PollutantComponent> PACKET_CODEC = PacketCodec.tuple(
             PacketCodecs.BOOL,
-            PollutantComponent::checkedDirty,
+            PollutantComponent::dirty,
             PacketCodecs.BOOL,
-            PollutantComponent::checkedContaminated,
+            PollutantComponent::contaminated,
             PacketCodecs.BOOL,
-            PollutantComponent::checkedSalty,
+            PollutantComponent::salty,
             PollutantComponent::new
     );
 
