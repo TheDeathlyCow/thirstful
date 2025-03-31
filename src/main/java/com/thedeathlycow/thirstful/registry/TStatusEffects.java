@@ -1,9 +1,11 @@
 package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.effect.*;
+import com.thedeathlycow.thirstful.effect.AllowStatusEffectCallback;
+import com.thedeathlycow.thirstful.effect.CoolingStatusEffect;
+import com.thedeathlycow.thirstful.effect.FeverStatusEffect;
+import com.thedeathlycow.thirstful.effect.WarmingStatusEffect;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;

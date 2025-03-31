@@ -2,9 +2,9 @@ package com.thedeathlycow.thirstful;
 
 import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBehavior;
 import com.thedeathlycow.thirstful.compat.ModIntegration;
+import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.*;
-import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;

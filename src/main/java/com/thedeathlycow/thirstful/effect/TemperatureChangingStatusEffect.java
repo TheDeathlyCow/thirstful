@@ -5,8 +5,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 
-import java.util.function.IntSupplier;
-
 public abstract class TemperatureChangingStatusEffect extends StatusEffect {
 
     public TemperatureChangingStatusEffect(StatusEffectCategory category, int color) {

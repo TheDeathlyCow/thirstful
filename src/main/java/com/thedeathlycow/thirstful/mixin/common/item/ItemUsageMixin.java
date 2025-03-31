@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

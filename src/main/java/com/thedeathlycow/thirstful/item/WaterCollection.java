@@ -2,7 +2,6 @@ package com.thedeathlycow.thirstful.item;
 
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

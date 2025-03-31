@@ -1,16 +1,7 @@
 package com.thedeathlycow.thirstful.mixin.common.block;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.thedeathlycow.thirstful.item.WaterCollection;
 import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(CauldronBehavior.class)
 public interface CauldronBehaviorMixin {

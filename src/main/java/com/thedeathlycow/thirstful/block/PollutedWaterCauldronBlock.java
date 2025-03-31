@@ -1,7 +1,5 @@
 package com.thedeathlycow.thirstful.block;
 
-import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
