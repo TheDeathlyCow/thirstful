@@ -25,6 +25,10 @@ repositories {
     }
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/releases/" }
+    maven {
+        name = "FzzyMaven"
+        url = "https://maven.fzzyhmstrs.me/"
+    }
 
     exclusiveContent {
         forRepository {
@@ -120,9 +124,8 @@ dependencies {
 
     modApi "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modApi "maven.modrinth:thermoo:${project.thermoo_version}"
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
+    modApi "me.fzzyhmstrs:fzzy_config:${project.fzzy_config_version}"
+
     modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}"
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
