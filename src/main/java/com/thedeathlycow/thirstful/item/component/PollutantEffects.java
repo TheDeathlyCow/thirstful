@@ -1,5 +1,7 @@
 package com.thedeathlycow.thirstful.item.component;
 
+import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.item.consume.ApplyStatusEffectConsumeEffect;
 import com.thedeathlycow.thirstful.item.consume.ConsumePollutionEffect;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
@@ -8,6 +10,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -36,18 +39,24 @@ public final class PollutantEffects {
 
     public static void onConsume(LivingEntity entity, ItemStack stack) {
         PollutantComponent pollutantComponent = stack.get(TDataComponentTypes.POLLUTANTS);
-        if (pollutantComponent != null) {
-            Consumer<ConsumePollutionEffect> effectApplier = effect -> effect.apply(entity.getWorld(), entity, stack);
+        World world = entity.getWorld();
+        if (!world.isClient() && pollutantComponent != null) {
+            WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
+            Consumer<ConsumePollutionEffect> effectApplier = effect -> effect.apply(world, entity, stack);
 
-            stack.getOrDefault(
-                    TDataComponentTypes.DIRTINESS_EFFECTS,
-                    DEFAULT_DIRTINESS
-            ).forEach(effectApplier);
+            if (pollutantComponent.checkedDirty(config)) {
+                stack.getOrDefault(
+                        TDataComponentTypes.DIRTINESS_EFFECTS,
+                        DEFAULT_DIRTINESS
+                ).forEach(effectApplier);
+            }
 
-            stack.getOrDefault(
-                    TDataComponentTypes.DISEASE_EFFECTS,
-                    DEFAULT_DISEASE
-            ).forEach(effectApplier);
+            if (pollutantComponent.checkedContaminated(config)) {
+                stack.getOrDefault(
+                        TDataComponentTypes.DISEASE_EFFECTS,
+                        DEFAULT_DISEASE
+                ).forEach(effectApplier);
+            }
         }
     }
 
