@@ -32,6 +32,7 @@ public class Thirstful implements ModInitializer {
         PollutedWaterCauldronBehavior.initialize();
         TBlocks.initialize();
         TBlockEntityTypes.initialize();
+        TConsumePollutionEffects.initialize();
         TItems.initialize();
         TStatusEffects.initialize();
         TDataComponentTypes.initialize();
