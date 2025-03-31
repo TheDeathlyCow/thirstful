@@ -7,6 +7,7 @@ import com.thedeathlycow.thirstful.item.component.DehydratingConsumableComponent
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.item.consume.ConsumePollutionEffect;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
+import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import net.minecraft.component.ComponentType;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
@@ -52,7 +53,7 @@ public final class TDataComponentTypes {
         Thirstful.LOGGER.debug("Initialized Thirstful item components");
 
         ItemStackCreationCallback.EVENT.register(stack -> {
-            if (stack.isIn(TItemTags.CAN_BE_POLLUTED) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
+            if (WaterPollution.canCarryPollutants(stack) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
                 var component = new PollutantComponent(
                         stack.isIn(TItemTags.DIRTY_BY_DEFAULT),
                         stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT),

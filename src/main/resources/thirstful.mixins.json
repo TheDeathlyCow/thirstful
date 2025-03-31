@@ -13,6 +13,7 @@
         "entity.LivingEntityMixin",
         "item.GlassBottleItemMixin",
         "item.ItemStackMixin",
+        "item.ItemUsageMixin",
         "item.MilkBucketItemMixin",
         "recipe.AbstractCookingRecipeMixin",
         "recipe.AbstractFurnaceBlockEntityMixin"

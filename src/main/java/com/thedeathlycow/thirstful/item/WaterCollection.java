@@ -33,7 +33,7 @@ public final class WaterCollection {
      * @param sourcePos The position of the water sourcePos to collect from
      */
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos sourcePos) {
-        if (stack.isIn(TItemTags.CAN_BE_POLLUTED)) {
+        if (WaterPollution.canCarryPollutants(stack)) {
             PollutantComponent current = stack.getOrDefault(
                     TDataComponentTypes.POLLUTANTS,
                     PollutantComponent.DEFAULT
