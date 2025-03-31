@@ -2,7 +2,7 @@ package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.item.ConsumeItemCallback;
-import com.thedeathlycow.thirstful.thirst.ConsumeDirtinessAndDiseaseListener;
+import com.thedeathlycow.thirstful.item.component.PollutantEffects;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Items;
@@ -10,7 +10,7 @@ import net.minecraft.item.Items;
 public final class TItems {
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful items");
-        ConsumeItemCallback.EVENT.register(new ConsumeDirtinessAndDiseaseListener());
+        ConsumeItemCallback.EVENT.register(PollutantEffects::onConsume);
 
         DefaultItemComponentEvents.MODIFY.register(context -> {
             context.modify(Items.POTION, builder -> {

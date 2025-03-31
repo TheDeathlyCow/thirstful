@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
@@ -115,16 +114,5 @@ public record PollutantComponent(
 
     public boolean clean() {
         return this.clean(Thirstful.getConfig().common().waterPollution());
-    }
-
-    public void applyEffects(LivingEntity entity) {
-        // TODO: add effects from other components
-//        WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
-//        if (this.dirty(config)) {
-//            this.applyEffects(entity, this.dirtinessEffects());
-//        }
-//        if (this.contaminated(config)) {
-//            this.applyEffects(entity, this.diseaseEffects());
-//        }
     }
 }
