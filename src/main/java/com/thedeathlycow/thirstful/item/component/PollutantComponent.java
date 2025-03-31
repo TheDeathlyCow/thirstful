@@ -4,11 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
-import com.thedeathlycow.thirstful.registry.TStatusEffects;
-import com.thedeathlycow.thirstful.thirst.PurificationUtil;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
@@ -19,44 +15,36 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Consumer;
 
 public record PollutantComponent(
-        List<StatusEffectEntry> dirtinessEffects,
-        List<StatusEffectEntry> diseaseEffects,
-        boolean salty,
-        boolean showInTooltip
+        boolean dirty,
+        boolean contaminated,
+        boolean salty
 ) implements TooltipAppender {
     public static final PollutantComponent DEFAULT = new PollutantComponent();
 
     public static final Codec<PollutantComponent> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
-                            Codec.list(StatusEffectEntry.CODEC)
-                                    .lenientOptionalFieldOf("dirtiness_effects", DEFAULT.dirtinessEffects())
-                                    .forGetter(PollutantComponent::dirtinessEffects),
-                            Codec.list(StatusEffectEntry.CODEC)
-                                    .lenientOptionalFieldOf("disease_effects", DEFAULT.diseaseEffects())
-                                    .forGetter(PollutantComponent::diseaseEffects),
+                            Codec.BOOL
+                                    .optionalFieldOf("dirty", DEFAULT.dirty())
+                                    .forGetter(PollutantComponent::dirty),
+                            Codec.BOOL
+                                    .optionalFieldOf("contaminated", DEFAULT.contaminated())
+                                    .forGetter(PollutantComponent::contaminated),
                             Codec.BOOL
                                     .optionalFieldOf("salty", DEFAULT.salty())
-                                    .forGetter(PollutantComponent::salty),
-                            Codec.BOOL
-                                    .optionalFieldOf("show_in_tooltip", DEFAULT.showInTooltip())
-                                    .forGetter(PollutantComponent::showInTooltip)
+                                    .forGetter(PollutantComponent::salty)
                     )
                     .apply(instance, PollutantComponent::new)
     );
     public static final PacketCodec<RegistryByteBuf, PollutantComponent> PACKET_CODEC = PacketCodec.tuple(
-            StatusEffectEntry.PACKET_CODEC.collect(PacketCodecs.toList()),
-            PollutantComponent::dirtinessEffects,
-            StatusEffectEntry.PACKET_CODEC.collect(PacketCodecs.toList()),
-            PollutantComponent::diseaseEffects,
+            PacketCodecs.BOOL,
+            PollutantComponent::dirty,
+            PacketCodecs.BOOL,
+            PollutantComponent::contaminated,
             PacketCodecs.BOOL,
             PollutantComponent::salty,
-            PacketCodecs.BOOL,
-            PollutantComponent::showInTooltip,
             PollutantComponent::new
     );
 
@@ -76,34 +64,8 @@ public record PollutantComponent(
             .append(Text.translatable("item.thirstful.pollutant.clean"))
             .setStyle(Style.EMPTY.withColor(Formatting.AQUA));
 
-    private static final int LONG_EFFECT_TIME = 60 * 20;
-    private static final int SHORT_EFFECT_TIME = 10 * 20;
-
-    public PollutantComponent() {
-        this(Collections.emptyList(), Collections.emptyList(), false, true);
-    }
-
-    /**
-     * Creates a component using the default effects of hunger, poison, and fever using a custom chance
-     *
-     * @param dirtiness     Chance for dirtiness effects
-     * @param diseaseChance Chance for disease effects
-     * @param salty         Saltiness flag
-     */
-    public PollutantComponent(float dirtiness, float diseaseChance, boolean salty) {
-        this(dirtiness, diseaseChance, salty, DEFAULT.showInTooltip());
-    }
-
-    /**
-     * Creates a component using the default effects of hunger, poison, and fever using a custom chance
-     *
-     * @param dirtiness     Chance for dirtiness effects
-     * @param diseaseChance Chance for disease effects
-     * @param salty         Saltiness flag
-     * @param showInTooltip Whether to show this component in a tooltip
-     */
-    public PollutantComponent(float dirtiness, float diseaseChance, boolean salty, boolean showInTooltip) {
-        this(defaultDirtinessEffects(dirtiness), defaultDiseaseEffects(diseaseChance), salty, showInTooltip);
+    private PollutantComponent() {
+        this(false, false, false);
     }
 
     /**
@@ -111,10 +73,6 @@ public record PollutantComponent(
      */
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
-        if (!this.showInTooltip()) {
-            return;
-        }
-
         WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
         if (this.dirty(config)) {
             tooltip.accept(DIRTY_TOOLTIP);
@@ -133,15 +91,14 @@ public record PollutantComponent(
 
     public PollutantComponent mixWith(PollutantComponent other) {
         return new PollutantComponent(
-                PurificationUtil.max(this.dirtinessEffects, other.dirtinessEffects),
-                PurificationUtil.max(this.diseaseEffects, other.diseaseEffects),
-                this.salty || other.salty,
-                this.showInTooltip
+                this.dirty || other.dirty,
+                this.contaminated || other.contaminated,
+                this.salty || other.salty
         );
     }
 
     public boolean dirty(WaterPollutionConfig config) {
-        return config.enableDirtiness() && !this.dirtinessEffects.isEmpty();
+        return config.enableDirtiness() && this.dirty;
     }
 
     public boolean dirty() {
@@ -149,7 +106,7 @@ public record PollutantComponent(
     }
 
     public boolean contaminated(WaterPollutionConfig config) {
-        return config.enableDisease() && !this.diseaseEffects.isEmpty();
+        return config.enableDisease() && this.contaminated;
     }
 
     public boolean contaminated() {
@@ -169,74 +126,13 @@ public record PollutantComponent(
     }
 
     public void applyEffects(LivingEntity entity) {
-        WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
-        if (this.dirty(config)) {
-            this.applyEffects(entity, this.dirtinessEffects());
-        }
-        if (this.contaminated(config)) {
-            this.applyEffects(entity, this.diseaseEffects());
-        }
-    }
-
-    private void applyEffects(LivingEntity entity, List<StatusEffectEntry> effects) {
-        for (StatusEffectEntry effect : effects) {
-            if (entity.getRandom().nextFloat() < effect.probability()) {
-                entity.addStatusEffect(effect.effect());
-            }
-        }
-    }
-
-    public record StatusEffectEntry(StatusEffectInstance effect, float probability) {
-        public static final Codec<StatusEffectEntry> CODEC = RecordCodecBuilder.create(
-                instance -> instance.group(
-                                StatusEffectInstance.CODEC
-                                        .fieldOf("effect")
-                                        .forGetter(StatusEffectEntry::effect),
-                                Codec.floatRange(0.0f, 1.0f)
-                                        .optionalFieldOf("probability", 1.0f)
-                                        .forGetter(StatusEffectEntry::probability)
-                        )
-                        .apply(instance, StatusEffectEntry::new)
-        );
-        public static final PacketCodec<RegistryByteBuf, StatusEffectEntry> PACKET_CODEC = PacketCodec.tuple(
-                StatusEffectInstance.PACKET_CODEC,
-                StatusEffectEntry::effect,
-                PacketCodecs.FLOAT,
-                StatusEffectEntry::probability,
-                StatusEffectEntry::new
-        );
-
-        @Override
-        public StatusEffectInstance effect() {
-            return new StatusEffectInstance(this.effect);
-        }
-    }
-
-    private static List<StatusEffectEntry> defaultDirtinessEffects(float chance) {
-        if (chance > 0f) {
-            return List.of(
-                    new StatusEffectEntry(
-                            new StatusEffectInstance(StatusEffects.HUNGER, LONG_EFFECT_TIME),
-                            chance
-                    )
-            );
-        }
-        return Collections.emptyList();
-    }
-
-    private static List<StatusEffectEntry> defaultDiseaseEffects(float chance) {
-        if (chance > 0f) {
-            return List.of(
-                    new StatusEffectEntry(
-                            new StatusEffectInstance(StatusEffects.POISON, SHORT_EFFECT_TIME),
-                            chance
-                    ),
-                    new StatusEffectEntry(
-                            new StatusEffectInstance(TStatusEffects.FEVER, LONG_EFFECT_TIME),
-                            chance
-                    )
-            );
-        }
-        return Collections.emptyList();
+        // TODO: add effects from other components
+//        WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
+//        if (this.dirty(config)) {
+//            this.applyEffects(entity, this.dirtinessEffects());
+//        }
+//        if (this.contaminated(config)) {
+//            this.applyEffects(entity, this.diseaseEffects());
+//        }
     }
 }
