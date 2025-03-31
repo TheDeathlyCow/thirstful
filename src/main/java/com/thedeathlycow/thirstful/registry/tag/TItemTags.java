@@ -9,7 +9,7 @@ public final class TItemTags {
     public static final TagKey<Item> DIRTY_BY_DEFAULT = key("polluted_consumables/dirty_by_default");
     public static final TagKey<Item> CONTAMINATED_BY_DEFAULT = key("polluted_consumables/contaminated_by_default");
     public static final TagKey<Item> SALTY_BY_DEFAULT = key("polluted_consumables/salty_by_default");
-    public static final TagKey<Item> POLLUTED_CONSUMABLES = key("polluted_consumables");
+    public static final TagKey<Item> CAN_BE_POLLUTED = key("can_be_polluted");
 
     private static TagKey<Item> key(String id) {
         return TagKey.of(RegistryKeys.ITEM, Thirstful.id(id));

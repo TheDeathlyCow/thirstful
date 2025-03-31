@@ -2,9 +2,10 @@ package com.thedeathlycow.thirstful.item;
 
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
+import com.thedeathlycow.thirstful.registry.TItems;
+import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.PollutantContainer;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -34,19 +35,14 @@ public final class WaterCollection {
      * @param sourcePos The position of the water sourcePos to collect from
      */
     public static void polluteCollectedWater(ItemStack stack, World world, BlockPos sourcePos) {
-        PollutantComponent pollutantComponent = stack.get(TDataComponentTypes.POLLUTANTS);
-        if (pollutantComponent != null && stack.isIn(ConventionalItemTags.WATERY_DRINKS)) {
+        if (stack.isIn(TItemTags.CAN_BE_POLLUTED)) {
+            PollutantComponent current = stack.getOrDefault(
+                    TDataComponentTypes.POLLUTANTS,
+                    PollutantComponent.DEFAULT
+            );
             PollutantContainer pollutants = WaterPollution.POLLUTANT_CONTAINER.find(world, sourcePos, null);
             Objects.requireNonNull(pollutants);
-            stack.set(
-                    TDataComponentTypes.POLLUTANTS,
-                    new PollutantComponent(
-                            pollutants.dirtiness(),
-                            pollutants.diseaseChance(),
-                            pollutants.salty(),
-                            pollutantComponent.showInTooltip()
-                    )
-            );
+            stack.set(TDataComponentTypes.POLLUTANTS, current.mixWith(pollutants.toComponent()));
         }
     }
 

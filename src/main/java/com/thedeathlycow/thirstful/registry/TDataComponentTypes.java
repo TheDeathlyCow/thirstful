@@ -34,7 +34,7 @@ public final class TDataComponentTypes {
 
         ItemStackCreationCallback.EVENT.register(stack -> {
             WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
-            if (stack.isIn(TItemTags.POLLUTED_CONSUMABLES) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
+            if (stack.isIn(TItemTags.CAN_BE_POLLUTED) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
                 var component = new PollutantComponent(
                         stack.isIn(TItemTags.DIRTY_BY_DEFAULT) ? config.defaultWaterDirtiness() : 0,
                         stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT) ? config.defaultWaterDiseaseChance() : 0,

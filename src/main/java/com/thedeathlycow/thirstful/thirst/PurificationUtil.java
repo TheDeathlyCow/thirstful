@@ -14,6 +14,12 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class PurificationUtil {
+    public static List<PollutantComponent.StatusEffectEntry> max(List<PollutantComponent.StatusEffectEntry> a, List<PollutantComponent.StatusEffectEntry> b) {
+        float probA = probabilityOfAnyEffect(a);
+        float probB = probabilityOfAnyEffect(b);
+        return probA >= probB ? a : b;
+    }
+
     /**
      * Copes the disease, dirtiness, saltiness from the input stacks to the output, if they would be worse than the output's default
      */

@@ -4,7 +4,11 @@
     "compatibilityLevel": "JAVA_21",
     "mixins": [
         "accessor.ItemAccessor",
+        "accessor.PointOfInterestTypeAccessor",
+        "accessor.PointOfInterestTypesAccessor",
+        "block.AbstractCauldronBlockMixin",
         "block.CauldronBehaviorMixin",
+        "block.FluidBlockMixin",
         "block.ItemDispenserBehaviorMixin",
         "entity.LivingEntityMixin",
         "item.GlassBottleItemMixin",

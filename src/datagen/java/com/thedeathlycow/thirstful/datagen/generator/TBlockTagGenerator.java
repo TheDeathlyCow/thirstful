@@ -1,11 +1,8 @@
 package com.thedeathlycow.thirstful.datagen.generator;
 
-import com.thedeathlycow.thirstful.datagen.ThirstfulDataGenerator;
-import com.thedeathlycow.thirstful.registry.tag.TBlockTags;
-import com.thedeathlycow.thirstful.registry.tag.TItemTags;
+import com.thedeathlycow.thirstful.registry.TBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 
@@ -18,6 +15,7 @@ public class TBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-
+        getOrCreateTagBuilder(BlockTags.CAULDRONS)
+                .add(TBlocks.POLLUTED_WATER_CAULDRON);
     }
 }

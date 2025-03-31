@@ -1,17 +1,15 @@
 package com.thedeathlycow.thirstful;
 
+import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBehavior;
 import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
-import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import com.thedeathlycow.thirstful.registry.TItems;
-import com.thedeathlycow.thirstful.registry.TStatusEffects;
+import com.thedeathlycow.thirstful.registry.*;
 import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +29,14 @@ public class Thirstful implements ModInitializer {
     public static void initialize() {
         configHolder = AutoConfig.register(ThirstfulConfig.class, JanksonConfigSerializer::new); //NOSONAR
 
+        PollutedWaterCauldronBehavior.initialize();
+        TBlocks.initialize();
+        TBlockEntityTypes.initialize();
+        TItems.initialize();
         TStatusEffects.initialize();
         TDataComponentTypes.initialize();
-        TItems.initialize();
         WaterPollution.initialize();
+        TPointsOfInterest.initialize();
         if (ModIntegration.isScorchfulLoaded()) {
             ScorchfulIntegration.initialize();
         }

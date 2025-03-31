@@ -4,6 +4,9 @@
     "effect.thirstful.fever": "Fever",
     
     
+    "block.thirstful.polluted_water_cauldron": "Polluted Water Cauldron",
+    
+    
     "item.thirstful.pollutant.dirty": "Dirty",
     "item.thirstful.pollutant.contaminated": "Contaminated",
     "item.thirstful.pollutant.very_dirty": "Very Dirty",
@@ -41,5 +44,9 @@
     "text.autoconfig.thirstful.option.common.waterPollution.defaultWaterDiseaseChance": "Default water disease chance",
     "text.autoconfig.thirstful.option.common.waterPollution.extraContaminatedWaterDiseaseChance": "Extra contaminated water disease chance",
     
-    "text.autoconfig.thirstful.option.client": "Client Config"
+    "text.autoconfig.thirstful.option.client": "Client Config",
+    
+    "text.autoconfig.thirstful.option.client.color": "Color Config",
+    "text.autoconfig.thirstful.option.client.color.contaminatedWaterColor": "Contaminated water color",
+    "text.autoconfig.thirstful.option.client.color.dirtyWaterColor": "Dirty water color"
 }
