@@ -27,7 +27,7 @@ public class MilkBucketItemMixin {
             @Local(argsOnly = true) ItemStack stack
     ) {
         PollutantComponent component = stack.get(TDataComponentTypes.POLLUTANTS);
-        if (component == null || component.clean(Thirstful.getConfig().common().waterPollution())) {
+        if (component == null || component.clean(Thirstful.getConfig().waterPollution())) {
             original.call(instance);
         }
 

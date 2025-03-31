@@ -70,10 +70,10 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent 
     }
 
     public int getMaxThirstTicks() {
-        return Thirstful.getConfig().common().thirst().maxThirstTicks();
+        return Thirstful.getConfig().thirst().maxThirstTicks();
     }
 
     public static boolean isThirstDamageEnabled() {
-        return Thirstful.getConfig().common().thirst().enableThirstDamage();
+        return Thirstful.getConfig().thirst().enableThirstDamage();
     }
 }

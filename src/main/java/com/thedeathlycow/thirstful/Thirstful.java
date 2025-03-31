@@ -6,20 +6,24 @@ import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.*;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigHolder;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
+import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Supplier;
 
 public class Thirstful implements ModInitializer {
     public static final String MODID = "thirstful";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-    private static ConfigHolder<ThirstfulConfig> configHolder;
+    private static final ThirstfulConfig CONFIG = ConfigApi.registerAndLoadConfig(
+            (Supplier<ThirstfulConfig>) ThirstfulConfig::new,
+            RegisterType.BOTH
+    );
 
     @Override
     public void onInitialize() {
@@ -27,8 +31,6 @@ public class Thirstful implements ModInitializer {
     }
 
     public static void initialize() {
-        configHolder = AutoConfig.register(ThirstfulConfig.class, JanksonConfigSerializer::new); //NOSONAR
-
         PollutedWaterCauldronBehavior.initialize();
         TBlocks.initialize();
         TBlockEntityTypes.initialize();
@@ -46,7 +48,7 @@ public class Thirstful implements ModInitializer {
     }
 
     public static ThirstfulConfig getConfig() {
-        return configHolder.getConfig();
+        return CONFIG;
     }
 
     public static Identifier id(String path) {

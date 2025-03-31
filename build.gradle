@@ -144,8 +144,11 @@ dependencies {
     // only want these when manually testing, leave the game test runner alone
     modTestmodClientRuntimeOnly "maven.modrinth:frostiful:${project.frostiful_test_version}"
     modTestmodClientRuntimeOnly "maven.modrinth:scorchful:${project.scorchful_version}"
-    modTestmodClientImplementation ("org.ladysnake:satin:${project.satin_test_version}") {
-        exclude(group: "net.fabricmc")
+    modTestmodClientRuntimeOnly("org.ladysnake:satin:${project.satin_test_version}") {
+        transitive = false
+    }
+    modTestmodClientRuntimeOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_test_version}") {
+        transitive = false
     }
 }
 

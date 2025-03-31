@@ -1,23 +1,31 @@
 package com.thedeathlycow.thirstful.config;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import com.thedeathlycow.thirstful.config.common.StatusEffectConfig;
+import com.thedeathlycow.thirstful.config.common.ThirstConfig;
+import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
+import me.fzzyhmstrs.fzzy_config.annotations.IgnoreVisibility;
+import me.fzzyhmstrs.fzzy_config.config.Config;
 
-@Config(name = Thirstful.MODID)
-public class ThirstfulConfig implements ConfigData {
-    @ConfigEntry.Gui.CollapsibleObject
-    CommonConfig common = new CommonConfig();
+@IgnoreVisibility
+public class ThirstfulConfig extends Config {
+    private StatusEffectConfig statusEffect = new StatusEffectConfig();
+    private ThirstConfig thirst = new ThirstConfig();
+    private WaterPollutionConfig waterPollution = new WaterPollutionConfig();
 
-    @ConfigEntry.Gui.CollapsibleObject
-    ClientConfig client = new ClientConfig();
-
-    public CommonConfig common() {
-        return common;
+    public ThirstfulConfig() {
+        super(Thirstful.id("common"));
     }
 
-    public ClientConfig client() {
-        return client;
+    public StatusEffectConfig statusEffect() {
+        return this.statusEffect;
+    }
+
+    public ThirstConfig thirst() {
+        return this.thirst;
+    }
+
+    public WaterPollutionConfig waterPollution() {
+        return this.waterPollution;
     }
 }

@@ -17,7 +17,7 @@ public final class TItems {
                 int maxStackSize = builder.getOrDefault(DataComponentTypes.MAX_STACK_SIZE, 1);
 
                 if (maxStackSize == 1) {
-                    int modSize = Thirstful.getConfig().common().thirst().potionStackSize();
+                    int modSize = Thirstful.getConfig().thirst().potionStackSize();
                     builder.add(DataComponentTypes.MAX_STACK_SIZE, modSize);
                 } else {
                     Thirstful.LOGGER.warn("Default potion max stack size was expected to be 1, but was {}", maxStackSize);

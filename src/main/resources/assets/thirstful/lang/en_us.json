@@ -21,29 +21,29 @@
     "tag.item.thirstful.polluted_consumables.dirty_by_default": "Dirty Consumables",
     
     
-    "text.autoconfig.thirstful.title": "Thirstful",
-    "text.autoconfig.thirstful.option.common": "Common Config",
+    "thirstful.common.title": "Thirstful",
+    "thirstful.common": "Common Config",
     
-    "text.autoconfig.thirstful.option.common.statusEffect": "Status Effect Config",
-    "text.autoconfig.thirstful.option.common.statusEffect.coolingEffectTemperatureChange": "Cooling effect temperature change per tick",
-    "text.autoconfig.thirstful.option.common.statusEffect.warmingEffectTemperatureChange": "Warming effect temperature change per tick",
-    "text.autoconfig.thirstful.option.common.statusEffect.feverMinTemperatureScale": "Fever effect minimum temperature scale",
-    "text.autoconfig.thirstful.option.common.statusEffect.feverEffectTemperatureChange": "Fever effect temperature change per tick",
+    "thirstful.common.statusEffect": "Status Effect Config",
+    "thirstful.common.statusEffect.coolingEffectTemperatureChange": "Cooling effect temperature change per tick",
+    "thirstful.common.statusEffect.warmingEffectTemperatureChange": "Warming effect temperature change per tick",
+    "thirstful.common.statusEffect.feverMinTemperatureScale": "Fever effect minimum temperature scale",
+    "thirstful.common.statusEffect.feverEffectTemperatureChange": "Fever effect temperature change per tick",
     
-    "text.autoconfig.thirstful.option.common.thirst": "Thirst Config",
-    "text.autoconfig.thirstful.option.common.thirst.maxThirstTicks": "Max thirst ticks",
-    "text.autoconfig.thirstful.option.common.thirst.enableThirstDamage": "Enable thirst damage",
-    "text.autoconfig.thirstful.option.common.thirst.potionStackSize": "Potion item default max stack size",
+    "thirstful.common.thirst": "Thirst Config",
+    "thirstful.common.thirst.maxThirstTicks": "Max thirst ticks",
+    "thirstful.common.thirst.enableThirstDamage": "Enable thirst damage",
+    "thirstful.common.thirst.potionStackSize": "Potion item default max stack size",
     
-    "text.autoconfig.thirstful.option.common.waterPollution": "Water Pollution Config",
-    "text.autoconfig.thirstful.option.common.waterPollution.enableDisease": "Enable disease",
-    "text.autoconfig.thirstful.option.common.waterPollution.enableDirtiness": "Enable dirtiness",
-    "text.autoconfig.thirstful.option.common.waterPollution.enableSaltiness": "Enable saltiness",
+    "thirstful.common.waterPollution": "Water Pollution Config",
+    "thirstful.common.waterPollution.enableDisease": "Enable disease",
+    "thirstful.common.waterPollution.enableDirtiness": "Enable dirtiness",
+    "thirstful.common.waterPollution.enableSaltiness": "Enable saltiness",
     
     
-    "text.autoconfig.thirstful.option.client": "Client Config",
+    "thirstful.client": "Client Config",
     
-    "text.autoconfig.thirstful.option.client.color": "Color Config",
-    "text.autoconfig.thirstful.option.client.color.contaminatedWaterColor": "Contaminated water color",
-    "text.autoconfig.thirstful.option.client.color.dirtyWaterColor": "Dirty water color"
+    "thirstful.client.color": "Color Config",
+    "thirstful.client.color.contaminatedWaterColor": "Contaminated water color",
+    "thirstful.client.color.dirtyWaterColor": "Dirty water color"
 }

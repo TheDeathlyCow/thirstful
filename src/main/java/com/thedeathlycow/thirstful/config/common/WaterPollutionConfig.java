@@ -1,17 +1,15 @@
 package com.thedeathlycow.thirstful.config.common;
 
-import com.thedeathlycow.thirstful.Thirstful;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
+import me.fzzyhmstrs.fzzy_config.annotations.IgnoreVisibility;
+import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 
+@IgnoreVisibility
+public class WaterPollutionConfig extends ConfigSection {
+    private boolean enableDisease = true;
 
-@Config(name = Thirstful.MODID + ".water_pollution")
-public class WaterPollutionConfig implements ConfigData {
-    boolean enableDisease = true;
+    private boolean enableDirtiness = true;
 
-    boolean enableDirtiness = true;
-
-    boolean enableSaltiness = true;
+    private boolean enableSaltiness = true;
 
     public boolean enableDisease() {
         return enableDisease;

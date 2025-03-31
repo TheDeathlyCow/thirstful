@@ -72,7 +72,7 @@ public record PollutantComponent(
      */
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
-        WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
+        WaterPollutionConfig config = Thirstful.getConfig().waterPollution();
         if (this.checkedDirty(config)) {
             tooltip.accept(DIRTY_TOOLTIP);
         }
@@ -113,6 +113,6 @@ public record PollutantComponent(
     }
 
     public boolean clean() {
-        return this.clean(Thirstful.getConfig().common().waterPollution());
+        return this.clean(Thirstful.getConfig().waterPollution());
     }
 }

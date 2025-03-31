@@ -19,6 +19,6 @@ public class WarmingStatusEffect extends TemperatureChangingStatusEffect {
 
     @Override
     protected int getTemperatureChange(int amplifier) {
-        return Thirstful.getConfig().common().statusEffect().warmingEffectTemperatureChange() * (amplifier + 1);
+        return Thirstful.getConfig().statusEffect().warmingEffectTemperatureChange() * (amplifier + 1);
     }
 }

@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.ThirstfulClient;
 import com.thedeathlycow.thirstful.config.client.ColorConfig;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.registry.TBlocks;
@@ -25,12 +26,12 @@ public final class TBlockColors {
             int tintIndex
     ) {
         // TODO: This config needs to be synced
-        WaterPollutionConfig pollutionConfig = Thirstful.getConfig().common().waterPollution();
+        WaterPollutionConfig pollutionConfig = Thirstful.getConfig().waterPollution();
 
         boolean dirty = pollutionConfig.enableDirtiness() && state.get(PollutedWaterCauldronBlock.DIRTY);
         boolean contaminated = pollutionConfig.enableDisease() && state.get(PollutedWaterCauldronBlock.CONTAMINED);
 
-        ColorConfig colorConfig = Thirstful.getConfig().client().color();
+        ColorConfig colorConfig = ThirstfulClient.getConfig().color();
 
         if (contaminated && dirty) {
             return ColorHelper.Argb.mixColor(colorConfig.contaminatedWaterColor(), colorConfig.dirtyWaterColor());

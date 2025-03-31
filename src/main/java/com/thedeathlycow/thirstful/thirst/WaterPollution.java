@@ -42,7 +42,7 @@ public final class WaterPollution {
             @Nullable BlockEntity blockEntity,
             Void context
     ) {
-        final WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
+        final WaterPollutionConfig config = Thirstful.getConfig().waterPollution();
 
         boolean dirty = true;
         boolean contaminated = true;
