@@ -1,7 +1,7 @@
 package com.thedeathlycow.thirstful.datagen;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.datagen.config.EnglishUSGenerator;
+import com.thedeathlycow.thirstful.datagen.generator.EnglishUSGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TBiomeTagGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TBlockTagGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TItemTagGenerator;
@@ -18,6 +18,7 @@ public class ThirstfulDataGenerator implements DataGeneratorEntrypoint {
         TBlockTagGenerator blockTags = pack.addProvider(TBlockTagGenerator::new);
         pack.addProvider((output, wrapperLookup) -> new TItemTagGenerator(output, wrapperLookup, blockTags));
         pack.addProvider(TBiomeTagGenerator::new);
+        pack.addProvider(EnglishUSGenerator::new);
     }
 
     public static Identifier commonId(String path) {

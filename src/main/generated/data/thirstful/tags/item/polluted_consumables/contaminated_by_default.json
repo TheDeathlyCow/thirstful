@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#c:drinks/milk",
+      "required": false
+    },
+    {
+      "id": "#c:foods/raw_meat",
+      "required": false
+    },
+    {
+      "id": "#c:foods/food_poisoning",
+      "required": false
+    },
+    {
+      "id": "#c:buckets/milk",
+      "required": false
+    }
+  ]
+}
