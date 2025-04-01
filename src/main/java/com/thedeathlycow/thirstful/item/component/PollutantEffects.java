@@ -41,7 +41,7 @@ public final class PollutantEffects {
         PollutantComponent pollutantComponent = stack.get(TDataComponentTypes.POLLUTANTS);
         World world = entity.getWorld();
         if (!world.isClient() && pollutantComponent != null) {
-            WaterPollutionConfig config = Thirstful.getConfig().common().waterPollution();
+            WaterPollutionConfig config = Thirstful.getConfig().waterPollution();
             Consumer<ConsumePollutionEffect> effectApplier = effect -> effect.apply(world, entity, stack);
 
             if (pollutantComponent.checkedDirty(config)) {

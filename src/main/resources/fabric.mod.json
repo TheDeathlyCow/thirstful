@@ -22,9 +22,6 @@
 		"client": [
 			"com.thedeathlycow.thirstful.ThirstfulClient"
 		],
-		"modmenu": [
-			"com.thedeathlycow.thirstful.ThirstfulModMenu"
-		],
 		"cardinal-components-entity": [
 			"com.thedeathlycow.thirstful.registry.TEntityComponents"
 		]
@@ -43,7 +40,7 @@
 		"java": ">=21",
 		"fabric-api": ">=0.115.4",
 		"thermoo": ">=4.5",
-		"cloth-config": ">=15.0.140",
+		"fzzy_config": ">=0.6.8",
 		"cardinal-components-base": ">=6.1.2",
 		"cardinal-components-entity": ">=6.1.2"
 	},

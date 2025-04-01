@@ -19,6 +19,6 @@ public class CoolingStatusEffect extends TemperatureChangingStatusEffect {
 
     @Override
     protected int getTemperatureChange(int amplifier) {
-        return Thirstful.getConfig().common().statusEffect().coolingEffectTemperatureChange() * (amplifier + 1);
+        return Thirstful.getConfig().statusEffect().coolingEffectTemperatureChange() * (amplifier + 1);
     }
 }

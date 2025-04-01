@@ -23,7 +23,7 @@ public class FeverStatusEffect extends TemperatureChangingStatusEffect {
 
     @Override
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
-        float targetScale = Thirstful.getConfig().common().statusEffect().feverMinTemperatureScale();
+        float targetScale = Thirstful.getConfig().statusEffect().feverMinTemperatureScale();
         if (entity.thermoo$getTemperatureScale() <= targetScale) {
             super.applyUpdateEffect(entity, amplifier);
         }
@@ -33,7 +33,7 @@ public class FeverStatusEffect extends TemperatureChangingStatusEffect {
 
     @Override
     protected int getTemperatureChange(int amplifier) {
-        return Thirstful.getConfig().common().statusEffect().feverEffectTemperatureChange() * (amplifier + 1);
+        return Thirstful.getConfig().statusEffect().feverEffectTemperatureChange() * (amplifier + 1);
     }
 
 
