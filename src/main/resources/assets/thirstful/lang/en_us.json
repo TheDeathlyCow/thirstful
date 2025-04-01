@@ -18,32 +18,5 @@
     "tag.item.thirstful.polluted_consumables": "Polluted Consumables",
     "tag.item.thirstful.polluted_consumables.salty_by_default": "Salty Consumables",
     "tag.item.thirstful.polluted_consumables.contaminated_by_default": "Contaminated Consumables",
-    "tag.item.thirstful.polluted_consumables.dirty_by_default": "Dirty Consumables",
-    
-    
-    "thirstful.common.title": "Thirstful",
-    "thirstful.common": "Common Config",
-    
-    "thirstful.common.statusEffect": "Status Effect Config",
-    "thirstful.common.statusEffect.coolingEffectTemperatureChange": "Cooling effect temperature change per tick",
-    "thirstful.common.statusEffect.warmingEffectTemperatureChange": "Warming effect temperature change per tick",
-    "thirstful.common.statusEffect.feverMinTemperatureScale": "Fever effect minimum temperature scale",
-    "thirstful.common.statusEffect.feverEffectTemperatureChange": "Fever effect temperature change per tick",
-    
-    "thirstful.common.thirst": "Thirst Config",
-    "thirstful.common.thirst.maxThirstTicks": "Max thirst ticks",
-    "thirstful.common.thirst.enableThirstDamage": "Enable thirst damage",
-    "thirstful.common.thirst.potionStackSize": "Potion item default max stack size",
-    
-    "thirstful.common.waterPollution": "Water Pollution Config",
-    "thirstful.common.waterPollution.enableDisease": "Enable disease",
-    "thirstful.common.waterPollution.enableDirtiness": "Enable dirtiness",
-    "thirstful.common.waterPollution.enableSaltiness": "Enable saltiness",
-    
-    
-    "thirstful.client": "Client Config",
-    
-    "thirstful.client.color": "Color Config",
-    "thirstful.client.color.contaminatedWaterColor": "Contaminated water color",
-    "thirstful.client.color.dirtyWaterColor": "Dirty water color"
+    "tag.item.thirstful.polluted_consumables.dirty_by_default": "Dirty Consumables"
 }

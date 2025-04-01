@@ -113,6 +113,7 @@ fabricApi {
     configureDataGeneration() {
         createSourceSet = true
         modId = "thirstful-datagen"
+        client = true
     }
 }
 

@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.datagen;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.datagen.config.EnglishUSGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TBiomeTagGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TBlockTagGenerator;
 import com.thedeathlycow.thirstful.datagen.generator.TItemTagGenerator;

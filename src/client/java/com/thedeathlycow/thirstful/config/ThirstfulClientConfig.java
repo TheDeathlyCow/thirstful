@@ -7,6 +7,8 @@ import me.fzzyhmstrs.fzzy_config.config.Config;
 
 @IgnoreVisibility
 public class ThirstfulClientConfig extends Config {
+    @OptionName("Color Config")
+    @NoComment
     private ColorConfig color = new ColorConfig();
 
     public ThirstfulClientConfig() {

@@ -9,8 +9,16 @@ import me.fzzyhmstrs.fzzy_config.config.Config;
 
 @IgnoreVisibility
 public class ThirstfulConfig extends Config {
+    @OptionName("Status Effect Config")
+    @NoComment
     private StatusEffectConfig statusEffect = new StatusEffectConfig();
+
+    @OptionName("Thirst Config")
+    @NoComment
     private ThirstConfig thirst = new ThirstConfig();
+
+    @OptionName("Water Pollution Config")
+    @NoComment
     private WaterPollutionConfig waterPollution = new WaterPollutionConfig();
 
     public ThirstfulConfig() {
