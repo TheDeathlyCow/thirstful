@@ -5,9 +5,11 @@ import com.thedeathlycow.thirstful.config.common.StatusEffectConfig;
 import com.thedeathlycow.thirstful.config.common.ThirstConfig;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import me.fzzyhmstrs.fzzy_config.annotations.IgnoreVisibility;
+import me.fzzyhmstrs.fzzy_config.annotations.Version;
 import me.fzzyhmstrs.fzzy_config.config.Config;
 
 @IgnoreVisibility
+@Version(version = 0)
 public class ThirstfulConfig extends Config {
     @OptionName("Status Effect Config")
     @NoComment
