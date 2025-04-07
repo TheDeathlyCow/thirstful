@@ -10,6 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ColorHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,7 +26,6 @@ public final class TBlockColors {
             @Nullable BlockPos pos,
             int tintIndex
     ) {
-        // TODO: This config needs to be synced
         WaterPollutionConfig pollutionConfig = Thirstful.getConfig().waterPollution();
 
         boolean dirty = pollutionConfig.enableDirtiness() && state.get(PollutedWaterCauldronBlock.DIRTY);
@@ -34,7 +34,7 @@ public final class TBlockColors {
         ColorConfig colorConfig = ThirstfulClient.getConfig().color();
 
         if (contaminated && dirty) {
-            return ColorHelper.Argb.mixColor(colorConfig.contaminatedWaterColor(), colorConfig.dirtyWaterColor());
+            return ColorHelper.Argb.averageArgb(colorConfig.contaminatedWaterColor(), colorConfig.dirtyWaterColor());
         } else if (contaminated) {
             return colorConfig.contaminatedWaterColor();
         } else if (dirty) {
