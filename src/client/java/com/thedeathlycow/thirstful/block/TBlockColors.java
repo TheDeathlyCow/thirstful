@@ -10,7 +10,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.Nullable;
 

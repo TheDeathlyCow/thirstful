@@ -4,7 +4,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
+import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.RegistryByteBuf;
@@ -14,6 +16,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import javax.management.openmbean.TabularData;
 import java.util.function.Consumer;
 
 public record PollutantComponent(
@@ -94,6 +97,10 @@ public record PollutantComponent(
                 this.contaminated || other.contaminated,
                 this.salty || other.salty
         );
+    }
+
+    public static PollutantComponent get(ItemStack stack) {
+        return stack.getOrDefault(TDataComponentTypes.POLLUTANTS, DEFAULT);
     }
 
     public boolean checkedDirty(WaterPollutionConfig config) {
