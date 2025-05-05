@@ -3,7 +3,7 @@
 	"package": "com.thedeathlycow.thirstful.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin"
+		"ItemRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
