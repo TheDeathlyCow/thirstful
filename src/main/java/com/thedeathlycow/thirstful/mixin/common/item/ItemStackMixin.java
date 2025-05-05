@@ -50,15 +50,4 @@ public abstract class ItemStackMixin implements ComponentHolder {
 
         return result;
     }
-
-    @Inject(
-            method = "hasGlint",
-            at = @At("HEAD"),
-            cancellable = true
-    )
-    private void itemsHaveGlintIfPolluted(CallbackInfoReturnable<Boolean> cir) {
-        if (!PollutantComponent.get((ItemStack) (Object) this).clean()) {
-            cir.setReturnValue(true);
-        }
-    }
 }
