@@ -37,7 +37,7 @@ public final class WaterCollection {
                     TDataComponentTypes.POLLUTANTS,
                     PollutantComponent.DEFAULT
             );
-            PollutantComponent pollutants = WaterPollution.POLLUTANT_CONTAINER.find(world, sourcePos, null);
+            PollutantComponent pollutants = WaterPollution.findPollutants(world, sourcePos);
             Objects.requireNonNull(pollutants);
             stack.set(TDataComponentTypes.POLLUTANTS, current.mixWith(pollutants));
         }
