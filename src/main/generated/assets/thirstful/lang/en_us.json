@@ -18,6 +18,8 @@
   "thirstful.client.color.contaminatedWaterColor.desc": "Sets the color of contaminated water in a cauldron. Mixed with dirty water if also dirty. Note: Press F3+A to reload chunks after changing.",
   "thirstful.client.color.dirtyWaterColor": "Dirty water color",
   "thirstful.client.color.dirtyWaterColor.desc": "Sets the color of dirty water in a cauldron. Mixed with contaminated water if also contaminated. Note: Press F3+A to reload chunks after changing.",
+  "thirstful.client.enableContaminatedGlint": "Enable contaminated glint",
+  "thirstful.client.enableContaminatedGlint.desc": "Toggle for the green glint on contaminated, dirty, and/or salty items.",
   "thirstful.common": "Common Config",
   "thirstful.common.statusEffect": "Status Effect Config",
   "thirstful.common.statusEffect.coolingEffectTemperatureChange": "Cooling effect temperature change per tick",

@@ -2,6 +2,8 @@ package com.thedeathlycow.thirstful.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.ThirstfulClient;
 import com.thedeathlycow.thirstful.client.TRenderLayers;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import net.minecraft.client.render.RenderLayer;
@@ -30,7 +32,7 @@ public class ItemRendererMixin {
             Operation<VertexConsumer> original,
             ItemStack stack
     ) {
-        if (!PollutantComponent.get(stack).clean()) {
+        if (ThirstfulClient.getConfig().enableContaminatedGlint() && !PollutantComponent.get(stack).clean()) {
             return VertexConsumers.union(
                     provider.getBuffer(TRenderLayers.getDirectContaminatedGlint(solid)),
                     provider.getBuffer(layer)
