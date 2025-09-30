@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.registry;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.block.MeatStillBlock;
 import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBehavior;
 import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBlock;
 import net.minecraft.block.AbstractBlock;
@@ -21,6 +22,11 @@ public final class TBlocks {
                     settings
             ),
             AbstractBlock.Settings.copyShallow(Blocks.CAULDRON)
+    );
+
+    public static final Block MEAT_STILL = register(
+            "meat_still",
+            MeatStillBlock::new
     );
 
     public static void initialize() {

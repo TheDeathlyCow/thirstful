@@ -33,6 +33,7 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
         builder.add(TStatusEffects.FEVER.value(), "Fever");
 
         builder.add(TBlocks.POLLUTED_WATER_CAULDRON, "Polluted Water Cauldron");
+        builder.add(TBlocks.MEAT_STILL, "Meat Still");
 
         builder.add(pollutantComponent("dirty"), "Dirty");
         builder.add(pollutantComponent("contaminated"), "Contaminated");
