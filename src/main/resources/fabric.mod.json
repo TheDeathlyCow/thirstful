@@ -12,7 +12,10 @@
 		"sources": "https://github.com/TheDeathlyCow/thirstful",
 		"issues": "https://github.com/TheDeathlyCow/thirstful/issues"
 	},
-	"license": "AGPL-3.0",
+	"license": [
+		"AGPL-3.0",
+		"CC-BY-SA-4.0 (assets only)"
+	],
 	"icon": "assets/thirstful/icon.png",
 	"environment": "*",
 	"entrypoints": {

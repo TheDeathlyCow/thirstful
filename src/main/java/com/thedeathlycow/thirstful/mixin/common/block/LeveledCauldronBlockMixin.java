@@ -31,7 +31,7 @@ public class LeveledCauldronBlockMixin {
             method = "receiveStalactiteDrip",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/state/BlockState;with(Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Comparable;)Ljava/lang/Object;"
+                    target = "Lnet/minecraft/world/level/block/state/BlockState;setValue(Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Comparable;)Ljava/lang/Object;"
             )
     )
     private Object polluteCauldronIfRaining(Object original, @Local(argsOnly = true) Fluid fluid) {
