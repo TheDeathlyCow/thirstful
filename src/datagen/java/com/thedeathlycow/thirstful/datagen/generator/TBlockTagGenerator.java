@@ -14,7 +14,7 @@ public class TBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        tag(BlockTags.CAULDRONS)
+        getOrCreateTagBuilder(BlockTags.CAULDRONS)
                 .add(TBlocks.POLLUTED_WATER_CAULDRON);
     }
 }

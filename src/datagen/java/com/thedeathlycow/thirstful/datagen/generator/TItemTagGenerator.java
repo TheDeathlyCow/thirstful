@@ -17,7 +17,7 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        tag(TItemTags.CAN_BE_POLLUTED)
+        getOrCreateTagBuilder(TItemTags.CAN_BE_POLLUTED)
                 .add(Items.GLASS_BOTTLE)
                 .addOptionalTag(TItemTags.SALTY_BY_DEFAULT)
                 .addOptionalTag(TItemTags.CONTAMINATED_BY_DEFAULT)
@@ -29,17 +29,17 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .addOptionalTag(ConventionalItemTags.DRINK_CONTAINING_BOTTLE)
                 .addOptionalTag(ConventionalItemTags.DRINK_CONTAINING_BUCKET);
 
-        tag(TItemTags.CAN_NOT_BE_POLLUTED)
+        getOrCreateTagBuilder(TItemTags.CAN_NOT_BE_POLLUTED)
                 .addOptionalTag(ConventionalItemTags.LAVA_BUCKETS);
 
-        tag(TItemTags.CONTAMINATED_BY_DEFAULT)
+        getOrCreateTagBuilder(TItemTags.CONTAMINATED_BY_DEFAULT)
                 .addOptionalTag(ConventionalItemTags.MILK_DRINKS)
                 .addOptionalTag(ConventionalItemTags.RAW_MEAT_FOODS)
                 .addOptionalTag(ConventionalItemTags.FOOD_POISONING_FOODS)
                 .addOptionalTag(ConventionalItemTags.MILK_BUCKETS);
 
-        tag(TItemTags.SALTY_BY_DEFAULT);
+        getOrCreateTagBuilder(TItemTags.SALTY_BY_DEFAULT);
 
-        tag(TItemTags.DIRTY_BY_DEFAULT);
+        getOrCreateTagBuilder(TItemTags.DIRTY_BY_DEFAULT);
     }
 }

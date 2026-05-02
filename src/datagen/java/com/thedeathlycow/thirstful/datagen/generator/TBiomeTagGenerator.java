@@ -16,13 +16,13 @@ public class TBiomeTagGenerator extends FabricTagProvider<Biome> {
 
     @Override
     protected void addTags(HolderLookup.Provider lookup) {
-        tag(TBiomeTags.HAS_CLEAN_WATER)
+        getOrCreateTagBuilder(TBiomeTags.HAS_CLEAN_WATER)
                 .addOptionalTag(ConventionalBiomeTags.IS_OCEAN);
 
-        tag(TBiomeTags.HAS_SAFE_WATER)
+        getOrCreateTagBuilder(TBiomeTags.HAS_SAFE_WATER)
                 .addOptionalTag(ConventionalBiomeTags.IS_RIVER);
 
-        tag(TBiomeTags.HAS_SALTY_WATER)
+        getOrCreateTagBuilder(TBiomeTags.HAS_SALTY_WATER)
                 .addOptionalTag(ConventionalBiomeTags.IS_OCEAN)
                 .addOptionalTag(ConventionalBiomeTags.IS_BEACH)
                 .addOptionalTag(ConventionalBiomeTags.IS_STONY_SHORES)
