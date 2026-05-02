@@ -4,21 +4,21 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.registry.TConsumePollutionEffects;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.world.World;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public record ApplyStatusEffectConsumeEffect(
-        StatusEffectInstance effect,
+        MobEffectInstance effect,
         float probability
 ) implements ConsumePollutionEffect {
     public static final MapCodec<ApplyStatusEffectConsumeEffect> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                            StatusEffectInstance.CODEC
+                            MobEffectInstance.CODEC
                                     .fieldOf("effect")
                                     .forGetter(ApplyStatusEffectConsumeEffect::effect),
                             Codec.floatRange(0.0f, 1.0f)
@@ -27,10 +27,10 @@ public record ApplyStatusEffectConsumeEffect(
                     )
                     .apply(instance, ApplyStatusEffectConsumeEffect::new)
     );
-    public static final PacketCodec<RegistryByteBuf, ApplyStatusEffectConsumeEffect> PACKET_CODEC = PacketCodec.tuple(
-            StatusEffectInstance.PACKET_CODEC,
+    public static final StreamCodec<RegistryFriendlyByteBuf, ApplyStatusEffectConsumeEffect> PACKET_CODEC = StreamCodec.composite(
+            MobEffectInstance.STREAM_CODEC,
             ApplyStatusEffectConsumeEffect::effect,
-            PacketCodecs.FLOAT,
+            ByteBufCodecs.FLOAT,
             ApplyStatusEffectConsumeEffect::probability,
             ApplyStatusEffectConsumeEffect::new
     );
@@ -41,16 +41,16 @@ public record ApplyStatusEffectConsumeEffect(
     }
 
     @Override
-    public boolean apply(World world, LivingEntity user, ItemStack stack) {
+    public boolean apply(Level world, LivingEntity user, ItemStack stack) {
         if (user.getRandom().nextFloat() < this.probability) {
-            user.addStatusEffect(this.copyEffect());
+            user.addEffect(this.copyEffect());
             return true;
         }
 
         return false;
     }
 
-    public StatusEffectInstance copyEffect() {
-        return new StatusEffectInstance(this.effect);
+    public MobEffectInstance copyEffect() {
+        return new MobEffectInstance(this.effect);
     }
 }

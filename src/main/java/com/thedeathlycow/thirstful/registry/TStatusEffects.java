@@ -5,26 +5,26 @@ import com.thedeathlycow.thirstful.effect.AllowStatusEffectCallback;
 import com.thedeathlycow.thirstful.effect.CoolingStatusEffect;
 import com.thedeathlycow.thirstful.effect.FeverStatusEffect;
 import com.thedeathlycow.thirstful.effect.WarmingStatusEffect;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Colors;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.CommonColors;
+import net.minecraft.world.effect.MobEffect;
 
 public final class TStatusEffects {
-    public static final RegistryEntry<StatusEffect> COOLING = registerReference(
+    public static final Holder<MobEffect> COOLING = registerReference(
             "cooling",
-            new CoolingStatusEffect(Colors.BLUE)
+            new CoolingStatusEffect(CommonColors.BLUE)
     );
 
-    public static final RegistryEntry<StatusEffect> WARMING = registerReference(
+    public static final Holder<MobEffect> WARMING = registerReference(
         "warming",
-            new WarmingStatusEffect(Colors.RED)
+            new WarmingStatusEffect(CommonColors.RED)
     );
 
-    public static final RegistryEntry<StatusEffect> FEVER = registerReference(
+    public static final Holder<MobEffect> FEVER = registerReference(
             "fever",
-            new FeverStatusEffect(Colors.RED)
+            new FeverStatusEffect(CommonColors.RED)
     );
 
     public static void initialize() {
@@ -32,8 +32,8 @@ public final class TStatusEffects {
         AllowStatusEffectCallback.EVENT.register(FeverStatusEffect::canHaveFever);
     }
 
-    private static RegistryEntry<StatusEffect> registerReference(String name, StatusEffect statusEffect) {
-        return Registry.registerReference(Registries.STATUS_EFFECT, Thirstful.id(name), statusEffect);
+    private static Holder<MobEffect> registerReference(String name, MobEffect statusEffect) {
+        return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, Thirstful.id(name), statusEffect);
     }
 
     private TStatusEffects() {

@@ -3,8 +3,8 @@ package com.thedeathlycow.thirstful.effect;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.fabricmc.fabric.api.util.TriState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 
 @FunctionalInterface
 public interface AllowStatusEffectCallback {
@@ -22,5 +22,5 @@ public interface AllowStatusEffectCallback {
             }
     );
 
-    TriState canApplyEffect(LivingEntity entity, StatusEffectInstance effectInstance);
+    TriState canApplyEffect(LivingEntity entity, MobEffectInstance effectInstance);
 }

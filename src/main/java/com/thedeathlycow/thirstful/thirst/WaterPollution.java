@@ -3,33 +3,33 @@ package com.thedeathlycow.thirstful.thirst;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.tag.TBiomeTags;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 
 public final class WaterPollution {
     public static boolean canCarryPollutants(ItemStack stack) {
-        return stack.isIn(TItemTags.CAN_BE_POLLUTED) && !stack.isIn(TItemTags.CAN_NOT_BE_POLLUTED);
+        return stack.is(TItemTags.CAN_BE_POLLUTED) && !stack.is(TItemTags.CAN_NOT_BE_POLLUTED);
     }
 
-    public static PollutantComponent findPollutants(World world, BlockPos pos) {
+    public static PollutantComponent findPollutants(Level world, BlockPos pos) {
         boolean dirty = true;
         boolean contaminated = true;
         boolean salty = false;
 
-        RegistryEntry<Biome> biome = world.getBiome(pos);
+        Holder<Biome> biome = world.getBiome(pos);
 
-        if (biome.isIn(TBiomeTags.HAS_CLEAN_WATER)) {
+        if (biome.is(TBiomeTags.HAS_CLEAN_WATER)) {
             dirty = false;
         }
 
-        if (biome.isIn(TBiomeTags.HAS_SAFE_WATER)) {
+        if (biome.is(TBiomeTags.HAS_SAFE_WATER)) {
             contaminated = false;
         }
 
-        if (biome.isIn(TBiomeTags.HAS_SALTY_WATER)) {
+        if (biome.is(TBiomeTags.HAS_SALTY_WATER)) {
             salty = true;
         }
 

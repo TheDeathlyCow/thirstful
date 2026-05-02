@@ -6,19 +6,19 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.MilkBucketItem;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MilkBucketItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(MilkBucketItem.class)
 public class MilkBucketItemMixin {
     @WrapOperation(
-            method = "finishUsing",
+            method = "finishUsingItem",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/LivingEntity;clearStatusEffects()Z"
+                    target = "Lnet/minecraft/world/entity/LivingEntity;removeAllEffects()Z"
             )
     )
     private boolean cancelClearEffectsIfNotClean(

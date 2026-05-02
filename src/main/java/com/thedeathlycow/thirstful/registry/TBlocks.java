@@ -4,15 +4,14 @@ import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.block.MeatStillBlock;
 import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBehavior;
 import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBlock;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-
 import java.util.function.Function;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public final class TBlocks {
     public static final Block POLLUTED_WATER_CAULDRON = register(
@@ -21,7 +20,7 @@ public final class TBlocks {
                     PollutedWaterCauldronBehavior.BEHAVIOR_MAP,
                     settings
             ),
-            AbstractBlock.Settings.copyShallow(Blocks.CAULDRON)
+            BlockBehaviour.Properties.ofLegacyCopy(Blocks.CAULDRON)
     );
 
     public static final Block MEAT_STILL = register(
@@ -33,18 +32,18 @@ public final class TBlocks {
         Thirstful.LOGGER.debug("Initialized Thirstful blocks");
     }
 
-    private static Block register(String name, Function<AbstractBlock.Settings, Block> blockFactory) {
-        return register(name, blockFactory, AbstractBlock.Settings.create());
+    private static Block register(String name, Function<BlockBehaviour.Properties, Block> blockFactory) {
+        return register(name, blockFactory, BlockBehaviour.Properties.of());
     }
 
     private static Block register(
             String name,
-            Function<AbstractBlock.Settings, Block> blockFactory,
-            AbstractBlock.Settings settings
+            Function<BlockBehaviour.Properties, Block> blockFactory,
+            BlockBehaviour.Properties settings
     ) {
-        RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, Thirstful.id(name));
+        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Thirstful.id(name));
         Block block = blockFactory.apply(settings);
-        return Registry.register(Registries.BLOCK, key, block);
+        return Registry.register(BuiltInRegistries.BLOCK, key, block);
     }
 
     private TBlocks() {

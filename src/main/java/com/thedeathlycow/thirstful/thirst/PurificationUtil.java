@@ -4,11 +4,10 @@ import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-
 import java.util.function.Predicate;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 
 public final class PurificationUtil {
     /**
@@ -72,8 +71,8 @@ public final class PurificationUtil {
             Predicate<PollutantComponent> provider,
             boolean fallback
     ) {
-        for (int i = 0; i < recipeInput.getSize(); i++) {
-            ItemStack stack = recipeInput.getStackInSlot(i);
+        for (int i = 0; i < recipeInput.size(); i++) {
+            ItemStack stack = recipeInput.getItem(i);
             PollutantComponent component = stack.get(TDataComponentTypes.POLLUTANTS);
 
             if (component != null && provider.test(component)) {
@@ -85,7 +84,7 @@ public final class PurificationUtil {
     }
 
     private static <T extends RecipeInput> void copyScorchfulDrinksComponent(T input, ItemStack output) {
-        if (input instanceof SingleStackRecipeInput singleInput && ModIntegration.isScorchfulLoaded()) {
+        if (input instanceof SingleRecipeInput singleInput && ModIntegration.isScorchfulLoaded()) {
             ScorchfulIntegration.copyDrinksToOutput(singleInput, output);
         }
     }

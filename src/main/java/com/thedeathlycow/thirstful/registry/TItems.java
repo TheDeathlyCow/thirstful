@@ -4,14 +4,13 @@ import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.item.ConsumeItemCallback;
 import com.thedeathlycow.thirstful.item.component.PollutantEffects;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
-import net.minecraft.block.Block;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import java.util.function.Function;
 
 public final class TItems {
@@ -23,11 +22,11 @@ public final class TItems {
 
         DefaultItemComponentEvents.MODIFY.register(context -> {
             context.modify(Items.POTION, builder -> {
-                int maxStackSize = builder.getOrDefault(DataComponentTypes.MAX_STACK_SIZE, 1);
+                int maxStackSize = builder.getOrDefault(DataComponents.MAX_STACK_SIZE, 1);
 
                 if (maxStackSize == 1) {
                     int modSize = Thirstful.getConfig().thirst().potionStackSize();
-                    builder.add(DataComponentTypes.MAX_STACK_SIZE, modSize);
+                    builder.set(DataComponents.MAX_STACK_SIZE, modSize);
                 } else {
                     Thirstful.LOGGER.warn("Thirstful expected the default potion max stack size to be 1, but was {}.", maxStackSize);
                 }
@@ -40,16 +39,16 @@ public final class TItems {
     }
 
     private static Item register(String id) {
-        return register(id, Item::new, new Item.Settings());
+        return register(id, Item::new, new Item.Properties());
     }
 
-    private static Item register(String id, Function<Item.Settings, Item> itemFactory) {
-        return register(id, itemFactory, new Item.Settings());
+    private static Item register(String id, Function<Item.Properties, Item> itemFactory) {
+        return register(id, itemFactory, new Item.Properties());
     }
 
-    private static Item register(String id, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
+    private static Item register(String id, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
         Item item = itemFactory.apply(settings);
-        return Registry.register(Registries.ITEM, Thirstful.id(id), item);
+        return Registry.register(BuiltInRegistries.ITEM, Thirstful.id(id), item);
     }
 
     private TItems() {

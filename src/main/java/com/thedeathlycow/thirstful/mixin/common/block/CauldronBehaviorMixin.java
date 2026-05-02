@@ -1,9 +1,9 @@
 package com.thedeathlycow.thirstful.mixin.common.block;
 
-import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(CauldronBehavior.class)
+@Mixin(CauldronInteraction.class)
 public interface CauldronBehaviorMixin {
 //    @WrapOperation(
 //            method = "method_32220",

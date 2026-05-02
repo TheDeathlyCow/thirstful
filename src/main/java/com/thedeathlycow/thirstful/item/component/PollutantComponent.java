@@ -5,25 +5,24 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipAppender;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
 import javax.management.openmbean.TabularData;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 import java.util.function.Consumer;
 
 public record PollutantComponent(
         boolean dirty,
         boolean contaminated,
         boolean salty
-) implements TooltipAppender {
+) implements TooltipProvider {
     public static final PollutantComponent DEFAULT = new PollutantComponent();
 
     public static final Codec<PollutantComponent> CODEC = RecordCodecBuilder.create(
@@ -40,31 +39,31 @@ public record PollutantComponent(
                     )
                     .apply(instance, PollutantComponent::new)
     );
-    public static final PacketCodec<RegistryByteBuf, PollutantComponent> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOL,
+    public static final StreamCodec<RegistryFriendlyByteBuf, PollutantComponent> PACKET_CODEC = StreamCodec.composite(
+            ByteBufCodecs.BOOL,
             PollutantComponent::dirty,
-            PacketCodecs.BOOL,
+            ByteBufCodecs.BOOL,
             PollutantComponent::contaminated,
-            PacketCodecs.BOOL,
+            ByteBufCodecs.BOOL,
             PollutantComponent::salty,
             PollutantComponent::new
     );
 
-    private static final Text DIRTY_TOOLTIP = Text.empty()
-            .append(Text.translatable("item.thirstful.pollutant.dirty"))
+    private static final Component DIRTY_TOOLTIP = Component.empty()
+            .append(Component.translatable("item.thirstful.pollutant.dirty"))
             .setStyle(Style.EMPTY.withColor(0x61492d));
 
-    private static final Text CONTAMINATED_TOOLTIP = Text.empty()
-            .append(Text.translatable("item.thirstful.pollutant.contaminated"))
+    private static final Component CONTAMINATED_TOOLTIP = Component.empty()
+            .append(Component.translatable("item.thirstful.pollutant.contaminated"))
             .setStyle(Style.EMPTY.withColor(0x44612d));
 
-    private static final Text SALTY_TOOLTIP = Text.empty()
-            .append(Text.translatable("item.thirstful.pollutant.salty"))
-            .setStyle(Style.EMPTY.withColor(Formatting.RED));
+    private static final Component SALTY_TOOLTIP = Component.empty()
+            .append(Component.translatable("item.thirstful.pollutant.salty"))
+            .setStyle(Style.EMPTY.withColor(ChatFormatting.RED));
 
-    private static final Text CLEAN_TOOLTIP = Text.empty()
-            .append(Text.translatable("item.thirstful.pollutant.clean"))
-            .setStyle(Style.EMPTY.withColor(Formatting.AQUA));
+    private static final Component CLEAN_TOOLTIP = Component.empty()
+            .append(Component.translatable("item.thirstful.pollutant.clean"))
+            .setStyle(Style.EMPTY.withColor(ChatFormatting.AQUA));
 
     private PollutantComponent() {
         this(false, false, false);
@@ -74,7 +73,7 @@ public record PollutantComponent(
      * @implNote Called from {@link net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback#EVENT} on client
      */
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag type) {
         WaterPollutionConfig config = Thirstful.getConfig().waterPollution();
         if (this.checkedDirty(config)) {
             tooltip.accept(DIRTY_TOOLTIP);

@@ -4,10 +4,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.thedeathlycow.thirstful.thirst.PurificationUtil;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.CampfireCookingRecipe;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
@@ -18,17 +18,17 @@ public class StoveBlockEntityMixin {
             method = "cookAndOutputItems",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/recipe/CampfireCookingRecipe;getResult(Lnet/minecraft/registry/RegistryWrapper$WrapperLookup;)Lnet/minecraft/item/ItemStack;"
+                    target = "Lnet/minecraft/world/item/crafting/CampfireCookingRecipe;getResult(Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;"
             )
     )
     private ItemStack pasteurizeResult(
             CampfireCookingRecipe instance,
-            RegistryWrapper.WrapperLookup wrapperLookup,
+            HolderLookup.Provider wrapperLookup,
             Operation<ItemStack> original,
             @Local(name = "stoveStack") ItemStack input
     ) {
         ItemStack result = original.call(instance, wrapperLookup);
-        PurificationUtil.pasteurize(new SingleStackRecipeInput(input), result);
+        PurificationUtil.pasteurize(new SingleRecipeInput(input), result);
         return result;
     }
 }

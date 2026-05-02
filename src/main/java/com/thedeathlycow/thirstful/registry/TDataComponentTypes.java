@@ -8,67 +8,66 @@ import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.item.consume.ConsumePollutionEffect;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
-import net.minecraft.component.ComponentType;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-
 import java.util.List;
 import java.util.function.UnaryOperator;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.codec.ByteBufCodecs;
 
 public final class TDataComponentTypes {
-    public static final ComponentType<PollutantComponent> POLLUTANTS = register(
+    public static final DataComponentType<PollutantComponent> POLLUTANTS = register(
             "pollutants",
             builder -> builder
-                    .codec(PollutantComponent.CODEC)
-                    .packetCodec(PollutantComponent.PACKET_CODEC)
-                    .cache()
+                    .persistent(PollutantComponent.CODEC)
+                    .networkSynchronized(PollutantComponent.PACKET_CODEC)
+                    .cacheEncoding()
     );
 
-    public static final ComponentType<DehydratingConsumableComponent> DEHYDRATION_CONSUMABLE = register(
+    public static final DataComponentType<DehydratingConsumableComponent> DEHYDRATION_CONSUMABLE = register(
             "dehydrating_consumable",
             builder -> builder
-                    .codec(DehydratingConsumableComponent.CODEC)
-                    .packetCodec(DehydratingConsumableComponent.PACKET_CODEC)
-                    .cache()
+                    .persistent(DehydratingConsumableComponent.CODEC)
+                    .networkSynchronized(DehydratingConsumableComponent.PACKET_CODEC)
+                    .cacheEncoding()
     );
 
-    public static final ComponentType<List<ConsumePollutionEffect>> DIRTINESS_EFFECTS = register(
+    public static final DataComponentType<List<ConsumePollutionEffect>> DIRTINESS_EFFECTS = register(
             "dirtiness_effects",
             builder -> builder
-                    .codec(Codec.list(ConsumePollutionEffect.ELEMENT_CODEC))
-                    .packetCodec(ConsumePollutionEffect.PACKET_CODEC.collect(PacketCodecs.toList()))
-                    .cache()
+                    .persistent(Codec.list(ConsumePollutionEffect.ELEMENT_CODEC))
+                    .networkSynchronized(ConsumePollutionEffect.PACKET_CODEC.apply(ByteBufCodecs.list()))
+                    .cacheEncoding()
     );
 
-    public static final ComponentType<List<ConsumePollutionEffect>> DISEASE_EFFECTS = register(
+    public static final DataComponentType<List<ConsumePollutionEffect>> DISEASE_EFFECTS = register(
             "disease_effects",
             builder -> builder
-                    .codec(Codec.list(ConsumePollutionEffect.ELEMENT_CODEC))
-                    .packetCodec(ConsumePollutionEffect.PACKET_CODEC.collect(PacketCodecs.toList()))
-                    .cache()
+                    .persistent(Codec.list(ConsumePollutionEffect.ELEMENT_CODEC))
+                    .networkSynchronized(ConsumePollutionEffect.PACKET_CODEC.apply(ByteBufCodecs.list()))
+                    .cacheEncoding()
     );
 
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful item components");
 
         ItemStackCreationCallback.EVENT.register(stack -> {
-            if (WaterPollution.canCarryPollutants(stack) && !stack.contains(TDataComponentTypes.POLLUTANTS)) {
+            if (WaterPollution.canCarryPollutants(stack) && !stack.has(TDataComponentTypes.POLLUTANTS)) {
                 var component = new PollutantComponent(
-                        stack.isIn(TItemTags.DIRTY_BY_DEFAULT),
-                        stack.isIn(TItemTags.CONTAMINATED_BY_DEFAULT),
-                        stack.isIn(TItemTags.SALTY_BY_DEFAULT)
+                        stack.is(TItemTags.DIRTY_BY_DEFAULT),
+                        stack.is(TItemTags.CONTAMINATED_BY_DEFAULT),
+                        stack.is(TItemTags.SALTY_BY_DEFAULT)
                 );
                 stack.set(TDataComponentTypes.POLLUTANTS, component);
             }
         });
     }
 
-    private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builder) {
+    private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> builder) {
         return Registry.register(
-                Registries.DATA_COMPONENT_TYPE,
+                BuiltInRegistries.DATA_COMPONENT_TYPE,
                 Thirstful.id(id),
-                builder.apply(ComponentType.builder()).build()
+                builder.apply(DataComponentType.builder()).build()
         );
     }
 

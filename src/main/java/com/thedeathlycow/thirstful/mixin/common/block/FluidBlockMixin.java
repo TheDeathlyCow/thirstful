@@ -2,38 +2,38 @@ package com.thedeathlycow.thirstful.mixin.common.block;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.thedeathlycow.thirstful.item.WaterCollection;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(FluidBlock.class)
+@Mixin(LiquidBlock.class)
 public class FluidBlockMixin {
     @Shadow
     @Final
-    protected FlowableFluid fluid;
+    protected FlowingFluid fluid;
 
     @ModifyReturnValue(
-            method = "tryDrainFluid",
+            method = "pickupBlock",
             at = @At("RETURN")
     )
     private ItemStack polluteCollectedWater(
             ItemStack original,
-            @Nullable PlayerEntity player,
-            WorldAccess world,
+            @Nullable Player player,
+            LevelAccessor world,
             BlockPos pos,
             BlockState state
     ) {
-        if (!original.isEmpty() && player != null && this.fluid.isIn(FluidTags.WATER)) {
+        if (!original.isEmpty() && player != null && this.fluid.is(FluidTags.WATER)) {
             WaterCollection.pollutePlayerCollectedWater(original, player, pos);
         }
 

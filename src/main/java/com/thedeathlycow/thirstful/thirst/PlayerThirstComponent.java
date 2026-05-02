@@ -2,11 +2,11 @@ package com.thedeathlycow.thirstful.thirst;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.registry.TEntityComponents;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.ladysnake.cca.api.v3.component.Component;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
@@ -16,31 +16,31 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent 
     // 2 in game days
     private static final int MAX_THIRST_TICKS = 24_000;
 
-    private final PlayerEntity provider;
+    private final Player provider;
 
     private int thirstTicks;
 
 
-    public PlayerThirstComponent(PlayerEntity provider) {
+    public PlayerThirstComponent(Player provider) {
         this.provider = provider;
     }
 
-    public static PlayerThirstComponent get(PlayerEntity player) {
+    public static PlayerThirstComponent get(Player player) {
         return TEntityComponents.PLAYER_THIRST.get(player);
     }
 
     @Override
-    public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public void readFromNbt(CompoundTag nbtCompound, HolderLookup.Provider wrapperLookup) {
         nbtCompound.putInt(THIRST_TICKS_KEY, thirstTicks);
     }
 
     @Override
-    public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public void writeToNbt(CompoundTag nbtCompound, HolderLookup.Provider wrapperLookup) {
         this.thirstTicks = nbtCompound.getInt(THIRST_TICKS_KEY);
     }
 
     public void addThirstTicks(int ticks) {
-        this.thirstTicks = MathHelper.clamp(this.thirstTicks + ticks, 0, this.getMaxThirstTicks());
+        this.thirstTicks = Mth.clamp(this.thirstTicks + ticks, 0, this.getMaxThirstTicks());
     }
 
     public void removeThirstTicks(int ticks) {
@@ -64,8 +64,8 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent 
         this.addThirstTicks(1);
 
         if (isThirstDamageEnabled() && this.thirstTicks == this.getMaxThirstTicks()) {
-            World world = this.provider.getWorld();
-            this.provider.damage(world.getDamageSources().generic(), 1.0f);
+            Level world = this.provider.level();
+            this.provider.hurt(world.damageSources().generic(), 1.0f);
         }
     }
 

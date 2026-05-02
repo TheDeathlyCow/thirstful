@@ -5,16 +5,16 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.thedeathlycow.thirstful.block.PollutedWaterCauldronBehavior;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import net.minecraft.block.AbstractCauldronBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,20 +23,20 @@ import org.spongepowered.asm.mixin.Shadow;
 public class AbstractCauldronBlockMixin {
     @Shadow
     @Final
-    protected CauldronBehavior.CauldronBehaviorMap behaviorMap;
+    protected CauldronInteraction.InteractionMap interactions;
 
     @WrapMethod(
-            method = "onUseWithItem"
+            method = "useItemOn"
     )
-    private ItemActionResult fillEmptyCauldronOrCancel(
+    private ItemInteractionResult fillEmptyCauldronOrCancel(
             ItemStack stack,
             BlockState state,
-            World world,
+            Level world,
             BlockPos pos,
-            PlayerEntity player,
-            Hand hand,
+            Player player,
+            InteractionHand hand,
             BlockHitResult hit,
-            Operation<ItemActionResult> original
+            Operation<ItemInteractionResult> original
     ) {
         PollutantComponent pollution = stack.getOrDefault(
                 TDataComponentTypes.POLLUTANTS,
@@ -47,8 +47,8 @@ public class AbstractCauldronBlockMixin {
             return original.call(stack, state, world, pos, player, hand, hit);
         }
 
-        if (this.behaviorMap.name().equals(CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.name())) {
-            ItemActionResult result = original.call(stack, state, world, pos, player, hand, hit);
+        if (this.interactions.name().equals(CauldronInteraction.EMPTY.name())) {
+            ItemInteractionResult result = original.call(stack, state, world, pos, player, hand, hit);
 
             PollutedWaterCauldronBehavior.replaceWithPollutedWaterCauldron(
                     pollution,
@@ -60,6 +60,6 @@ public class AbstractCauldronBlockMixin {
             return result;
         }
 
-        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 }

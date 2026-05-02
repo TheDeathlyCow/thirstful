@@ -2,27 +2,27 @@ package com.thedeathlycow.thirstful.block;
 
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LeveledCauldronBlock;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
-public class PollutedWaterCauldronBlock extends LeveledCauldronBlock {
-    public static final BooleanProperty CONTAMINED = BooleanProperty.of("contaminated");
-    public static final BooleanProperty DIRTY = BooleanProperty.of("dirty");
-    public static final BooleanProperty SALTY = BooleanProperty.of("salty");
+public class PollutedWaterCauldronBlock extends LayeredCauldronBlock {
+    public static final BooleanProperty CONTAMINED = BooleanProperty.create("contaminated");
+    public static final BooleanProperty DIRTY = BooleanProperty.create("dirty");
+    public static final BooleanProperty SALTY = BooleanProperty.create("salty");
 
     /**
      * Constructs a leveled cauldron block.
@@ -30,40 +30,40 @@ public class PollutedWaterCauldronBlock extends LeveledCauldronBlock {
      * @param behaviorMap
      * @param settings
      */
-    public PollutedWaterCauldronBlock(CauldronBehavior.CauldronBehaviorMap behaviorMap, Settings settings) {
+    public PollutedWaterCauldronBlock(CauldronInteraction.InteractionMap behaviorMap, Properties settings) {
         super(Biome.Precipitation.RAIN, behaviorMap, settings);
-        this.setDefaultState(
-                this.getDefaultState()
-                        .with(CONTAMINED, false)
-                        .with(DIRTY, false)
-                        .with(SALTY, false)
+        this.registerDefaultState(
+                this.defaultBlockState()
+                        .setValue(CONTAMINED, false)
+                        .setValue(DIRTY, false)
+                        .setValue(SALTY, false)
         );
     }
 
     public static PollutantComponent toPollutants(BlockState state) {
         return new PollutantComponent(
-                state.get(DIRTY),
-                state.get(CONTAMINED),
-                state.get(SALTY)
+                state.getValue(DIRTY),
+                state.getValue(CONTAMINED),
+                state.getValue(SALTY)
         );
     }
 
     public static BlockState addPollutants(BlockState state, PollutantComponent pollutants) {
         return state
-                .with(DIRTY, pollutants.dirty())
-                .with(CONTAMINED, pollutants.contaminated())
-                .with(SALTY, pollutants.salty());
+                .setValue(DIRTY, pollutants.dirty())
+                .setValue(CONTAMINED, pollutants.contaminated())
+                .setValue(SALTY, pollutants.salty());
     }
 
     public static BlockState fillWithRain(BlockState state) {
-        return TBlocks.POLLUTED_WATER_CAULDRON.getStateWithProperties(state)
-                .with(CONTAMINED, true);
+        return TBlocks.POLLUTED_WATER_CAULDRON.withPropertiesOf(state)
+                .setValue(CONTAMINED, true);
     }
 
     public static BlockState fillFromDripstone(BlockState state) {
-        return TBlocks.POLLUTED_WATER_CAULDRON.getStateWithProperties(state)
-                .with(DIRTY, true)
-                .with(CONTAMINED, true);
+        return TBlocks.POLLUTED_WATER_CAULDRON.withPropertiesOf(state)
+                .setValue(DIRTY, true)
+                .setValue(CONTAMINED, true);
     }
 
     @Override
@@ -72,22 +72,22 @@ public class PollutedWaterCauldronBlock extends LeveledCauldronBlock {
     }
 
     @Override
-    protected ItemActionResult onUseWithItem(
+    protected ItemInteractionResult useItemOn(
             ItemStack stack,
             BlockState state,
-            World world,
+            Level world,
             BlockPos pos,
-            PlayerEntity player,
-            Hand hand,
+            Player player,
+            InteractionHand hand,
             BlockHitResult hit
     ) {
-        CauldronBehavior cauldronBehavior = this.behaviorMap.map().get(stack.getItem());
+        CauldronInteraction cauldronBehavior = this.interactions.map().get(stack.getItem());
         return cauldronBehavior.interact(state, world, pos, player, hand, stack);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(CONTAMINED, DIRTY, SALTY);
     }
 }

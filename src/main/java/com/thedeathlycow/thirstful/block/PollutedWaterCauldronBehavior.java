@@ -6,28 +6,28 @@ import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlocks;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeveledCauldronBlock;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.PotionContentsComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
-import net.minecraft.potion.Potions;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class PollutedWaterCauldronBehavior {
-    public static final CauldronBehavior.CauldronBehaviorMap BEHAVIOR_MAP = CauldronBehavior.createMap("thirstful_potion_cauldron");
+    public static final CauldronInteraction.InteractionMap BEHAVIOR_MAP = CauldronInteraction.newInteractionMap("thirstful_potion_cauldron");
 
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful potion cauldron behaviours");
@@ -43,43 +43,43 @@ public final class PollutedWaterCauldronBehavior {
     public static void replaceWithPollutedWaterCauldron(
             PollutantComponent inputPollution,
             BlockState state,
-            World world,
+            Level world,
             BlockPos pos
     ) {
-        if (state.isOf(Blocks.WATER_CAULDRON) && !world.isClient()) {
+        if (state.is(Blocks.WATER_CAULDRON) && !world.isClientSide()) {
             BlockState pollutedCauldron = PollutedWaterCauldronBlock.addPollutants(
-                    TBlocks.POLLUTED_WATER_CAULDRON.getDefaultState(),
+                    TBlocks.POLLUTED_WATER_CAULDRON.defaultBlockState(),
                     inputPollution
-            ).with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL));
+            ).setValue(LayeredCauldronBlock.LEVEL, state.getValue(LayeredCauldronBlock.LEVEL));
 
-            world.setBlockState(pos, pollutedCauldron);
+            world.setBlockAndUpdate(pos, pollutedCauldron);
         }
     }
 
-    private static ItemActionResult emptyIntoGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if (!world.isClient()) {
-            ItemStack resultStack = PotionContentsComponent.createStack(Items.POTION, Potions.WATER);
+    private static ItemInteractionResult emptyIntoGlassBottle(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
+        if (!world.isClientSide()) {
+            ItemStack resultStack = PotionContents.createItemStack(Items.POTION, Potions.WATER);
             resultStack.set(TDataComponentTypes.POLLUTANTS, PollutedWaterCauldronBlock.toPollutants(state));
 
-            player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, resultStack));
+            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, resultStack));
 
-            player.incrementStat(Stats.USE_CAULDRON);
-            player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+            player.awardStat(Stats.USE_CAULDRON);
+            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
-            LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+            LayeredCauldronBlock.lowerFillLevel(state, world, pos);
 
-            world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
-            world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pos);
+            world.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f);
+            world.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
         }
 
-        return ItemActionResult.success(world.isClient());
+        return ItemInteractionResult.sidedSuccess(world.isClientSide());
     }
 
-    private static ItemActionResult emptyIntoBucket(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        ItemStack output = Items.WATER_BUCKET.getDefaultStack();
+    private static ItemInteractionResult emptyIntoBucket(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
+        ItemStack output = Items.WATER_BUCKET.getDefaultInstance();
         output.set(TDataComponentTypes.POLLUTANTS, PollutedWaterCauldronBlock.toPollutants(state));
 
-        return CauldronBehavior.emptyCauldron(
+        return CauldronInteraction.fillBucket(
                 state,
                 world,
                 pos,
@@ -87,39 +87,39 @@ public final class PollutedWaterCauldronBehavior {
                 hand,
                 stack,
                 output,
-                s -> s.get(LeveledCauldronBlock.LEVEL) == LeveledCauldronBlock.MAX_LEVEL,
-                SoundEvents.ITEM_BUCKET_FILL
+                s -> s.getValue(LayeredCauldronBlock.LEVEL) == LayeredCauldronBlock.MAX_FILL_LEVEL,
+                SoundEvents.BUCKET_FILL
         );
     }
 
-    private static ItemActionResult fillFromPotion(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if (state.get(LeveledCauldronBlock.LEVEL) == LeveledCauldronBlock.MAX_LEVEL) {
-            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    private static ItemInteractionResult fillFromPotion(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
+        if (state.getValue(LayeredCauldronBlock.LEVEL) == LayeredCauldronBlock.MAX_FILL_LEVEL) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        PotionContentsComponent potionContents = stack.get(DataComponentTypes.POTION_CONTENTS);
+        PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
 
-        if (potionContents != null && potionContents.matches(Potions.WATER)) {
-            if (!world.isClient()) {
+        if (potionContents != null && potionContents.is(Potions.WATER)) {
+            if (!world.isClientSide()) {
                 PollutantComponent incomingPollutants = stack.getOrDefault(TDataComponentTypes.POLLUTANTS, PollutantComponent.DEFAULT);
                 PollutantComponent existingPollutants = PollutedWaterCauldronBlock.toPollutants(state);
 
                 state = PollutedWaterCauldronBlock.addPollutants(state, existingPollutants.mixWith(incomingPollutants));
 
-                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 
-                player.incrementStat(Stats.USE_CAULDRON);
-                player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+                player.awardStat(Stats.USE_CAULDRON);
+                player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
-                world.setBlockState(pos, state.cycle(LeveledCauldronBlock.LEVEL));
+                world.setBlockAndUpdate(pos, state.cycle(LayeredCauldronBlock.LEVEL));
 
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
+                world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                world.gameEvent(null, GameEvent.FLUID_PLACE, pos);
             }
 
-            return ItemActionResult.success(world.isClient());
+            return ItemInteractionResult.sidedSuccess(world.isClientSide());
         } else {
-            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
     }
 

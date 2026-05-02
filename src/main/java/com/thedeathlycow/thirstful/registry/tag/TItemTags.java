@@ -1,9 +1,9 @@
 package com.thedeathlycow.thirstful.registry.tag;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 
 public final class TItemTags {
     public static final TagKey<Item> DIRTY_BY_DEFAULT = key("polluted_consumables/dirty_by_default");
@@ -13,7 +13,7 @@ public final class TItemTags {
     public static final TagKey<Item> CAN_NOT_BE_POLLUTED = key("can_not_be_polluted");
 
     private static TagKey<Item> key(String id) {
-        return TagKey.of(RegistryKeys.ITEM, Thirstful.id(id));
+        return TagKey.create(Registries.ITEM, Thirstful.id(id));
     }
 
     private TItemTags() {

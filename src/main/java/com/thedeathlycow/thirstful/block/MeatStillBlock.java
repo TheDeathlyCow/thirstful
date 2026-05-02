@@ -3,31 +3,31 @@ package com.thedeathlycow.thirstful.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.block.entity.MeatStillBlockEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class MeatStillBlock extends BlockWithEntity {
+public class MeatStillBlock extends BaseEntityBlock {
     public static final MapCodec<MeatStillBlock> CODEC = RecordCodecBuilder.mapCodec(
             instance ->
                     instance.group(
-                            createSettingsCodec()
+                            propertiesCodec()
                     ).apply(instance, MeatStillBlock::new)
     );
 
-    public MeatStillBlock(Settings settings) {
+    public MeatStillBlock(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends MeatStillBlock> getCodec() {
+    protected MapCodec<? extends MeatStillBlock> codec() {
         return CODEC;
     }
 
     @Override
     @Nullable
-    public MeatStillBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public MeatStillBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new MeatStillBlockEntity(pos, state);
     }
 }

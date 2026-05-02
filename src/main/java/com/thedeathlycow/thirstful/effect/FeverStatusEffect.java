@@ -3,17 +3,17 @@ package com.thedeathlycow.thirstful.effect;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.registry.TStatusEffects;
 import net.fabricmc.fabric.api.util.TriState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 
 public class FeverStatusEffect extends TemperatureChangingStatusEffect {
     public FeverStatusEffect(int color) {
-        super(StatusEffectCategory.HARMFUL, color);
+        super(MobEffectCategory.HARMFUL, color);
     }
 
-    public static TriState canHaveFever(LivingEntity entity, StatusEffectInstance effectInstance) {
-        if (effectInstance.equals(TStatusEffects.FEVER)) {
+    public static TriState canHaveFever(LivingEntity entity, MobEffectInstance effectInstance) {
+        if (effectInstance.is(TStatusEffects.FEVER)) {
             // in practice, this will allow fever whenever scorchful is loaded
             return TriState.of(entity.thermoo$getMaxTemperature() > 0);
         } else {
@@ -22,10 +22,10 @@ public class FeverStatusEffect extends TemperatureChangingStatusEffect {
     }
 
     @Override
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         float targetScale = Thirstful.getConfig().statusEffect().feverMinTemperatureScale();
         if (entity.thermoo$getTemperatureScale() <= targetScale) {
-            super.applyUpdateEffect(entity, amplifier);
+            super.applyEffectTick(entity, amplifier);
         }
 
         return true;

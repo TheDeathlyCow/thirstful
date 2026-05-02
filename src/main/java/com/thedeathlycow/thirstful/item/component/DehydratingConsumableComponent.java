@@ -3,23 +3,23 @@ package com.thedeathlycow.thirstful.item.component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.item.Item;
-import net.minecraft.item.tooltip.TooltipAppender;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Contract;
 
 import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 
 public record DehydratingConsumableComponent(
         boolean alcoholic,
         boolean caffeinated,
         boolean showInTooltip
-) implements TooltipAppender {
+) implements TooltipProvider {
 
     public static final DehydratingConsumableComponent DEFAULT = new DehydratingConsumableComponent();
 
@@ -37,30 +37,30 @@ public record DehydratingConsumableComponent(
                     )
                     .apply(instance, DehydratingConsumableComponent::new)
     );
-    public static final PacketCodec<ByteBuf, DehydratingConsumableComponent> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOL,
+    public static final StreamCodec<ByteBuf, DehydratingConsumableComponent> PACKET_CODEC = StreamCodec.composite(
+            ByteBufCodecs.BOOL,
             DehydratingConsumableComponent::alcoholic,
-            PacketCodecs.BOOL,
+            ByteBufCodecs.BOOL,
             DehydratingConsumableComponent::caffeinated,
-            PacketCodecs.BOOL,
+            ByteBufCodecs.BOOL,
             DehydratingConsumableComponent::showInTooltip,
             DehydratingConsumableComponent::new
     );
 
-    private static final Text ALCOHOLIC = Text.empty()
+    private static final Component ALCOHOLIC = Component.empty()
             .append("Alcohol")
-            .setStyle(Style.EMPTY.withColor(Formatting.RED));
+            .setStyle(Style.EMPTY.withColor(ChatFormatting.RED));
 
-    private static final Text CAFFEINATED = Text.empty()
+    private static final Component CAFFEINATED = Component.empty()
             .append("Caffeinated")
-            .setStyle(Style.EMPTY.withColor(Formatting.RED));
+            .setStyle(Style.EMPTY.withColor(ChatFormatting.RED));
 
     public DehydratingConsumableComponent() {
         this(false, false, true);
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag type) {
         if (!this.showInTooltip) {
             return;
         }

@@ -3,7 +3,7 @@ package com.thedeathlycow.thirstful.registry;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.item.consume.ApplyStatusEffectConsumeEffect;
 import com.thedeathlycow.thirstful.item.consume.ConsumePollutionEffect;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.Registry;
 
 public final class TConsumePollutionEffects {
     public static final ConsumePollutionEffect.Type<ApplyStatusEffectConsumeEffect> APPLY_STATUS_EFFECT = register(

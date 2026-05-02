@@ -1,18 +1,18 @@
 package com.thedeathlycow.thirstful.effect;
 
 import com.github.thedeathlycow.thermoo.api.temperature.HeatingModes;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 
-public abstract class TemperatureChangingStatusEffect extends StatusEffect {
+public abstract class TemperatureChangingStatusEffect extends MobEffect {
 
-    public TemperatureChangingStatusEffect(StatusEffectCategory category, int color) {
+    public TemperatureChangingStatusEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
 
     @Override
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         int temperature = this.getTemperatureChange(amplifier);
         entity.thermoo$addTemperature(temperature, HeatingModes.ACTIVE);
 
@@ -20,7 +20,7 @@ public abstract class TemperatureChangingStatusEffect extends StatusEffect {
     }
 
     @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 
