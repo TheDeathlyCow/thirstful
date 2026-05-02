@@ -1,5 +1,6 @@
 package com.thedeathlycow.thirstful.thirst;
 
+import com.github.thedeathlycow.scorchful.Scorchful;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.registry.TCardinalComponents;
 import net.minecraft.core.HolderLookup;
@@ -18,6 +19,7 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
 
     private final Player provider;
 
+    private int prevThirstTicks;
     private int thirstTicks;
 
     public PlayerThirstComponent(Player provider) {
@@ -55,7 +57,14 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
 
     @Override
     public void serverTick() {
+        if (!this.canBeThirsty()) {
+            return;
+        }
+
         this.addThirstTicks(1);
+        int thirstTickDifference = this.getThirstTicks() - prevThirstTicks;
+        prevThirstTicks = this.getThirstTicks();
+        Scorchful.LOGGER.info("Diff: {}", thirstTickDifference);
 
         if (isThirstDamageEnabled() && this.getThirstTicks() >= this.getMaxThirstTicks()) {
             Level world = this.provider.level();
@@ -68,11 +77,15 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
     }
 
     public void removeThirstTicks(int ticks) {
-        this.addThirstTicks(-ticks);
+        this.setThirstTicks(this.thirstTicks - ticks);
     }
 
     public int getThirstTicks() {
         return this.thirstTicks;
+    }
+
+    public boolean canBeThirsty() {
+        return !this.provider.isCreative();
     }
 
     private void setThirstTicks(int value) {

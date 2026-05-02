@@ -5,7 +5,6 @@ import com.thedeathlycow.thirstful.compat.ModIntegration;
 import com.thedeathlycow.thirstful.compat.ScorchfulIntegration;
 import com.thedeathlycow.thirstful.config.ThirstfulConfig;
 import com.thedeathlycow.thirstful.registry.*;
-import com.thedeathlycow.thirstful.thirst.WaterPollution;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ModInitializer;

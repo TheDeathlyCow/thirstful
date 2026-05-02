@@ -28,7 +28,11 @@ public class ThirstConfig extends ConfigSection {
     private int potionStackSize = 16;
 
     public int maxThirstTicks() {
-        return Mth.floor(48_000 * maxThirstTicksMultiplier);
+        return maxThirstTicks(48_000);
+    }
+
+    public int maxThirstTicks(int base) {
+        return Mth.floor(base * maxThirstTicksMultiplier);
     }
 
     public boolean enableThirstDamage() {

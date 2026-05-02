@@ -29,7 +29,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 public final class ScorchfulIntegration {
     public static void initialize() {
         Thirstful.LOGGER.info("Loading Scorchful compatibility for Thirstful");
-        ServerThirstPlugin.registerPlugin(new ScorchfulServerIntegration());
+        ServerThirstPlugin.registerPlugin(new ThirstfulServerThirstPlugin());
         CollectWaterCallback.EVENT.register((user, stack, sourcePos) -> {
             if (!user.level().getBlockState(sourcePos).is(Blocks.WATER_CAULDRON)) {
                 WaterCollection.pollutePlayerCollectedWater(stack, user, sourcePos);
