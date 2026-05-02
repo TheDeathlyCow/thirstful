@@ -6,11 +6,11 @@ import com.thedeathlycow.thirstful.config.client.ColorConfig;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.registry.TBlocks;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ColorHelper;
-import net.minecraft.world.BlockRenderView;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public final class TBlockColors {
@@ -21,25 +21,25 @@ public final class TBlockColors {
 
     private static int getPotionCauldronColor(
             BlockState state,
-            @Nullable BlockRenderView world,
+            @Nullable BlockAndTintGetter world,
             @Nullable BlockPos pos,
             int tintIndex
     ) {
         WaterPollutionConfig pollutionConfig = Thirstful.getConfig().waterPollution();
 
-        boolean dirty = pollutionConfig.enableDirtiness() && state.get(PollutedWaterCauldronBlock.DIRTY);
-        boolean contaminated = pollutionConfig.enableDisease() && state.get(PollutedWaterCauldronBlock.CONTAMINED);
+        boolean dirty = pollutionConfig.enableDirtiness() && state.getValue(PollutedWaterCauldronBlock.DIRTY);
+        boolean contaminated = pollutionConfig.enableDisease() && state.getValue(PollutedWaterCauldronBlock.CONTAMINED);
 
         ColorConfig colorConfig = ThirstfulClient.getConfig().color();
 
         if (contaminated && dirty) {
-            return ColorHelper.Argb.averageArgb(colorConfig.contaminatedWaterColor(), colorConfig.dirtyWaterColor());
+            return FastColor.ARGB32.average(colorConfig.contaminatedWaterColor(), colorConfig.dirtyWaterColor());
         } else if (contaminated) {
             return colorConfig.contaminatedWaterColor();
         } else if (dirty) {
             return colorConfig.dirtyWaterColor();
         } else if (world != null && pos != null) {
-            return BiomeColors.getWaterColor(world, pos);
+            return BiomeColors.getAverageWaterColor(world, pos);
         } else {
             return -1;
         }
