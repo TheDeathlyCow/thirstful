@@ -26,7 +26,7 @@
 			"com.thedeathlycow.thirstful.ThirstfulClient"
 		],
 		"cardinal-components-entity": [
-			"com.thedeathlycow.thirstful.registry.TEntityComponents"
+			"com.thedeathlycow.thirstful.registry.TCardinalComponents"
 		]
 	},
 	"mixins": [

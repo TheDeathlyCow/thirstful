@@ -8,7 +8,7 @@ import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
 import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 
-public class TEntityComponents implements EntityComponentInitializer {
+public class TCardinalComponents implements EntityComponentInitializer {
     public static final ComponentKey<PlayerThirstComponent> PLAYER_THIRST = ComponentRegistry.getOrCreate(
             Thirstful.id("player_thirst"),
             PlayerThirstComponent.class
