@@ -16,18 +16,17 @@ import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import me.fzzyhmstrs.fzzy_config.annotations.Comment;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
 import java.lang.reflect.Field;
 import java.util.concurrent.CompletableFuture;
 
 public class EnglishUSGenerator extends FabricLanguageProvider {
-    public EnglishUSGenerator(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public EnglishUSGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, "en_us", registryLookup);
     }
 
     @Override
-    public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder builder) {
+    public void generateTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder builder) {
         builder.add(TStatusEffects.COOLING.value(), "Cooling");
         builder.add(TStatusEffects.WARMING.value(), "Warming");
         builder.add(TStatusEffects.FEVER.value(), "Fever");
