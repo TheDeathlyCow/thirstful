@@ -1,6 +1,5 @@
 package com.thedeathlycow.thirstful.thirst;
 
-import com.github.thedeathlycow.scorchful.Scorchful;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.registry.TCardinalComponents;
 import net.minecraft.core.HolderLookup;
@@ -16,10 +15,12 @@ import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 public class PlayerThirstComponent implements Component, ServerTickingComponent, AutoSyncedComponent {
     private static final String THIRST_TICKS_KEY = "thirst_ticks";
+    private static final String THIRST_LEVEL_KEY = "thirst_level";
+    private static final double MAX_THIRST = 10.0 * 4;
 
     private final Player provider;
 
-    private int prevThirstTicks;
+    private double thirstLevel = MAX_THIRST;
     private int thirstTicks;
 
     public PlayerThirstComponent(Player provider) {
@@ -33,21 +34,25 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
     @Override
     public void readFromNbt(CompoundTag nbtCompound, HolderLookup.Provider wrapperLookup) {
         this.thirstTicks = nbtCompound.getInt(THIRST_TICKS_KEY);
+        this.thirstLevel = nbtCompound.getInt(THIRST_LEVEL_KEY);
     }
 
     @Override
     public void writeToNbt(CompoundTag nbtCompound, HolderLookup.Provider wrapperLookup) {
         nbtCompound.putInt(THIRST_TICKS_KEY, thirstTicks);
+        nbtCompound.putDouble(THIRST_LEVEL_KEY, thirstLevel);
     }
 
     @Override
     public void writeSyncPacket(RegistryFriendlyByteBuf buf, ServerPlayer recipient) {
         buf.writeVarInt(this.thirstTicks);
+        buf.writeDouble(this.thirstLevel);
     }
 
     @Override
     public void applySyncPacket(RegistryFriendlyByteBuf buf) {
         this.thirstTicks = buf.readVarInt();
+        this.thirstLevel = buf.readDouble();
     }
 
     @Override
@@ -62,9 +67,6 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
         }
 
         this.addThirstTicks(1);
-        int thirstTickDifference = this.getThirstTicks() - prevThirstTicks;
-        prevThirstTicks = this.getThirstTicks();
-        Scorchful.LOGGER.info("Diff: {}", thirstTickDifference);
 
         if (isThirstDamageEnabled() && this.getThirstTicks() >= this.getMaxThirstTicks()) {
             Level world = this.provider.level();

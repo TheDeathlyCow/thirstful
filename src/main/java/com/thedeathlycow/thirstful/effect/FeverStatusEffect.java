@@ -1,7 +1,7 @@
 package com.thedeathlycow.thirstful.effect;
 
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.registry.TStatusEffects;
+import com.thedeathlycow.thirstful.registry.TMobEffects;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,7 +13,7 @@ public class FeverStatusEffect extends TemperatureChangingStatusEffect {
     }
 
     public static TriState canHaveFever(LivingEntity entity, MobEffectInstance effectInstance) {
-        if (effectInstance.is(TStatusEffects.FEVER)) {
+        if (effectInstance.is(TMobEffects.FEVER)) {
             // in practice, this will allow fever whenever scorchful is loaded
             return TriState.of(entity.thermoo$getMaxTemperature() > 0);
         } else {

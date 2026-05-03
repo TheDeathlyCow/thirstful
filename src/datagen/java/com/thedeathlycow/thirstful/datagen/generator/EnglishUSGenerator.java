@@ -9,9 +9,8 @@ import com.thedeathlycow.thirstful.config.client.ColorConfig;
 import com.thedeathlycow.thirstful.config.common.StatusEffectConfig;
 import com.thedeathlycow.thirstful.config.common.ThirstConfig;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
-import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.registry.TBlocks;
-import com.thedeathlycow.thirstful.registry.TStatusEffects;
+import com.thedeathlycow.thirstful.registry.TMobEffects;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import me.fzzyhmstrs.fzzy_config.annotations.Comment;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -27,9 +26,9 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder builder) {
-        builder.add(TStatusEffects.COOLING.value(), "Cooling");
-        builder.add(TStatusEffects.WARMING.value(), "Warming");
-        builder.add(TStatusEffects.FEVER.value(), "Fever");
+        builder.add(TMobEffects.COOLING.value(), "Cooling");
+        builder.add(TMobEffects.WARMING.value(), "Warming");
+        builder.add(TMobEffects.FEVER.value(), "Fever");
 
         builder.add(TBlocks.POLLUTED_WATER_CAULDRON, "Polluted Water Cauldron");
         builder.add(TBlocks.MEAT_STILL, "Meat Still");

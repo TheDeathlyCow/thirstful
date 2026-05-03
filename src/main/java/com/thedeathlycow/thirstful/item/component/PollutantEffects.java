@@ -5,7 +5,7 @@ import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.item.consume.ApplyStatusEffectConsumeEffect;
 import com.thedeathlycow.thirstful.item.consume.ConsumePollutionEffect;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import com.thedeathlycow.thirstful.registry.TStatusEffects;
+import com.thedeathlycow.thirstful.registry.TMobEffects;
 import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -31,7 +31,7 @@ public final class PollutantEffects {
                     0.5f
             ),
             new ApplyStatusEffectConsumeEffect(
-                    new MobEffectInstance(TStatusEffects.FEVER, LONG_EFFECT_TIME),
+                    new MobEffectInstance(TMobEffects.FEVER, LONG_EFFECT_TIME),
                     0.5f
             )
     );

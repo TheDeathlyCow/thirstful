@@ -12,7 +12,8 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
     public boolean dehydrateFromSweating(Player player) {
         boolean makeWet = false;
 
-        if (player.thermoo$getTemperature() >= 0) {
+        // this does not run every tick if the player gets cooled to 0 temp!
+        if (player.thermoo$getTemperature() > 0) {
             PlayerThirstComponent thirstComponent = PlayerThirstComponent.get(player);
 
             int thirstTickIncrease = 5;

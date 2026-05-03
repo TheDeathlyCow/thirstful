@@ -35,9 +35,10 @@ public class Thirstful implements ModInitializer {
         TBlockEntityTypes.initialize();
         TConsumePollutionEffects.initialize();
         TItems.initialize();
-        TStatusEffects.initialize();
+        TMobEffects.initialize();
         TDataComponentTypes.initialize();
         TPointsOfInterest.initialize();
+
         if (ModIntegration.isScorchfulLoaded()) {
             ScorchfulIntegration.initialize();
         }
