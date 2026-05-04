@@ -1,15 +1,20 @@
 Thirstful Assets License
 =======================================================================
 
-The assets in this repository located under the
-`src/main/resources/assets/` directory (including textures, models,
-sounds, and associated JSON files) are licensed under the Creative
-Commons Attribution-ShareAlike 4.0 International License
-(CC-BY-SA-4.0), except where noted.
+The assets in this repository located under the Asset Directories
+listed below (including textures, models, sounds, photoshope files, and
+associated JSON files) are licensed under the Creative Commons
+Attribution-ShareAlike 4.0 International License (CC-BY-SA-4.0), except
+where noted.
 
-This license does NOT apply to files outside the assets/ directory,
-which are licensed separately under the GNU Affero General Public
-License 3.0 (AGPL-3.0). See LICENSE for details.
+This license does NOT apply to files outside the Asset Directories,
+which are licensed separately and exclusively under the GNU Affero
+General Public License 3.0 (AGPL-3.0). See LICENSE for details.
+
+The Asset Directories are:
+- ./src/main/resources/assets/
+- ./src/main/generated/assets/
+- ./psds/
 
 The full text of this license is included below, and is also available
 at:

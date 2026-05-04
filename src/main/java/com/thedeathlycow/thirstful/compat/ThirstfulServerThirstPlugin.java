@@ -1,11 +1,7 @@
 package com.thedeathlycow.thirstful.compat;
 
 import com.github.thedeathlycow.scorchful.api.ServerThirstPlugin;
-import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.config.common.ThirstConfig;
 import com.thedeathlycow.thirstful.thirst.PlayerThirstComponent;
-import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 
 public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
