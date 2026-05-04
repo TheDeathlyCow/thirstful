@@ -22,7 +22,7 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
                 makeWet = true;
             }
 
-            if (!player.isInvulnerable()) {
+            if (!(player.isInvulnerable() || player.getAbilities().invulnerable)) {
                 thirstComponent.removeThirstLevel(thirstTickIncrease, false);
             }
         }

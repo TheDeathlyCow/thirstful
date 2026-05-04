@@ -37,7 +37,7 @@ public record DrinkComponent(
             DrinkComponent::new
     );
 
-    private static final DrinkComponent BOTTLE = new DrinkComponent(4.0);
+    private static final DrinkComponent BOTTLE = new DrinkComponent(5.0);
     private static final DrinkComponent BUCKET = new DrinkComponent(10.0);
     private static final DrinkComponent DEFAULT = new DrinkComponent(0.0);
 

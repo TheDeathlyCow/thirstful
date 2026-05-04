@@ -12,6 +12,7 @@
         "block.FluidBlockMixin",
         "block.ItemDispenserBehaviorMixin",
         "block.LeveledCauldronBlockMixin",
+        "entity.FoodDataMixin",
         "entity.LivingEntityMixin",
         "entity.PlayerMixin",
         "item.GlassBottleItemMixin",
