@@ -19,7 +19,7 @@ public class ThirstConfig extends ConfigSection {
 
     @OptionName("Enable thirst damage")
     @NoComment
-    private boolean enableThirstDamage = false;
+    private boolean enableThirstDamage = true;
 
     @OptionName("Potion item default max stack size")
     @Comment("Modifies the max stack size of potions (must be between 1 and 99). Requires a restart.")

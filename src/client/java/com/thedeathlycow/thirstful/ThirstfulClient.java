@@ -2,6 +2,7 @@ package com.thedeathlycow.thirstful;
 
 import com.thedeathlycow.thirstful.block.TBlockColors;
 import com.thedeathlycow.thirstful.config.ThirstfulClientConfig;
+import com.thedeathlycow.thirstful.hud.DehydratedOverlay;
 import com.thedeathlycow.thirstful.hud.HungerOverlayRenderEvents;
 import com.thedeathlycow.thirstful.hud.ThirstOverlay;
 import com.thedeathlycow.thirstful.thirst.PlayerThirstComponent;
@@ -29,6 +30,7 @@ public class ThirstfulClient implements ClientModInitializer {
         ItemTooltipCallback.EVENT.register(new ThirstfulTooltipAppender());
         TBlockColors.initialize();
         HungerOverlayRenderEvents.AFTER_HUNGER_BAR.register(new ThirstOverlay());
+        HungerOverlayRenderEvents.AFTER_HUNGER_BAR.register(new DehydratedOverlay());
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             HudRenderCallback.EVENT.register((guiGraphics, deltaTracker) -> {
