@@ -7,7 +7,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodData;
 import net.minecraft.world.level.Level;
 import org.ladysnake.cca.api.v3.component.Component;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -16,12 +18,11 @@ import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 public class PlayerThirstComponent implements Component, ServerTickingComponent, AutoSyncedComponent {
     private static final String THIRST_TICKS_KEY = "thirst_ticks";
     private static final String THIRST_LEVEL_KEY = "thirst_level";
-    private static final double MAX_THIRST = 10.0 * 4;
+    private static final double MAX_THIRST = 10.0;
 
     private final Player provider;
 
     private double thirstLevel = MAX_THIRST;
-    private int thirstTicks;
 
     public PlayerThirstComponent(Player provider) {
         this.provider = provider;
@@ -33,25 +34,21 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
 
     @Override
     public void readFromNbt(CompoundTag nbtCompound, HolderLookup.Provider wrapperLookup) {
-        this.thirstTicks = nbtCompound.getInt(THIRST_TICKS_KEY);
         this.thirstLevel = nbtCompound.getInt(THIRST_LEVEL_KEY);
     }
 
     @Override
     public void writeToNbt(CompoundTag nbtCompound, HolderLookup.Provider wrapperLookup) {
-        nbtCompound.putInt(THIRST_TICKS_KEY, thirstTicks);
         nbtCompound.putDouble(THIRST_LEVEL_KEY, thirstLevel);
     }
 
     @Override
     public void writeSyncPacket(RegistryFriendlyByteBuf buf, ServerPlayer recipient) {
-        buf.writeVarInt(this.thirstTicks);
         buf.writeDouble(this.thirstLevel);
     }
 
     @Override
     public void applySyncPacket(RegistryFriendlyByteBuf buf) {
-        this.thirstTicks = buf.readVarInt();
         this.thirstLevel = buf.readDouble();
     }
 
@@ -66,49 +63,68 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
             return;
         }
 
-        this.addThirstTicks(1);
-
-        if (isThirstDamageEnabled() && this.getThirstTicks() >= this.getMaxThirstTicks()) {
+        if (isThirstDamageEnabled() && this.isDehydrated()) {
             Level world = this.provider.level();
             this.provider.hurt(world.damageSources().generic(), 1.0f);
         }
     }
 
-    public void addThirstTicks(int ticks) {
-        this.setThirstTicks(this.thirstTicks + ticks);
+    public void addThirstLevel(double value) {
+        this.setThirstLevel(this.thirstLevel + value);
     }
 
-    public void removeThirstTicks(int ticks) {
-        this.setThirstTicks(this.thirstTicks - ticks);
+    public void removeThirstLevel(double exhaustion) {
+        this.removeThirstLevel(exhaustion, true);
     }
 
-    public int getThirstTicks() {
-        return this.thirstTicks;
+    public void removeThirstLevel(double value, boolean reduceHunger) {
+        double oldThirstLevel = this.getThirstLevel();
+        this.setThirstLevel(this.thirstLevel - value);
+        int thirstLevelDifference = Math.abs(Mth.floor(oldThirstLevel) - Mth.floor(this.getThirstLevel()));
+
+        if (reduceHunger && thirstLevelDifference >= 1) {
+            this.reduceHunger(thirstLevelDifference);
+        }
+    }
+
+    public double getThirstLevel() {
+        return this.thirstLevel;
     }
 
     public boolean canBeThirsty() {
         return !this.provider.isCreative();
     }
 
-    private void setThirstTicks(int value) {
-        value = Mth.clamp(value, 0, this.getMaxThirstTicks());
+    public boolean isDehydrated() {
+        return this.thirstLevel <= 0;
+    }
 
-        if (this.thirstTicks != value) {
-            this.thirstTicks = value;
+    private void setThirstLevel(double value) {
+        value = Math.clamp(value, 0, this.getMaxThirstTicks());
+
+        if (this.thirstLevel != value) {
+            this.thirstLevel = value;
             TCardinalComponents.PLAYER_THIRST.sync(this.provider);
         }
     }
 
+    private void reduceHunger(int amount) {
+        Difficulty difficulty = this.provider.level().getDifficulty();
+        FoodData food = this.provider.getFoodData();
+
+        if (food.getSaturationLevel() > 0.0f) {
+            food.setSaturation(Math.max(food.getSaturationLevel() - amount, 0.0f));
+        } else if (difficulty != Difficulty.PEACEFUL) {
+            food.setFoodLevel(Math.max(food.getFoodLevel() - amount, 0));
+        }
+    }
+
     public double getThirstScale() {
-        return ((double) this.thirstTicks) / this.getMaxThirstTicks();
+        return this.thirstLevel / this.getMaxThirstTicks();
     }
 
-    public float getThirstScaleAsFloat() {
-        return ((float) this.thirstTicks) / this.getMaxThirstTicks();
-    }
-
-    public int getMaxThirstTicks() {
-        return Thirstful.getConfig().thirst().maxThirstTicks();
+    public double getMaxThirstTicks() {
+        return MAX_THIRST;
     }
 
     public static boolean isThirstDamageEnabled() {

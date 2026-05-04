@@ -5,6 +5,7 @@ import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.common.ThirstConfig;
 import com.thedeathlycow.thirstful.thirst.PlayerThirstComponent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 
 public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
@@ -16,16 +17,16 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
         if (player.thermoo$getTemperature() > 0) {
             PlayerThirstComponent thirstComponent = PlayerThirstComponent.get(player);
 
-            int thirstTickIncrease = 5;
+            double thirstTickIncrease = 0.001;
 
             // player continues to get thirsty but this will no longer provide any cooling effect
             // similar to how health regen stops with a small amount of hunger loss
-            if (thirstComponent.getThirstScale() <= 0.15) {
-                thirstTickIncrease = 100;
+            if (thirstComponent.getThirstScale() >= 0.85) {
+                thirstTickIncrease = 0.005;
                 makeWet = true;
             }
 
-            thirstComponent.addThirstTicks(Thirstful.getConfig().thirst().maxThirstTicks(thirstTickIncrease));
+            thirstComponent.removeThirstLevel(thirstTickIncrease);
         }
 
         return makeWet;
@@ -34,10 +35,7 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
     @Override
     public void rehydrateFromEnchantment(Player player, int waterCaptured, double rehydrationEfficiency) {
         PlayerThirstComponent thirstComponent = PlayerThirstComponent.get(player);
-        int ticksToRemove = Mth.floor(waterCaptured * rehydrationEfficiency);
-
-        if (ticksToRemove > 0) {
-            thirstComponent.removeThirstTicks(ticksToRemove);
-        }
+        double thirstToAdd = (double) waterCaptured / player.thermoo$getMaxWetTicks() * rehydrationEfficiency * thirstComponent.getMaxThirstTicks();
+        thirstComponent.addThirstLevel(thirstToAdd);
     }
 }

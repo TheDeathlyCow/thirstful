@@ -8,7 +8,6 @@ import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
@@ -34,7 +33,7 @@ public class ThirstfulClient implements ClientModInitializer {
 
                 guiGraphics.drawString(
                         Minecraft.getInstance().font,
-                        Component.literal("Thirst ticks: %d / %d".formatted(thirst.getThirstTicks(), thirst.getMaxThirstTicks())),
+                        Component.literal("Thirst level: %.4f / %.2f".formatted(thirst.getThirstLevel(), thirst.getMaxThirstTicks())),
                         10, 10,
                         0xffffff
                 );
