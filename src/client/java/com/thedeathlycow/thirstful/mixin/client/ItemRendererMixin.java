@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
-import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.ThirstfulClient;
 import com.thedeathlycow.thirstful.client.TRenderLayers;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;

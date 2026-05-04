@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
-import javax.management.openmbean.TabularData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -16,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
+
 import java.util.function.Consumer;
 
 public record PollutantComponent(

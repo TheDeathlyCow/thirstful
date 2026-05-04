@@ -1,5 +1,6 @@
 package com.thedeathlycow.thirstful.tooltip;
 
+import com.thedeathlycow.thirstful.item.component.DrinkComponent;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.core.component.DataComponentType;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -20,6 +22,7 @@ public class ThirstfulTooltipAppender implements ItemTooltipCallback {
 
         this.appendTooltip(stack, TDataComponentTypes.POLLUTANTS, tooltipContext, tooltipType, builder);
         this.appendTooltip(stack, TDataComponentTypes.DEHYDRATION_CONSUMABLE, tooltipContext, tooltipType, builder);
+        this.appendTooltip(DrinkComponent.getOrTag(stack, null), tooltipContext, tooltipType, builder);
     }
 
     private <T extends TooltipProvider> void appendTooltip(
@@ -29,7 +32,15 @@ public class ThirstfulTooltipAppender implements ItemTooltipCallback {
             TooltipFlag type,
             Consumer<Component> textConsumer
     ) {
-        T tooltipAppender = stack.get(componentType);
+        this.appendTooltip(stack.get(componentType), context, type, textConsumer);
+    }
+
+    private <T extends TooltipProvider> void appendTooltip(
+            T tooltipAppender,
+            Item.TooltipContext context,
+            TooltipFlag type,
+            Consumer<Component> textConsumer
+    ) {
         if (tooltipAppender != null) {
             tooltipAppender.addToTooltip(context, textConsumer, type);
         }

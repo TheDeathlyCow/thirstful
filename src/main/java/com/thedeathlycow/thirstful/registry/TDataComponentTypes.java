@@ -2,18 +2,24 @@ package com.thedeathlycow.thirstful.registry;
 
 import com.mojang.serialization.Codec;
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.item.ConsumeItemCallback;
 import com.thedeathlycow.thirstful.item.ItemStackCreationCallback;
 import com.thedeathlycow.thirstful.item.component.DehydratingConsumableComponent;
+import com.thedeathlycow.thirstful.item.component.DrinkComponent;
 import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.item.consume.ConsumePollutionEffect;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
-import java.util.List;
-import java.util.function.UnaryOperator;
+import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
+
+import java.util.List;
+import java.util.function.UnaryOperator;
 
 public final class TDataComponentTypes {
     public static final DataComponentType<PollutantComponent> POLLUTANTS = register(
@@ -48,6 +54,14 @@ public final class TDataComponentTypes {
                     .cacheEncoding()
     );
 
+    public static final DataComponentType<DrinkComponent> DRINK = register(
+            "drink",
+            builder -> builder
+                    .persistent(DrinkComponent.CODEC)
+                    .networkSynchronized(DrinkComponent.STREAM_CODEC)
+                    .cacheEncoding()
+    );
+
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful item components");
 
@@ -59,6 +73,12 @@ public final class TDataComponentTypes {
                         stack.is(TItemTags.SALTY_BY_DEFAULT)
                 );
                 stack.set(TDataComponentTypes.POLLUTANTS, component);
+            }
+        });
+
+        ConsumeItemCallback.EVENT.register((entity, stack) -> {
+            if (entity instanceof Player player) {
+                DrinkComponent.getOrTag(stack).drink(player);
             }
         });
     }

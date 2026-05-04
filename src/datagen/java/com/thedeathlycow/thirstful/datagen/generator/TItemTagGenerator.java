@@ -17,6 +17,12 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
+        getOrCreateTagBuilder(TItemTags.RESTORES_THIRST)
+                .addOptionalTag(ConventionalItemTags.JUICE_DRINKS)
+                .addOptionalTag(ConventionalItemTags.MILK_DRINKS)
+                .addOptionalTag(ConventionalItemTags.WATER_DRINKS)
+                .addOptionalTag(ConventionalItemTags.WATERY_DRINKS);
+
         getOrCreateTagBuilder(TItemTags.CAN_BE_POLLUTED)
                 .add(Items.GLASS_BOTTLE)
                 .addOptionalTag(TItemTags.SALTY_BY_DEFAULT)
