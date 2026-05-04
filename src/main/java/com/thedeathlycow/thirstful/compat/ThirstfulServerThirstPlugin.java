@@ -22,7 +22,7 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
                 makeWet = true;
             }
 
-            thirstComponent.removeThirstLevel(thirstTickIncrease);
+            thirstComponent.removeThirstLevel(thirstTickIncrease, false);
         }
 
         return makeWet;
