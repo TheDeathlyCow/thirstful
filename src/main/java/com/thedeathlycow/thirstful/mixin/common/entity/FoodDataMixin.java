@@ -26,9 +26,9 @@ public class FoodDataMixin {
     ) {
         PlayerThirstComponent thirstData = PlayerThirstComponent.get(player);
 
-        if (!thirstData.isDehydrated()) {
-            thirstData.removeThirstLevel(exhaustion / 4.0);
-        } else {
+        thirstData.removeThirstLevel(exhaustion / 8.0);
+
+        if (thirstData.isDehydrated()) {
             original.call(instance, exhaustion);
         }
     }

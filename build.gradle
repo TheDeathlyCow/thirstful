@@ -83,8 +83,7 @@ loom {
         }
     }
 
-    // for when i need it
-    //accessWidenerPath = file("src/main/resources/thirstful.accesswidener")
+    accessWidenerPath = file("src/main/resources/thirstful.accesswidener")
 
     runs {
         testmodClient {
