@@ -41,11 +41,11 @@ public record DrinkComponent(
             DrinkComponent::new
     );
 
-    private static final DrinkComponent SNACK = new DrinkComponent(2.5);
-    private static final DrinkComponent BOTTLE = new DrinkComponent(5.0);
-    private static final DrinkComponent BOWL = new DrinkComponent(7.5);
-    private static final DrinkComponent BUCKET = new DrinkComponent(10.0);
     private static final DrinkComponent DEFAULT = new DrinkComponent(0.0);
+    private static final DrinkComponent SNACK = new DrinkComponent(2.0);
+    private static final DrinkComponent BOTTLE = new DrinkComponent(5.0);
+    private static final DrinkComponent BOWL = new DrinkComponent(7.0);
+    private static final DrinkComponent BUCKET = new DrinkComponent(10.0);
 
     @NotNull
     public static DrinkComponent getByTag(ItemStack stack) {
