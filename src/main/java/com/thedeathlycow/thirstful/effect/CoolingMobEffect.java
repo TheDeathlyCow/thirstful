@@ -4,14 +4,14 @@ import com.thedeathlycow.thirstful.Thirstful;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public class WarmingStatusEffect extends TemperatureChangingStatusEffect {
-    public WarmingStatusEffect(int color) {
+public class CoolingMobEffect extends TemperatureChangingMobEffect {
+    public CoolingMobEffect(int color) {
         super(MobEffectCategory.BENEFICIAL, color);
     }
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity.thermoo$isCold()) {
+        if (entity.thermoo$isWarm()) {
             return super.applyEffectTick(entity, amplifier);
         }
         return false;
@@ -19,6 +19,6 @@ public class WarmingStatusEffect extends TemperatureChangingStatusEffect {
 
     @Override
     protected int getTemperatureChange(int amplifier) {
-        return Thirstful.getConfig().statusEffect().warmingEffectTemperatureChange() * (amplifier + 1);
+        return Thirstful.getConfig().statusEffect().coolingEffectTemperatureChange() * (amplifier + 1);
     }
 }

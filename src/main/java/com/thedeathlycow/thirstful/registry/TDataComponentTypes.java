@@ -52,6 +52,14 @@ public final class TDataComponentTypes {
                     .cacheEncoding()
     );
 
+    public static final DataComponentType<List<ConsumePollutionEffect>> SALTINESS_EFFECTS = register(
+            "saltiness_effects",
+            builder -> builder
+                    .persistent(Codec.list(ConsumePollutionEffect.ELEMENT_CODEC))
+                    .networkSynchronized(ConsumePollutionEffect.PACKET_CODEC.apply(ByteBufCodecs.list()))
+                    .cacheEncoding()
+    );
+
     public static final DataComponentType<DrinkComponent> DRINK = register(
             "drink",
             builder -> builder

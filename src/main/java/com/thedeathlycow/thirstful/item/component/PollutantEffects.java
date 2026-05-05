@@ -6,13 +6,14 @@ import com.thedeathlycow.thirstful.item.consume.ApplyStatusEffectConsumeEffect;
 import com.thedeathlycow.thirstful.item.consume.ConsumePollutionEffect;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
 import com.thedeathlycow.thirstful.registry.TMobEffects;
-import java.util.List;
-import java.util.function.Consumer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 public final class PollutantEffects {
     private static final int LONG_EFFECT_TIME = 60 * 20;
@@ -36,6 +37,13 @@ public final class PollutantEffects {
             )
     );
 
+    public static final List<ConsumePollutionEffect> DEFAULT_SALTINESS = List.of(
+            new ApplyStatusEffectConsumeEffect(
+                    new MobEffectInstance(TMobEffects.PARCHED, LONG_EFFECT_TIME),
+                    0.8f
+            )
+    );
+
     public static void onConsume(LivingEntity entity, ItemStack stack) {
         PollutantComponent pollutantComponent = stack.get(TDataComponentTypes.POLLUTANTS);
         Level world = entity.level();
@@ -44,17 +52,15 @@ public final class PollutantEffects {
             Consumer<ConsumePollutionEffect> effectApplier = effect -> effect.apply(world, entity, stack);
 
             if (pollutantComponent.checkedDirty(config)) {
-                stack.getOrDefault(
-                        TDataComponentTypes.DIRTINESS_EFFECTS,
-                        DEFAULT_DIRTINESS
-                ).forEach(effectApplier);
+                stack.getOrDefault(TDataComponentTypes.DIRTINESS_EFFECTS, DEFAULT_DIRTINESS).forEach(effectApplier);
             }
 
             if (pollutantComponent.checkedContaminated(config)) {
-                stack.getOrDefault(
-                        TDataComponentTypes.DISEASE_EFFECTS,
-                        DEFAULT_DISEASE
-                ).forEach(effectApplier);
+                stack.getOrDefault(TDataComponentTypes.DISEASE_EFFECTS, DEFAULT_DISEASE).forEach(effectApplier);
+            }
+
+            if (pollutantComponent.checkedSalty(config)) {
+                stack.getOrDefault(TDataComponentTypes.SALTINESS_EFFECTS, DEFAULT_SALTINESS).forEach(effectApplier);
             }
         }
     }

@@ -14,29 +14,27 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 public final class TMobEffects {
     public static final Holder<MobEffect> COOLING = registerReference(
             "cooling",
-            new CoolingStatusEffect(CommonColors.BLUE)
+            new CoolingMobEffect(0x4832a8)
     );
 
     public static final Holder<MobEffect> WARMING = registerReference(
-        "warming",
-            new WarmingStatusEffect(CommonColors.RED)
+            "warming",
+            new WarmingMobEffect(0xe35c02)
     );
 
     public static final Holder<MobEffect> FEVER = registerReference(
             "fever",
-            new FeverStatusEffect(CommonColors.RED)
+            new FeverMobEffect(0xf7442d)
     );
 
-    public static final Holder<MobEffect> HEAVY_FALLING = registerReference(
-            "heavy_falling",
-            new ThirstfulMobEffect(MobEffectCategory.HARMFUL, CommonColors.BLACK)
-                    .addAttributeModifier(Attributes.FALL_DAMAGE_MULTIPLIER, Thirstful.id("mob_effect/heavy_falling"), 1.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                    .addAttributeModifier(Attributes.SAFE_FALL_DISTANCE, Thirstful.id("mob_effect/heavy_falling"), -0.5, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+    public static final Holder<MobEffect> PARCHED = registerReference(
+            "parched",
+            new ParchedMobEffect(0xfad975)
     );
 
     public static void initialize() {
         Thirstful.LOGGER.debug("Initialized Thirstful status effects");
-        AllowStatusEffectCallback.EVENT.register(FeverStatusEffect::canHaveFever);
+        AllowStatusEffectCallback.EVENT.register(FeverMobEffect::canHaveFever);
     }
 
     private static Holder<MobEffect> registerReference(String name, MobEffect statusEffect) {

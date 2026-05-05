@@ -7,8 +7,8 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
-public class FeverStatusEffect extends TemperatureChangingStatusEffect {
-    public FeverStatusEffect(int color) {
+public class FeverMobEffect extends TemperatureChangingMobEffect {
+    public FeverMobEffect(int color) {
         super(MobEffectCategory.HARMFUL, color);
     }
 

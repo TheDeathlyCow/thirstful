@@ -5,6 +5,7 @@
   "death.attack.dehydration.player": "%1$s died from thirst while trying to escape %2$s",
   "effect.thirstful.cooling": "Cooling",
   "effect.thirstful.fever": "Fever",
+  "effect.thirstful.parched": "Parched",
   "effect.thirstful.warming": "Warming",
   "item.thirstful.pollutant.clean": "Clean",
   "item.thirstful.pollutant.contaminated": "Contaminated",

@@ -1,13 +1,12 @@
 package com.thedeathlycow.thirstful.effect;
 
 import com.github.thedeathlycow.thermoo.api.temperature.HeatingModes;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public abstract class TemperatureChangingStatusEffect extends MobEffect {
+public abstract class TemperatureChangingMobEffect extends ThirstfulMobEffect {
 
-    public TemperatureChangingStatusEffect(MobEffectCategory category, int color) {
+    public TemperatureChangingMobEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
 

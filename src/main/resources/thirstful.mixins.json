@@ -12,7 +12,7 @@
         "block.ItemDispenserBehaviorMixin",
         "block.LeveledCauldronBlockMixin",
         "block.LiquidBlockMixin",
-        "entity.HungerMobEffectMixin",
+        "world.HungerMobEffectMixin",
         "entity.LivingEntityMixin",
         "entity.PlayerMixin",
         "item.BottleItemMixin",

@@ -37,6 +37,7 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
         builder.add(TMobEffects.COOLING.value(), "Cooling");
         builder.add(TMobEffects.WARMING.value(), "Warming");
         builder.add(TMobEffects.FEVER.value(), "Fever");
+        builder.add(TMobEffects.PARCHED.value(), "Parched");
 
         builder.add(TBlocks.POLLUTED_WATER_CAULDRON, "Polluted Water Cauldron");
         builder.add(TBlocks.MEAT_STILL, "Meat Still");

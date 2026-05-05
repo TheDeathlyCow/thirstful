@@ -10,7 +10,7 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
         boolean makeWet = false;
 
         // this does not run every tick if the player gets cooled to 0 temp!
-        if (player.thermoo$getTemperature() > 0) {
+        if (player.thermoo$getTemperatureScale() >= 0.01f) {
             PlayerThirstComponent thirstComponent = PlayerThirstComponent.get(player);
 
             double thirstTickIncrease = 0.001;
