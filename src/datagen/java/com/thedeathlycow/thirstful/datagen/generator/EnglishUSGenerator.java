@@ -10,12 +10,18 @@ import com.thedeathlycow.thirstful.config.common.StatusEffectConfig;
 import com.thedeathlycow.thirstful.config.common.ThirstConfig;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
 import com.thedeathlycow.thirstful.registry.TBlocks;
+import com.thedeathlycow.thirstful.registry.TDamageTypes;
 import com.thedeathlycow.thirstful.registry.TMobEffects;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import me.fzzyhmstrs.fzzy_config.annotations.Comment;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageType;
+
 import java.lang.reflect.Field;
 import java.util.concurrent.CompletableFuture;
 
@@ -26,6 +32,8 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder builder) {
+        HolderLookup.RegistryLookup<DamageType> damageTypes = wrapperLookup.lookupOrThrow(Registries.DAMAGE_TYPE);
+
         builder.add(TMobEffects.COOLING.value(), "Cooling");
         builder.add(TMobEffects.WARMING.value(), "Warming");
         builder.add(TMobEffects.FEVER.value(), "Fever");
@@ -44,7 +52,18 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
         builder.add(TItemTags.DIRTY_BY_DEFAULT, "Dirty Consumables");
         builder.add(TItemTags.SALTY_BY_DEFAULT, "Salty Items");
 
+        builder.add(damageType(TDamageTypes.DEHYDRATION, damageTypes), "%1$s died from thirst");
+        builder.add(damageTypePlayer(TDamageTypes.DEHYDRATION, damageTypes), "%1$s died from thirst while trying to escape %2$s");
+
         generateConfigTranslations(builder);
+    }
+
+    private static String damageType(ResourceKey<DamageType> key, HolderLookup.RegistryLookup<DamageType> damageTypes) {
+        return "death.attack." + damageTypes.getOrThrow(key).value().msgId();
+    }
+
+    private static String damageTypePlayer(ResourceKey<DamageType> key, HolderLookup.RegistryLookup<DamageType> damageTypes) {
+        return damageType(key, damageTypes) + ".player";
     }
 
     private static String pollutantComponent(String key) {

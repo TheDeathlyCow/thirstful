@@ -1,6 +1,8 @@
 {
   "block.thirstful.meat_still": "Meat Still",
   "block.thirstful.polluted_water_cauldron": "Polluted Water Cauldron",
+  "death.attack.dehydration": "%1$s died from thirst",
+  "death.attack.dehydration.player": "%1$s died from thirst while trying to escape %2$s",
   "effect.thirstful.cooling": "Cooling",
   "effect.thirstful.fever": "Fever",
   "effect.thirstful.warming": "Warming",

@@ -22,7 +22,8 @@
         "item.ItemUtilsMixin",
         "item.MilkBucketItemMixin",
         "recipe.AbstractCookingRecipeMixin",
-        "recipe.AbstractFurnaceBlockEntityMixin"
+        "recipe.AbstractFurnaceBlockEntityMixin",
+        "world.LevelMixin"
     ],
     "injectors": {
         "defaultRequire": 1

@@ -2,11 +2,11 @@ package com.thedeathlycow.thirstful.thirst;
 
 import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.registry.TCardinalComponents;
+import com.thedeathlycow.thirstful.world.ThirstfulLevel;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
@@ -16,7 +16,6 @@ import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 public class PlayerThirstComponent implements Component, ServerTickingComponent, AutoSyncedComponent {
-    private static final String THIRST_TICKS_KEY = "thirst_ticks";
     private static final String THIRST_LEVEL_KEY = "thirst_level";
     private static final double MAX_THIRST = 10.0;
 
@@ -63,9 +62,9 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
             return;
         }
 
-        if (isThirstDamageEnabled() && this.isDehydrated()) {
-            Level world = this.provider.level();
-            this.provider.hurt(world.damageSources().generic(), 1.0f);
+        if (isThirstDamageEnabled() && this.isDehydrated() && this.provider.tickCount % 80 == 0) {
+            ThirstfulLevel level = (ThirstfulLevel) this.provider.level();
+            this.provider.hurt(level.thirstful$damageSources().dehydration(), 1.0f);
         }
     }
 
