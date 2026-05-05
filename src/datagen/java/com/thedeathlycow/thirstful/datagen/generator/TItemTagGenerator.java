@@ -1,5 +1,6 @@
 package com.thedeathlycow.thirstful.datagen.generator;
 
+import com.github.thedeathlycow.scorchful.registry.tag.SItemTags;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -17,11 +18,21 @@ public class TItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        getOrCreateTagBuilder(TItemTags.RESTORES_THIRST)
+        getOrCreateTagBuilder(TItemTags.THIRST_RESTORING_DRINK)
+                .addOptionalTag(SItemTags.IS_HYDRATING)
                 .addOptionalTag(ConventionalItemTags.JUICE_DRINKS)
                 .addOptionalTag(ConventionalItemTags.MILK_DRINKS)
                 .addOptionalTag(ConventionalItemTags.WATER_DRINKS)
                 .addOptionalTag(ConventionalItemTags.WATERY_DRINKS);
+
+        getOrCreateTagBuilder(TItemTags.THIRST_RESTORING_SNACK)
+                .addOptionalTag(SItemTags.IS_SUSTAINING)
+                .addOptionalTag(SItemTags.IS_REFRESHING)
+                .addOptionalTag(ConventionalItemTags.RAW_FISH_FOODS)
+                .addOptionalTag(ConventionalItemTags.SOUP_FOODS)
+                .addOptionalTag(ConventionalItemTags.BERRY_FOODS)
+                .addOptionalTag(ConventionalItemTags.VEGETABLE_FOODS)
+                .addOptionalTag(ConventionalItemTags.FRUIT_FOODS);
 
         getOrCreateTagBuilder(TItemTags.CAN_BE_POLLUTED)
                 .add(Items.GLASS_BOTTLE)

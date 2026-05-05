@@ -3,6 +3,7 @@ package com.thedeathlycow.thirstful.item.component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.thedeathlycow.thirstful.registry.TDataComponentTypes;
+import com.thedeathlycow.thirstful.registry.tag.TConventionalItemTags;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.PlayerThirstComponent;
 import io.netty.buffer.ByteBuf;
@@ -37,7 +38,9 @@ public record DrinkComponent(
             DrinkComponent::new
     );
 
+    private static final DrinkComponent SNACK = new DrinkComponent(2.5);
     private static final DrinkComponent BOTTLE = new DrinkComponent(5.0);
+    private static final DrinkComponent BOWL = new DrinkComponent(7.5);
     private static final DrinkComponent BUCKET = new DrinkComponent(10.0);
     private static final DrinkComponent DEFAULT = new DrinkComponent(0.0);
 
@@ -52,12 +55,16 @@ public record DrinkComponent(
             return component;
         }
 
-        if (stack.is(TItemTags.RESTORES_THIRST)) {
+        if (stack.is(TItemTags.THIRST_RESTORING_DRINK)) {
             if (stack.is(ConventionalItemTags.DRINK_CONTAINING_BUCKET)) {
                 return BUCKET;
+            } else if (stack.is(TConventionalItemTags.DRINK_CONTAINING_BOWL)) {
+                return BOWL;
             }
 
             return BOTTLE;
+        } else if (stack.is(TItemTags.THIRST_RESTORING_SNACK)) {
+            return SNACK;
         }
 
         return defaultValue;

@@ -1,6 +1,10 @@
 {
   "values": [
     {
+      "id": "#scorchful:is_hydrating",
+      "required": false
+    },
+    {
       "id": "#c:drinks/juice",
       "required": false
     },

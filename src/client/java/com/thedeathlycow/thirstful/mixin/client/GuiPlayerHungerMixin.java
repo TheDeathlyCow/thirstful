@@ -2,16 +2,23 @@ package com.thedeathlycow.thirstful.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.thedeathlycow.thirstful.hud.HungerBarContext;
 import com.thedeathlycow.thirstful.hud.HungerOverlayRenderEvents;
+import com.thedeathlycow.thirstful.thirst.PlayerThirstComponent;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import org.joml.Vector2i;
+import org.spongepowered.asm.mixin.Debug;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -20,7 +27,34 @@ import java.util.ArrayList;
 import java.util.SequencedCollection;
 
 @Mixin(Gui.class)
+@Debug(export = true)
 public class GuiPlayerHungerMixin {
+    @Shadow
+    private int tickCount;
+
+    @Shadow
+    @Final
+    private RandomSource random;
+
+    @Inject(
+            method = "renderFood",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/food/FoodData;getSaturationLevel()F"
+            )
+    )
+    private void shakeHungerBarWhenDehydrated(
+            GuiGraphics guiGraphics,
+            Player player,
+            int y, int x,
+            CallbackInfo ci,
+            @Local(ordinal = 4) LocalIntRef localY
+    ) {
+        if (PlayerThirstComponent.get(player).isDehydrated() && this.tickCount % 3 == 1) {
+            localY.set(localY.get() + this.random.nextInt(3) - 1);
+        }
+    }
+
     @WrapOperation(
             method = "renderFood",
             at = @At(

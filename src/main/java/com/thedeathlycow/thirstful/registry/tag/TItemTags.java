@@ -6,7 +6,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public final class TItemTags {
-    public static final TagKey<Item> RESTORES_THIRST = key("restores_thirst");
+    public static final TagKey<Item> THIRST_RESTORING_DRINK = key("thirst_restoring_drink");
+    public static final TagKey<Item> THIRST_RESTORING_SNACK = key("thirst_restoring_snack");
     public static final TagKey<Item> DIRTY_BY_DEFAULT = key("polluted_consumables/dirty_by_default");
     public static final TagKey<Item> CONTAMINATED_BY_DEFAULT = key("polluted_consumables/contaminated_by_default");
     public static final TagKey<Item> SALTY_BY_DEFAULT = key("polluted_consumables/salty_by_default");

@@ -148,6 +148,15 @@ dependencies {
 
     testmodImplementation sourceSets.main.output
 
+    // using scorchful for datagen
+    modDatagenRuntimeOnly "maven.modrinth:scorchful:${project.scorchful_version}"
+    modDatagenRuntimeOnly("org.ladysnake:satin:${project.satin_test_version}") {
+        transitive = false
+    }
+    modDatagenRuntimeOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_test_version}") {
+        transitive = false
+    }
+
     // only want these when manually testing, leave the game test runner alone
     modTestmodClientRuntimeOnly "maven.modrinth:frostiful:${project.frostiful_test_version}"
     modTestmodClientRuntimeOnly "maven.modrinth:scorchful:${project.scorchful_version}"
