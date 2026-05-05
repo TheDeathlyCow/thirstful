@@ -12,7 +12,6 @@
         "block.FluidBlockMixin",
         "block.ItemDispenserBehaviorMixin",
         "block.LeveledCauldronBlockMixin",
-        "entity.FoodDataMixin",
         "entity.HungerMobEffectMixin",
         "entity.LivingEntityMixin",
         "entity.PlayerMixin",

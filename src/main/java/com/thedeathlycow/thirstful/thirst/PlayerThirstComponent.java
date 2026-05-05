@@ -73,18 +73,8 @@ public class PlayerThirstComponent implements Component, ServerTickingComponent,
         this.setThirstLevel(this.thirstLevel + value);
     }
 
-    public void removeThirstLevel(double exhaustion) {
-        this.removeThirstLevel(exhaustion, true);
-    }
-
-    public void removeThirstLevel(double value, boolean reduceHunger) {
-        double oldThirstLevel = this.getThirstLevel();
+    public void removeThirstLevel(double value) {
         this.setThirstLevel(this.thirstLevel - value);
-        int thirstLevelDifference = Math.abs(Mth.floor(oldThirstLevel) - Mth.floor(this.getThirstLevel()));
-
-        if (reduceHunger && thirstLevelDifference >= 1) {
-            this.reduceHunger(thirstLevelDifference);
-        }
     }
 
     public double getThirstLevel() {

@@ -23,7 +23,7 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
             }
 
             if (!(player.isInvulnerable() || player.getAbilities().invulnerable)) {
-                thirstComponent.removeThirstLevel(thirstTickIncrease, false);
+                thirstComponent.removeThirstLevel(thirstTickIncrease);
             }
         }
 

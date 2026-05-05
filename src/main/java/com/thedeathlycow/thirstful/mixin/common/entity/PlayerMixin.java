@@ -21,10 +21,7 @@ public class PlayerMixin {
         Player self = (Player) (Object) this;
         PlayerThirstComponent thirstData = PlayerThirstComponent.get(self);
 
-        if (!thirstData.isDehydrated()) {
-            thirstData.removeThirstLevel(exhaustion / 4.0);
-        } else {
-            original.call(instance, exhaustion);
-        }
+        thirstData.removeThirstLevel(exhaustion / 4.0);
+        original.call(instance, exhaustion);
     }
 }
