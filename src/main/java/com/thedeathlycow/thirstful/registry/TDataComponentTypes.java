@@ -10,13 +10,11 @@ import com.thedeathlycow.thirstful.item.component.PollutantComponent;
 import com.thedeathlycow.thirstful.item.consume.ConsumePollutionEffect;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import com.thedeathlycow.thirstful.thirst.WaterPollution;
-import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 
 import java.util.List;
 import java.util.function.UnaryOperator;
@@ -78,7 +76,7 @@ public final class TDataComponentTypes {
 
         ConsumeItemCallback.EVENT.register((entity, stack) -> {
             if (entity instanceof Player player) {
-                DrinkComponent.getOrTag(stack).drink(player);
+                DrinkComponent.getByTag(stack).drink(player);
             }
         });
     }

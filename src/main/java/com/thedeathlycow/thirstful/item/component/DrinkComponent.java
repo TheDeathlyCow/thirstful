@@ -18,6 +18,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -44,11 +47,12 @@ public record DrinkComponent(
     private static final DrinkComponent BUCKET = new DrinkComponent(10.0);
     private static final DrinkComponent DEFAULT = new DrinkComponent(0.0);
 
-    public static DrinkComponent getOrTag(ItemStack stack) {
-        return getOrTag(stack, DEFAULT);
+    @NotNull
+    public static DrinkComponent getByTag(ItemStack stack) {
+        return getByTag(stack, DEFAULT);
     }
 
-    public static DrinkComponent getOrTag(ItemStack stack, DrinkComponent defaultValue) {
+    public static DrinkComponent getByTag(ItemStack stack, DrinkComponent defaultValue) {
         DrinkComponent component = stack.get(TDataComponentTypes.DRINK);
 
         if (component != null) {

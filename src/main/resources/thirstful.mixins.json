@@ -17,6 +17,7 @@
         "entity.LivingEntityMixin",
         "entity.PlayerMixin",
         "item.GlassBottleItemMixin",
+        "item.ItemMixin",
         "item.ItemStackMixin",
         "item.ItemUsageMixin",
         "item.MilkBucketItemMixin",

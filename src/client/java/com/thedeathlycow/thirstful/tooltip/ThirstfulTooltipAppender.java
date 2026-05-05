@@ -22,7 +22,7 @@ public class ThirstfulTooltipAppender implements ItemTooltipCallback {
 
         this.appendTooltip(stack, TDataComponentTypes.POLLUTANTS, tooltipContext, tooltipType, builder);
         this.appendTooltip(stack, TDataComponentTypes.DEHYDRATION_CONSUMABLE, tooltipContext, tooltipType, builder);
-        this.appendTooltip(DrinkComponent.getOrTag(stack, null), tooltipContext, tooltipType, builder);
+        this.appendTooltip(DrinkComponent.getByTag(stack, null), tooltipContext, tooltipType, builder);
     }
 
     private <T extends TooltipProvider> void appendTooltip(

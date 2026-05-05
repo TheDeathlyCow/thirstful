@@ -5,13 +5,17 @@ import com.thedeathlycow.thirstful.config.ThirstfulClientConfig;
 import com.thedeathlycow.thirstful.hud.DehydratedOverlay;
 import com.thedeathlycow.thirstful.hud.HungerOverlayRenderEvents;
 import com.thedeathlycow.thirstful.hud.ThirstOverlay;
+import com.thedeathlycow.thirstful.item.DrinkTooltipComponent;
+import com.thedeathlycow.thirstful.item.component.DrinkComponent;
 import com.thedeathlycow.thirstful.thirst.PlayerThirstComponent;
+import com.thedeathlycow.thirstful.tooltip.DrinkTooltip;
 import com.thedeathlycow.thirstful.tooltip.ThirstfulTooltipAppender;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -31,6 +35,14 @@ public class ThirstfulClient implements ClientModInitializer {
         TBlockColors.initialize();
         HungerOverlayRenderEvents.AFTER_HUNGER_BAR.register(new ThirstOverlay());
         HungerOverlayRenderEvents.AFTER_HUNGER_BAR.register(new DehydratedOverlay());
+
+        TooltipComponentCallback.EVENT.register(data -> {
+            if (data instanceof DrinkTooltipComponent(DrinkComponent component)) {
+                return new DrinkTooltip(component);
+            }
+
+            return null;
+        });
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             HudRenderCallback.EVENT.register((guiGraphics, deltaTracker) -> {
