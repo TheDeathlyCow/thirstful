@@ -24,13 +24,13 @@ Alcohol will also dehydrate the player slightly, due to its diuretic effects. Th
 
 ## Water Purification and Salinity
 
-Water will need to be purified in order to be drunk. Water has three possible pollutants that can be removed: Dirt, (Microbial) Contamination, and Salt. The pollutants present in water depends on the biome in which it was collected. Most biomes will have dirty, contaminated, but fresh water. However oceans, swamps, and beaches will have salty water; rivers will NOT have contaminated water (as the moving water keeps it relatively safe); and oceans will NOT have dirty water (beaches will, due to waves kicking up sand). 
+Water will need to be purified in order to be drunk. Water has three possible pollutants that can be removed: Dirt, (Microbial) Contamination, and Salt. The pollutants present in water depends on the biome in which it was collected. Most biomes will have dirty and contaminated, but fresh water. However oceans, swamps, and beaches will have salty water; rivers will NOT have contaminated water (as the moving water keeps it relatively safe); and oceans will NOT have dirty water (beaches will, due to waves kicking up sand). 
 
 There will be three ways to clean water: boiling, filtering, and distilling. Distillation will be able to remove all pollutants, but boiling and filtering will only be able to remove one specific type of pollutant. So, water will need to be cleaned through at least two of these methods into order to become fully clean.  Boiling will be able to occur over campfires, in teapots (integrates with Farmer's Respite), and in furnaces. Filtering will require paper, bamboo, or possibly a custom cat tail plant in other biomes to make a filter. The filter will then be placed, and like a furance, will purify any water items placed within it over time. Distilling will occur when the water is brewed in a potion. I'm not sure if Create or any of its addons have a distilling method, but it would be cool to add that as an integration too.
 
 The effects of each pollutant are as follows:
-- Dirty: TBD. Possibly just provides less hydration than clean water. Removed by Filtering or by Distillation.
-- Contaminated: Makes the player sick. Removed by Boiling or by Distillation.
+- Dirty: Gives the player hunger. Removed by Filtering or by Distillation.
+- Contaminated: Makes the player sick (poison and fever). Removed by Boiling or by Distillation.
 - Salty: Makes the player thirstier (like alcohol). Removed only by Distillation.
 
 The process of fully cleaning water should be able to be automated with Redstone.
