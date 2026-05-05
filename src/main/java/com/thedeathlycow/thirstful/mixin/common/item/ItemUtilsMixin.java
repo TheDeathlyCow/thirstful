@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemUtils;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ItemUtils.class)
-public abstract class ItemUsageMixin {
+public abstract class ItemUtilsMixin {
     @WrapMethod(
             method = "createFilledResult(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/world/item/ItemStack;"
     )

@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(LiquidBlock.class)
-public class FluidBlockMixin {
+public class LiquidBlockMixin {
     @Shadow
     @Final
     protected FlowingFluid fluid;

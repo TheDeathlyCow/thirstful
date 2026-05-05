@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.SequencedCollection;
 
 @Mixin(Gui.class)
-@Debug(export = true)
 public class GuiPlayerHungerMixin {
     @Shadow
     private int tickCount;

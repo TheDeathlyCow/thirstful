@@ -4,7 +4,7 @@ import net.minecraft.core.cauldron.CauldronInteraction;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(CauldronInteraction.class)
-public interface CauldronBehaviorMixin {
+public interface CauldronInteractionMixin {
 //    @WrapOperation(
 //            method = "method_32220",
 //            at = @At(

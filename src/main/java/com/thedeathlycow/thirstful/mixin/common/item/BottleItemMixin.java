@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(BottleItem.class)
-public class GlassBottleItemMixin {
+public class BottleItemMixin {
     @WrapOperation(
             method = "use",
             at = @At(

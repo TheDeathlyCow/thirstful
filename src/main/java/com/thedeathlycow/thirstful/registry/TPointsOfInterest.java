@@ -2,8 +2,8 @@ package com.thedeathlycow.thirstful.registry;
 
 import com.google.common.collect.ImmutableSet;
 import com.thedeathlycow.thirstful.Thirstful;
-import com.thedeathlycow.thirstful.mixin.common.accessor.PointOfInterestTypeAccessor;
-import com.thedeathlycow.thirstful.mixin.common.accessor.PointOfInterestTypesAccessor;
+import com.thedeathlycow.thirstful.mixin.common.accessor.PoiTypeAccessor;
+import com.thedeathlycow.thirstful.mixin.common.accessor.PoiTypesAccessor;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -26,7 +26,7 @@ public final class TPointsOfInterest {
                 .getHolder(PoiTypes.LEATHERWORKER)
                 .orElseThrow();
 
-        ((PointOfInterestTypeAccessor) (Object) leatherWorkerPOI.value()).thirstful$setBlockStates(
+        ((PoiTypeAccessor) (Object) leatherWorkerPOI.value()).thirstful$setBlockStates(
                 ImmutableSet.<BlockState>builder()
                         .addAll(leatherWorkerPOI.value().matchingStates())
                         .addAll(POLLUTED_WATER_CAULDRONS)
@@ -37,7 +37,7 @@ public final class TPointsOfInterest {
 
     private static void registerStates(Holder<PoiType> poiTypeEntry, Set<BlockState> states) {
         states.forEach(state -> {
-            Holder<PoiType> existing = PointOfInterestTypesAccessor.thirstful$getStatesToType()
+            Holder<PoiType> existing = PoiTypesAccessor.thirstful$getStatesToType()
                     .put(state, poiTypeEntry);
             if (existing != null) {
                 throw Util.pauseInIde(new IllegalStateException(String.format(Locale.ROOT, "%s is defined in more than one PoI type", state)));
