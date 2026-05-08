@@ -8,15 +8,11 @@ import me.fzzyhmstrs.fzzy_config.annotations.Comment;
 import me.fzzyhmstrs.fzzy_config.annotations.IgnoreVisibility;
 import me.fzzyhmstrs.fzzy_config.annotations.RequiresAction;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
+import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedDouble;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
-import net.minecraft.util.Mth;
 
 @IgnoreVisibility
 public class ThirstConfig extends ConfigSection {
-    @OptionName("Max thirst ticks multipliers")
-    @Comment("Multiplies how long a player can go without drinking before death, in ticks (default: 2 days).")
-    private float maxThirstTicksMultiplier = 1.0f;
-
     @OptionName("Enable thirst damage")
     @NoComment
     private boolean enableThirstDamage = true;
@@ -27,13 +23,10 @@ public class ThirstConfig extends ConfigSection {
     @RequiresAction(action = Action.RESTART)
     private int potionStackSize = 16;
 
-    public int maxThirstTicks() {
-        return maxThirstTicks(48_000);
-    }
-
-    public int maxThirstTicks(int base) {
-        return Mth.floor(base * maxThirstTicksMultiplier);
-    }
+    @OptionName("Required thirst scale for sweat")
+    @Comment("The minimum thirst scale required for the player to be able to sweat.")
+    @ValidatedDouble.Restrict(min = 0.0, max = 1.0)
+    private double requiredThirstScaleForSweat = 0.70;
 
     public boolean enableThirstDamage() {
         return this.enableThirstDamage;
@@ -41,5 +34,9 @@ public class ThirstConfig extends ConfigSection {
 
     public int potionStackSize() {
         return potionStackSize;
+    }
+
+    public double requiredThirstScaleForSweat() {
+        return requiredThirstScaleForSweat;
     }
 }

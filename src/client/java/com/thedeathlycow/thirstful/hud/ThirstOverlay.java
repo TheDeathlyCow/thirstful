@@ -57,7 +57,7 @@ public class ThirstOverlay implements HungerOverlayRenderEvents.AfterHungerBar {
     private static long getThirstHalfHaunches(Player player) {
         PlayerThirstComponent thirst = PlayerThirstComponent.get(player);
         double thirstProgress = thirst.getThirstScale();
-        return Math.round(thirstProgress * 20);
+        return Mth.ceil(thirstProgress * 20);
     }
 
     private static long getNumThirstHaunches(long thirstHalfHaunches) {

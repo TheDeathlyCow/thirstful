@@ -1,7 +1,10 @@
 package com.thedeathlycow.thirstful.compat;
 
+import com.github.thedeathlycow.scorchful.Scorchful;
 import com.github.thedeathlycow.scorchful.api.ServerThirstPlugin;
+import com.thedeathlycow.thirstful.Thirstful;
 import com.thedeathlycow.thirstful.thirst.PlayerThirstComponent;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.entity.player.Player;
 
 public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
@@ -17,7 +20,7 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
 
             // player continues to get thirsty but this will no longer provide any cooling effect
             // similar to how health regen stops with a small amount of hunger loss
-            if (thirstComponent.getThirstScale() >= 0.85) {
+            if (thirstComponent.getThirstScale() >= Thirstful.getConfig().thirst().requiredThirstScaleForSweat()) {
                 thirstTickIncrease = 0.005;
                 makeWet = true;
             }
@@ -33,7 +36,16 @@ public class ThirstfulServerThirstPlugin implements ServerThirstPlugin {
     @Override
     public void rehydrateFromEnchantment(Player player, int waterCaptured, double rehydrationEfficiency) {
         PlayerThirstComponent thirstComponent = PlayerThirstComponent.get(player);
-        double thirstToAdd = (double) waterCaptured / player.thermoo$getMaxWetTicks() * rehydrationEfficiency * thirstComponent.getMaxThirstTicks();
+
+        double requiredThirstScaleForSweat = Thirstful.getConfig().thirst().requiredThirstScaleForSweat();
+        double maxEfficiency = Scorchful.getConfig().thirstConfig.getMaxRehydrationEfficiency();
+        double maxThirst = maxEfficiency * rehydrationEfficiency * (1 - requiredThirstScaleForSweat);
+        double thirstToAdd = player.getRandom().nextDouble() * maxThirst * thirstComponent.getMaxThirstTicks();
+
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            Thirstful.LOGGER.info("Restored {} thirst from Rehydration", thirstToAdd);
+        }
+
         thirstComponent.addThirstLevel(thirstToAdd);
     }
 }
