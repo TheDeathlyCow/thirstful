@@ -30,6 +30,9 @@ jobs:
       - name: Make gradle wrapper executable
         run: chmod +x ./gradlew
 
+      - name: Check licenses
+        run: ./gradlew checkLicenses
+
       - name: Build
         run: ./gradlew build
 

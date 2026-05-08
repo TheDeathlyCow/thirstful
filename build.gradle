@@ -1,6 +1,7 @@
 plugins {
-    id 'fabric-loom' version '1.14-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom-remap' version '1.14-SNAPSHOT'
     id 'maven-publish'
+    id "dev.yumi.gradle.licenser" version "4.0.+"
 }
 
 version = project.mod_version
@@ -213,6 +214,11 @@ java {
 
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+}
+
+license {
+    rule(file("LICENSE_HEADER"))
+    include("**/*.java")
 }
 
 jar {
