@@ -6,6 +6,9 @@
 name: build
 on: [pull_request, push]
 
+env:
+  THIRSTFUL_SOURCE_CODE_LINK: ${{ secrets.THIRSTFUL_SOURCE_CODE_LINK || format('https://github.com/{0}', github.repository) }}
+
 jobs:
   build:
     runs-on: ubuntu-22.04
