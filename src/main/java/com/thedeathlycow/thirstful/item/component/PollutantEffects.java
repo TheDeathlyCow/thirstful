@@ -39,7 +39,7 @@ public final class PollutantEffects {
 
     public static final List<ConsumePollutionEffect> DEFAULT_SALTINESS = List.of(
             new ApplyStatusEffectConsumeEffect(
-                    new MobEffectInstance(TMobEffects.PARCHED, LONG_EFFECT_TIME),
+                    new MobEffectInstance(TMobEffects.PARCHING, LONG_EFFECT_TIME, 2),
                     0.8f
             )
     );

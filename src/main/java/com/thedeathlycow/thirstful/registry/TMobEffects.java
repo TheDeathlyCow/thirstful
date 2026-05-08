@@ -5,11 +5,7 @@ import com.thedeathlycow.thirstful.effect.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.CommonColors;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public final class TMobEffects {
     public static final Holder<MobEffect> COOLING = registerReference(
@@ -27,9 +23,9 @@ public final class TMobEffects {
             new FeverMobEffect(0xf7442d)
     );
 
-    public static final Holder<MobEffect> PARCHED = registerReference(
-            "parched",
-            new ParchedMobEffect(0xfad975)
+    public static final Holder<MobEffect> PARCHING = registerReference(
+            "parching",
+            new ParchingMobEffect(0xe8d9ca)
     );
 
     public static void initialize() {

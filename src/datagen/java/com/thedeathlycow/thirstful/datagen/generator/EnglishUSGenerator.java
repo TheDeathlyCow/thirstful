@@ -17,7 +17,6 @@ import me.fzzyhmstrs.fzzy_config.annotations.Comment;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageType;
@@ -37,7 +36,7 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
         builder.add(TMobEffects.COOLING.value(), "Cooling");
         builder.add(TMobEffects.WARMING.value(), "Warming");
         builder.add(TMobEffects.FEVER.value(), "Fever");
-        builder.add(TMobEffects.PARCHED.value(), "Parched");
+        builder.add(TMobEffects.PARCHING.value(), "Parching");
 
         builder.add(TBlocks.POLLUTED_WATER_CAULDRON, "Polluted Water Cauldron");
         builder.add(TBlocks.MEAT_STILL, "Meat Still");
