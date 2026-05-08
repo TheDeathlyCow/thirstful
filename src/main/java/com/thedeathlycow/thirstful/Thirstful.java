@@ -32,11 +32,12 @@ public class Thirstful implements ModInitializer {
     public static void initialize() {
         PollutedWaterCauldronBehavior.initialize();
         TBlocks.initialize();
+        TDataComponentTypes.initialize();
         TBlockEntityTypes.initialize();
         TConsumePollutionEffects.initialize();
         TItems.initialize();
         TMobEffects.initialize();
-        TDataComponentTypes.initialize();
+        TPotions.initialize();
         TPointsOfInterest.initialize();
 
         if (ModIntegration.isScorchfulLoaded()) {

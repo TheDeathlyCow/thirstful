@@ -9,17 +9,23 @@ import com.thedeathlycow.thirstful.config.client.ColorConfig;
 import com.thedeathlycow.thirstful.config.common.StatusEffectConfig;
 import com.thedeathlycow.thirstful.config.common.ThirstConfig;
 import com.thedeathlycow.thirstful.config.common.WaterPollutionConfig;
+import com.thedeathlycow.thirstful.mixin.common.accessor.PotionAccessor;
 import com.thedeathlycow.thirstful.registry.TBlocks;
 import com.thedeathlycow.thirstful.registry.TDamageTypes;
 import com.thedeathlycow.thirstful.registry.TMobEffects;
+import com.thedeathlycow.thirstful.registry.TPotions;
 import com.thedeathlycow.thirstful.registry.tag.TItemTags;
 import me.fzzyhmstrs.fzzy_config.annotations.Comment;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.CompletableFuture;
@@ -55,6 +61,11 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
         builder.add(damageType(TDamageTypes.DEHYDRATION, damageTypes), "%1$s died from thirst");
         builder.add(damageTypePlayer(TDamageTypes.DEHYDRATION, damageTypes), "%1$s died from thirst while trying to escape %2$s");
 
+        builder.add(potionItem(Items.POTION, TPotions.PARCHING), "Potion of Parching");
+        builder.add(potionItem(Items.SPLASH_POTION, TPotions.PARCHING), "Splash Potion of Parching");
+        builder.add(potionItem(Items.LINGERING_POTION, TPotions.PARCHING), "Lingering Potion of Parching");
+        builder.add(potionItem(Items.TIPPED_ARROW, TPotions.PARCHING), "Arrow of Parching");
+
         generateConfigTranslations(builder);
     }
 
@@ -64,6 +75,10 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
 
     private static String damageTypePlayer(ResourceKey<DamageType> key, HolderLookup.RegistryLookup<DamageType> damageTypes) {
         return damageType(key, damageTypes) + ".player";
+    }
+
+    private String potionItem(Item item, Holder<Potion> potion) {
+        return item.getDescriptionId() + ".effect." + ((PotionAccessor) potion.value()).thirstful$name();
     }
 
     private static String pollutantComponent(String key) {

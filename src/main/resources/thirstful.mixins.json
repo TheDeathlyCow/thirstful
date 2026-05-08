@@ -6,13 +6,13 @@
         "accessor.ItemAccessor",
         "accessor.PoiTypeAccessor",
         "accessor.PoiTypesAccessor",
+        "accessor.PotionAccessor",
         "block.AbstractCauldronBlockMixin",
         "block.CauldronBlockMixin",
         "block.CauldronInteractionMixin",
         "block.ItemDispenserBehaviorMixin",
         "block.LeveledCauldronBlockMixin",
         "block.LiquidBlockMixin",
-        "world.HungerMobEffectMixin",
         "entity.LivingEntityMixin",
         "entity.PlayerMixin",
         "item.BottleItemMixin",
@@ -23,6 +23,7 @@
         "item.MilkBucketItemMixin",
         "recipe.AbstractCookingRecipeMixin",
         "recipe.AbstractFurnaceBlockEntityMixin",
+        "world.HungerMobEffectMixin",
         "world.LevelMixin"
     ],
     "injectors": {
