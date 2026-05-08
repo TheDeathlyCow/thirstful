@@ -10,6 +10,15 @@ base {
     archivesName = project.archives_base_name
 }
 
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+def sourceCodeLink = localProperties.getProperty(project.source_link_property) ?: System.getenv(project.source_link_property)
+
+if (sourceCodeLink == null) {
+    throw new GradleException("Please define a property at ${project.source_link_property} containing the source repository link for Thirstful, either in local.properties or in an environment variable.")
+}
+
 repositories {
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods because
@@ -185,7 +194,10 @@ processResources {
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand(
+                "version": project.version,
+                "sourceCodeLink": sourceCodeLink
+        )
     }
 }
 
@@ -205,6 +217,9 @@ java {
 
 jar {
     from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+    from("LICENSE_assets") {
         rename { "${it}_${project.base.archivesName.get()}" }
     }
 }

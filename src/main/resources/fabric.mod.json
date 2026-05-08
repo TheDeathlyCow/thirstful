@@ -3,13 +3,13 @@
 	"id": "thirstful",
 	"version": "${version}",
 	"name": "Thirstful",
-	"description": "A new approach to thirst",
+	"description": "A new approach to thirst and food contamination",
 	"authors": [
 		"TheDeathlyCow"
 	],
 	"contact": {
-		"homepage": "https://github.com/TheDeathlyCow/thirstful/wiki",
-		"sources": "https://github.com/TheDeathlyCow/thirstful",
+		"homepage": "https://www.thedeathlycow.com/thirstful",
+		"sources": "${sourceCodeLink}",
 		"issues": "https://github.com/TheDeathlyCow/thirstful/issues"
 	},
 	"license": [
@@ -59,6 +59,13 @@
 	"custom": {
 		"cardinal-components": [
 			"thirstful:player_thirst"
-		]
+		],
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.thedeathlycow.com",
+				"modmenu.kofi": "https://ko-fi.com/thedeathlycow",
+				"modmenu.modrinth": "https://modrinth.com/mod/thirstful"
+			}
+		}
 	}
 }

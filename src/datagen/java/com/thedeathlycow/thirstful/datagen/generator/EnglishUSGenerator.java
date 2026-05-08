@@ -1,6 +1,7 @@
 package com.thedeathlycow.thirstful.datagen.generator;
 
 import com.thedeathlycow.thirstful.Thirstful;
+import com.thedeathlycow.thirstful.command.ThirstfulCommand;
 import com.thedeathlycow.thirstful.config.NoComment;
 import com.thedeathlycow.thirstful.config.OptionName;
 import com.thedeathlycow.thirstful.config.ThirstfulClientConfig;
@@ -65,6 +66,8 @@ public class EnglishUSGenerator extends FabricLanguageProvider {
         builder.add(potionItem(Items.SPLASH_POTION, TPotions.PARCHING), "Splash Potion of Parching");
         builder.add(potionItem(Items.LINGERING_POTION, TPotions.PARCHING), "Lingering Potion of Parching");
         builder.add(potionItem(Items.TIPPED_ARROW, TPotions.PARCHING), "Arrow of Parching");
+
+        builder.add(ThirstfulCommand.ABOUT_DESC_ID, "Thirstful is free software distributed under the terms of the GNU Affero General Public License version 3. You may access a copy of the source code for the version of Thirstful used on this server at the following link:");
 
         generateConfigTranslations(builder);
     }
